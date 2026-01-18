@@ -1,0 +1,13 @@
+.lightning-container {
+  /* Make lightning canvas cover the full viewport */
+  position: fixed;
+  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1; /* keep behind main content */
+  pointer-events: none; /* allow clicks through */
+  background: black; /* fallback/background for shader */
+  display: block;
+}
