@@ -10,7 +10,9 @@ import Footer from "./footer";
 import InfiniteZoomGallery from "./Ui/InfiniteZoomGallery";
 import DomeGallery from "./Ui/DomegaGallery";
 
+
 import ASCIIText from "./Ui/Ascii";
+
 
 function Home() {
   const orgSchema = {
@@ -119,6 +121,8 @@ function Home() {
       <CompanyIntro />
    
       <ClientReviews />
+
+     
       <Footer />
     </>
   );

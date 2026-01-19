@@ -1,5 +1,7 @@
 import React, { useState, useEffect,useMemo } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'aos/dist/aos.css';
+import AOS from 'aos';
 import seobanner from '../../serviceImages/software/seo.jpg'; // Update the path if needed
 
 const HeroSEOBanner = () => {
@@ -8,7 +10,17 @@ const HeroSEOBanner = () => {
   const [loopNum, setLoopNum] = useState(0);
   const [typingSpeed, setTypingSpeed] = useState(150);
 
-  const texts = useMemo(() => [
+useEffect(() => {
+  AOS.init({
+    duration: 1000,
+    once: true,
+    easing: "ease-in-out",
+  });
+}, []);
+
+// ✅ FIXED: texts array properly defined
+const texts = useMemo(
+  () => [
     "Search Engine Optimization",
     "Rank Higher on Google",
     "On-Page SEO Expertise",
@@ -18,8 +30,10 @@ const HeroSEOBanner = () => {
     "Local SEO Strategies",
     "Keyword Research & Targeting",
     "Content That Ranks",
-    "Conversion-Driven SEO"
-    ], []);
+    "Conversion-Driven SEO",
+  ],
+  []
+);
 
 
   useEffect(() => {
@@ -59,7 +73,7 @@ const HeroSEOBanner = () => {
       }}>
       <div className="container">
         <div className="row">
-          <div className="col-12 col-md-10 col-lg-8 mx-auto text-center">
+          <div className="col-12 col-md-10 col-lg-8 mx-auto text-center" data-aos="fade-up">
             <h1 className="display-3 fw-bold mb-4" style={{
               color: 'rgba(255, 255, 255, 0.9)',
               textShadow: '0 2px 10px rgba(0, 0, 0, 0.3)',

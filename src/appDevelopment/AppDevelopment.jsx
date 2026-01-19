@@ -2,20 +2,20 @@
 
 import Header from "../header"
 import Footer from "../footer"
-import ImageBanner from "./banner"
-import appbanner from '../serviceImages/app/appbanner.jpg'
+
+
 import AppDevelopmentServices from "./appdevelopmentService"
 import AppTechnologies from "./apptechnologies"
 import AppDevelopmentFAQ from "./faqs"
 import AppDevelopmentShowcase from "./Appdevshowcase"
+import HeroBanner from "./banner"
 export default function AppDevelopment(){
 
      return(
         <>
         <Header/>
-            <ImageBanner 
-            imageUrl={appbanner}
-            />
+            <HeroBanner/>
+            
             <AppTechnologies/>
             <AppDevelopmentShowcase/>
             <AppDevelopmentServices/>

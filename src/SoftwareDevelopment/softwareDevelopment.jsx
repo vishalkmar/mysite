@@ -4,15 +4,16 @@ import Footer from "../footer"
 import SoftwareDevFAQ from "./softwaredevfaqs"
 
 import SoftwareDevelopmentExpertise from "./softwaredevexperties"
-import HeroSoftwareBanner from "./banner"
+
 import SoftwareDevelopmentShowcase from "./softwaredevelopmentshaowcase"
+import GalaxyHeroBanner from "./banner"
 export default function SoftwareDevelopment(){
 
      return(
         <>
         <Header/>
        
-            <HeroSoftwareBanner/>
+          <GalaxyHeroBanner/>
          <SoftwareDevelopmentExpertise/>
          <SoftwareDevelopmentShowcase/>
         <SoftwareDevFAQ/>

@@ -1,8 +1,20 @@
-import TextType from "./Ui/TypeText";
+
 import ParagraphText from "./Ui/ParagraphText";
 import Orb from "./Ui/Orbit";
+import 'aos/dist/aos.css';
+import AOS from 'aos';
+import { useEffect } from 'react';
+
 
 const WhoWeAre = () => {
+   useEffect(() => {
+    AOS.init({
+      duration: 1000,     // animation duration
+      once: true,         // ek baar hi chale
+      easing: 'ease-in-out',
+    });
+  }, []);
+
   const whoWeAreSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -50,7 +62,7 @@ const WhoWeAre = () => {
           {/* ------------ TOP HERO ROW ------------ */}
           <div className="row align-items-center g-4 mb-5">
             {/* LEFT TEXT */}
-            <div className="col-lg-6">
+            <div className="col-lg-6"  data-aos="fade-right">
               <h2
                 className="display-4 fw-bold mb-3 responsive-text"
                 style={{
@@ -62,16 +74,7 @@ const WhoWeAre = () => {
                   fontFamily: "orbitron",
                 }}
               >
-                <TextType
-                  as="span"
-                  text="Nexa TechInnovation"
-                  typingSpeed={10}
-                  deletingSpeed={0}
-                  pauseDuration={1500}
-                  loop={true}
-                  showCursor={true}
-                  cursorCharacter="|"
-                />
+                 NexaTech Innovation
               </h2>
 
               <h2
@@ -145,7 +148,7 @@ const WhoWeAre = () => {
             </div>
 
             {/* RIGHT GRAPHIC / CIRCLE */}
-            <div className="col-lg-6 d-none d-lg-flex justify-content-center">
+            <div className="col-lg-6 d-none d-lg-flex justify-content-center" data-aos="zoom-in">
               <div
                 className="position-relative d-flex align-items-center justify-content-center"
                 style={{
@@ -186,7 +189,7 @@ const WhoWeAre = () => {
           {/* ------------ FOUR INFO CARDS ------------ */}
           <div className="row g-4">
             {/* Our Mission */}
-            <div className="col-12 col-md-6 col-lg-3">
+            <div className="col-12 col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="0">
               <div
                 className="card h-100 rounded-4 whowe-card position-relative overflow-hidden"
                 style={{
@@ -248,7 +251,7 @@ const WhoWeAre = () => {
             </div>
 
             {/* Our Team */}
-            <div className="col-12 col-md-6 col-lg-3">
+            <div className="col-12 col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="150">
               <div
                 className="card h-100 rounded-4 whowe-card position-relative overflow-hidden"
                 style={{
@@ -315,7 +318,7 @@ const WhoWeAre = () => {
             </div>
 
             {/* Our Values */}
-            <div className="col-12 col-md-6 col-lg-3">
+            <div className="col-12 col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="300">
               <div
                 className="card h-100 rounded-4 whowe-card position-relative overflow-hidden"
                 style={{
@@ -381,7 +384,7 @@ const WhoWeAre = () => {
             </div>
 
             {/* Achievements */}
-            <div className="col-12 col-md-6 col-lg-3">
+            <div className="col-12 col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="450">
               <div
                 className="card h-100 rounded-4 whowe-card position-relative overflow-hidden"
                 style={{

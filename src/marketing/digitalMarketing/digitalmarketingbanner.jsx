@@ -1,5 +1,7 @@
 import React, { useState, useEffect ,useMemo} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'aos/dist/aos.css';
+import AOS from 'aos';
 import digitalmarketingbanner from '../../serviceImages/software/digitalmarketing.jpg'; // Update with your digital marketing banner image path
 
 const HeroDigitalMarketingBanner = () => {
@@ -8,7 +10,13 @@ const HeroDigitalMarketingBanner = () => {
   const [loopNum, setLoopNum] = useState(0);
   const [typingSpeed, setTypingSpeed] = useState(150);
 
-  
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+      easing: 'ease-in-out',
+    });
+  }, []);
       const texts = useMemo(() => [
      "SEO & SEM Strategies",
     "Social Media Campaigns",
@@ -59,7 +67,7 @@ const HeroDigitalMarketingBanner = () => {
       }}>
       <div className="container">
         <div className="row">
-          <div className="col-12 col-md-10 col-lg-8 mx-auto text-center">
+          <div className="col-12 col-md-10 col-lg-8 mx-auto text-center" data-aos="fade-up">
             <h1 className="display-3 fw-bold mb-4" style={{
               color: 'rgba(255, 255, 255, 0.9)',
               textShadow: '0 2px 10px rgba(0, 0, 0, 0.3)',

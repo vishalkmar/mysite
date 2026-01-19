@@ -1,116 +1,134 @@
-import React, { useState, useEffect ,useMemo } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import webdesignbanner from '../serviceImages/software/webdesign.jpg'; // Replace with your actual Web Design banner image path
-// import webdesignbanner from  '../serviceImages/software/webdesigntwo.jpg'
+import React, { useEffect, useMemo, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "aos/dist/aos.css";
+import AOS from "aos";
+import RippleGrid from "../Ui/background/RippleGrid";
 
-const HeroWebDesignBanner = () => {
-  const [text, setText] = useState('');
+const RippleGridHeroBanner = () => {
+  const [text, setText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
-  const [typingSpeed, setTypingSpeed] = useState(150);
-
-  const texts = useMemo(() => [
- "Responsive Website Design",
-    "Landing Pages That Convert",
-    "SEO-Friendly Layouts",
-    "Clean & Modern Interfaces",
-    "Cross-Browser Compatibility",
-    "Fast Loading Websites",
-    "CMS Integration Experts",
-    "Custom Theme Development",
-    "User-Centered Design",
-    "Mobile-Optimized Sites"
-], []);
+  const [typingSpeed, setTypingSpeed] = useState(140);
 
   useEffect(() => {
-    const handleTyping = () => {
-      const current = loopNum % texts.length;
-      const fullText = texts[current];
+    AOS.init({
+      duration: 900,
+      once: true,
+      easing: "ease-in-out",
+    });
+  }, []);
 
-      setText(isDeleting
-        ? fullText.substring(0, text.length - 1)
-        : fullText.substring(0, text.length + 1)
-      );
 
-      setTypingSpeed(isDeleting ? 30 : 150);
-
-      if (!isDeleting && text === fullText) {
-        setTimeout(() => setIsDeleting(true), 1000);
-      } else if (isDeleting && text === '') {
-        setIsDeleting(false);
-        setLoopNum(loopNum + 1);
-      }
-    };
-
-    const timer = setTimeout(handleTyping, typingSpeed);
-    return () => clearTimeout(timer);
-  }, [text, isDeleting, loopNum, typingSpeed, texts]);
 
   return (
-    <div className="position-relative overflow-hidden"
+    <section
+      className="position-relative overflow-hidden"
       style={{
-        height: '90vh',
-        minHeight: '500px',
-        backgroundImage: `linear-gradient(rgba(10, 26, 46, 0.6), rgba(26, 58, 106, 0.1)), url(${webdesignbanner})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        display: 'flex',
-        alignItems: 'center'
-      }}>
-      <div className="container">
-        <div className="row">
-          <div className="col-12 col-md-10 col-lg-8 mx-auto text-center">
-            <h1 className="display-3 fw-bold mb-4" style={{
-              color: 'rgba(255, 255, 255, 0.9)',
-              textShadow: '0 2px 10px rgba(0, 0, 0, 0.3)',
-            }}>
+        height: "90vh",
+        minHeight: "520px",
+        background: "#050b18",
+        display: "flex",
+        alignItems: "center",
+      }}
+    >
+      {/* ✅ RippleGrid Background */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 0,
+          overflow: "hidden",
+        }}
+      >
+        <RippleGrid
+          enableRainbow={false}
+          gridColor="#ffffff"
+          rippleIntensity={0.05}
+          gridSize={10}
+          gridThickness={15}
+          mouseInteraction={true}
+          mouseInteractionRadius={1.2}
+          opacity={0.8}
+        />
+      </div>
 
-              <span className="gradient-text" style={{
-                background: 'linear-gradient(90deg,rgb(242, 244, 247) 0%, #00f2fe 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                borderRight: '0.15em solid #4facfe',
-                animation: 'blink-caret 0.75s step-end infinite',
-                paddingRight: '5px',
+      {/* ✅ overlay so text readable */}
+      <div className="ripple-overlay" />
+
+      {/* ✅ content */}
+      <div className="container position-relative" style={{ zIndex: 2 }}>
+        <div className="row">
+          <div
+            className="col-12 col-md-10 col-lg-8 mx-auto text-center"
+            data-aos="fade-up"
+          >
+            <h1
+              className="display-3 fw-bold mb-4"
+              style={{
+                color: "rgba(255,255,255,0.95)",
+                textShadow: "0 2px 16px rgba(0,0,0,0.5)",
                 fontFamily: "orbitron",
-                fontSize: '4rem'
-              }}>
-                {text}
-              </span>
+              }}
+            >
+              Mobile App Development <br />
+             
             </h1>
+
+            <button className="btn ripple-btn btn-lg px-5 py-2">
+              Get Started
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Animation for text cursor */}
       <style>{`
-        @keyframes blink-caret {
-          from, to { border-color: transparent }
-          50% { border-color: #4facfe; }
+        @keyframes blink {
+          0%,100%{border-color:transparent}
+          50%{border-color:#00f2fe}
         }
-        
-        .gradient-text {
-          display: inline-block;
+
+        .ripple-overlay{
+          position:absolute;
+          inset:0;
+          z-index:1;
+          background: radial-gradient(900px 520px at 50% 40%, rgba(0,242,254,0.10), transparent 60%),
+                      linear-gradient(rgba(5,11,24,0.84), rgba(5,11,24,0.55));
         }
-        
-        @media (max-width: 768px) {
-          .display-3 {
-            font-size: 2.5rem;
-          }
+
+        .ripple-gradient-text{
+          display:inline-block;
+          background: linear-gradient(90deg, #ffffff 0%, #00f2fe 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          border-right: 0.15em solid #00f2fe;
+          animation: blink 0.8s step-end infinite;
+          padding-right: 6px;
+          font-size: 3.8rem;
         }
-        
-        @media (max-width: 576px) {
-          .display-3 {
-            font-size: 2rem;
-          }
-          
-          .lead {
-            font-size: 1rem;
-          }
+
+        .ripple-btn{
+          border:none;
+          border-radius:999px;
+          font-weight:700;
+          background: linear-gradient(90deg, #4facfe, #00f2fe);
+          box-shadow: 0 16px 40px rgba(0,242,254,0.25);
+          transition: transform .25s ease, box-shadow .25s ease;
+        }
+
+        .ripple-btn:hover{
+          transform: translateY(-2px);
+          box-shadow: 0 22px 50px rgba(0,242,254,0.35);
+        }
+
+        @media(max-width:768px){
+          .ripple-gradient-text{font-size:2.8rem}
+        }
+        @media(max-width:576px){
+          .ripple-gradient-text{font-size:2.3rem}
         }
       `}</style>
-    </div>
+    </section>
   );
 };
 
-export default HeroWebDesignBanner;
+export default RippleGridHeroBanner;

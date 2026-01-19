@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 // import DotParticleCanvas from "./Ui/ButtonClick";
 import { toast } from "react-toastify";
+import 'aos/dist/aos.css';
+import AOS from 'aos';
 
 const SERVICES = [
   "Web Development",
@@ -41,6 +43,17 @@ const LeadPopupForm = ({ logoSrc = "/logo.jpeg", companyName = "NexaTech Innovat
     const timer = setTimeout(() => setIsOpen(true), 5000);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      AOS.init({
+        duration: 800,
+        once: true,
+        easing: 'ease-in-out',
+      });
+      AOS.refresh();
+    }
+  }, [isOpen]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -122,7 +135,7 @@ const LeadPopupForm = ({ logoSrc = "/logo.jpeg", companyName = "NexaTech Innovat
       {/* Overlay */}
       <div className="lead-overlay">
         {/* Modal */}
-        <div className="lead-modal">
+        <div className="lead-modal" data-aos="zoom-in">
           {/* Close button */}
           <button
             type="button"

@@ -1,5 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'aos/dist/aos.css';
+import AOS from 'aos';
 
 import one from '../src/serviceImages/office/one.jpg';
 import two from '../src/serviceImages/office/two.jpg';
@@ -10,6 +12,14 @@ import ParagraphText3 from './Ui/ParagraphTextThree';
 
 const CompanyIntro = () => {
   const wrapRef = useRef(null);
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+      easing: 'ease-in-out',
+    });
+  }, []);
 
   const companyIntroSchema = {
     "@context": "https://schema.org",
@@ -50,13 +60,14 @@ const CompanyIntro = () => {
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}
+            data-aos="zoom-in"
           >
             Empowering Brands with Digital Excellence
           </h2>
 
           <div className="row align-items-center">
             {/* Image Grid */}
-            <div className="col-lg-6 mb-4 mb-lg-0">
+            <div className="col-lg-6 mb-4 mb-lg-0" data-aos="fade-left">
               <div className="row g-3">
                 {images.map((src, index) => (
                   <div key={index} className="col-6">
@@ -72,7 +83,7 @@ const CompanyIntro = () => {
             </div>
 
             {/* Text Content */}
-            <div className="col-lg-6 text-white">
+            <div className="col-lg-6 text-white" data-aos="fade-right">
               <h3
                 className="fw-bold text-uppercase mb-3"
                 style={{ fontSize: "2rem", fontFamily: "orbitron" }}
@@ -91,7 +102,7 @@ const CompanyIntro = () => {
                 />
 
                 {/* Paragraph 1 */}
-                <p style={{ fontSize: "1.1rem", lineHeight: "1.7" }}>
+                <p style={{ fontSize: "1.1rem", lineHeight: "1.7" }} data-aos="fade-up" data-aos-delay="0">
                   <ParagraphText3
                     label="We help businesses grow with "
                     containerRef={wrapRef}
@@ -132,7 +143,7 @@ const CompanyIntro = () => {
                 </p>
 
                 {/* Paragraph 2 */}
-                <p style={{ fontSize: "1.1rem", lineHeight: "1.7" }}>
+                <p style={{ fontSize: "1.1rem", lineHeight: "1.7" }} data-aos="fade-up" data-aos-delay="200">
                   <ParagraphText3
                     label="Whether you're launching a startup or scaling an enterprise, we deliver reliable software and marketing execution that improves visibility, user experience, and lead generation."
                     containerRef={wrapRef}

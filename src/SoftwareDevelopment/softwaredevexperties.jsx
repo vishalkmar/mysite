@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import 'aos/dist/aos.css';
+import AOS from 'aos';
 import { 
   FaCloud, FaUsersCog, FaChartLine, FaExchangeAlt, FaDatabase,
   FaPhp, FaHtml5, FaShopify, FaMicrosoft, FaWordpress
@@ -8,6 +10,13 @@ import {
 } from 'react-icons/si';
 
 const SoftwareDevelopmentExpertise = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+      easing: 'ease-in-out',
+    });
+  }, []);
   const expertiseAreas = [
     { name: "SAAS Development", icon: <FaCloud size={30} />, color: "#3a86ff" },
     { name: "CRM Development", icon: <FaUsersCog size={30} />, color: "#8338ec" },
@@ -35,7 +44,7 @@ const SoftwareDevelopmentExpertise = () => {
     <>
     <div className='container-fluid' style={{background: 'linear-gradient(135deg, #0a1a2e 0%'}}>
       <div className="container py-5">
-        <h2 className="text-center responsive-text mb-5 fw-bold" style={{
+        <h2 className="text-center responsive-text mb-5 fw-bold" data-aos="zoom-in" style={{
           background: 'linear-gradient(90deg, rgb(242, 244, 247) 0%, #00f2fe 100%)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
@@ -47,7 +56,7 @@ const SoftwareDevelopmentExpertise = () => {
         
         <div className="row g-4">
           {expertiseAreas.map((tech, index) => (
-            <div key={index} className="col-6 col-md-4 col-lg-3">
+            <div key={index} className="col-6 col-md-4 col-lg-3" data-aos="zoom-in" data-aos-delay={`${(index % 6) * 80}`}>
               <div 
                 className="tech-card p-3 text-center shadow-sm rounded h-100 d-flex flex-column align-items-center justify-content-center"
                 style={{

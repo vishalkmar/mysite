@@ -10,6 +10,9 @@ import contentmarketing from "../src/serviceImages/contentmarketing.png";
 import webdesign from "../src/serviceImages/webdesign.png";
 import softwaredevelopment from "../src/serviceImages/softwaredevelopment.png";
 import { useNavigate } from "react-router-dom";
+import 'aos/dist/aos.css';
+import AOS from 'aos';
+import { useEffect } from 'react';
 
 
 import ElectricBorder from "./Ui/ElectricBorder";
@@ -17,6 +20,14 @@ import ElectricBorder from "./Ui/ElectricBorder";
 
 
 const ServicesSection = () => {
+
+   useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+      easing: 'ease-in-out',
+    });
+  }, []);
 
   const navigate = useNavigate();
 
@@ -104,6 +115,7 @@ const ServicesSection = () => {
     },
   ];
 
+
   const servicesSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -163,6 +175,8 @@ const ServicesSection = () => {
                   chaos={0.08}
                   style={{ borderRadius: 20 }}
                   className="eb-wrap"
+                  data-aos="zoom-in"
+                  data-aos-delay={service.id * 100 - 100}
                 >
                   <div
                     className="card text-center shadow-sm border-0 h-100 position-relative service-card"

@@ -1,8 +1,18 @@
 import CurvedLoop from "./Ui/CurveLoop";
 import ShinyText from "./Ui/ShinyText";
 import TilteCard from "./Ui/cards/TitleCards";
+import 'aos/dist/aos.css';
+import AOS from 'aos';
+import { useEffect } from 'react';
 
 const NexaStatsSection = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+      easing: 'ease-in-out',
+    });
+  }, []);
   const statsSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -88,7 +98,7 @@ const NexaStatsSection = () => {
 
           <div className="row g-4 align-items-stretch">
             {/* LEFT BIG IMAGE CARD */}
-            <div className="col-lg-5">
+            <div className="col-lg-5" data-aos="fade-right">
               <div
                 className="h-100 rounded-4 overflow-hidden"
                 style={{
@@ -112,7 +122,7 @@ const NexaStatsSection = () => {
             <div className="col-lg-7">
               <div className="row g-4">
                 {/* ROW 1 - COL 1 : TEXT CARD */}
-                <div className="col-12 col-md-4">
+                <div className="col-12 col-md-4" data-aos="zoom-in" data-aos-delay="0">
                   <div
                     className="h-100 rounded-4 d-flex flex-column align-items-center text-center p-4"
                     style={{
@@ -162,7 +172,7 @@ const NexaStatsSection = () => {
                 </div>
 
                 {/* ROW 1 - COL 2 : IMAGE (Tilted) */}
-                <div className="col-12 col-md-4">
+                <div className="col-12 col-md-4" data-aos="zoom-in" data-aos-delay="100">
                   <div
                     className="h-100 rounded-4 overflow-hidden"
                     style={{ ...imageCardStyle, minHeight: "220px" }}
@@ -179,7 +189,7 @@ const NexaStatsSection = () => {
                 </div>
 
                 {/* ROW 1 - COL 3 : TEXT CARD */}
-                <div className="col-12 col-md-4">
+                <div className="col-12 col-md-4" data-aos="zoom-in" data-aos-delay="200">
                   <div
                     className="h-100 rounded-4 d-flex flex-column align-items-center text-center p-4"
                     style={{
@@ -226,7 +236,7 @@ const NexaStatsSection = () => {
                 </div>
 
                 {/* ROW 2 - COL 1 : IMAGE (Tilted) */}
-                <div className="col-12 col-md-4">
+                <div className="col-12 col-md-4" data-aos="zoom-in" data-aos-delay="300">
                   <div
                     className="h-100 rounded-4 overflow-hidden"
                     style={{ ...imageCardStyle, minHeight: "220px" }}
@@ -243,7 +253,7 @@ const NexaStatsSection = () => {
                 </div>
 
                 {/* ROW 2 - COL 2 : TEXT CARD */}
-                <div className="col-12 col-md-4">
+                <div className="col-12 col-md-4" data-aos="zoom-in" data-aos-delay="400">
                   <div
                     className="h-100 rounded-4 d-flex flex-column align-items-center text-center p-4"
                     style={{
@@ -290,7 +300,7 @@ const NexaStatsSection = () => {
                 </div>
 
                 {/* ROW 2 - COL 3 : IMAGE (Tilted) */}
-                <div className="col-12 col-md-4">
+                <div className="col-12 col-md-4" data-aos="zoom-in" data-aos-delay="500">
                   <div
                     className="h-100 rounded-4 overflow-hidden"
                     style={{ ...imageCardStyle, minHeight: "220px" }}

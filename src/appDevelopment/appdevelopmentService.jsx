@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'aos/dist/aos.css';
+import AOS from 'aos';
 import { FiShoppingBag, FiTruck, FiActivity, FiShare2, FiFilm, FiCamera, FiGlobe, FiCloud, FiDollarSign, FiBookOpen, FiHeart } from 'react-icons/fi';
 
 const AppDevelopmentServices = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+      easing: 'ease-in-out',
+    });
+  }, []);
   const services = [
     { 
       title: "Retail Revolution Apps", 
@@ -92,15 +101,15 @@ const AppDevelopmentServices = () => {
     <div className='container-fluid'  style={{backgroundColor: '#020617'}}>
       <div className="container py-5">
         <div className="text-center mb-5">
-          <h2 className="display-5 fw-bold responsive-text" style={{fontFamily:'orbitron',fontSize:'4rem',color:'white'}}>Our <span className="" style={{ background: 'linear-gradient(90deg,rgb(242, 244, 247) 0%, #00f2fe 100%)',
+          <h2 className="display-5 fw-bold responsive-text" data-aos="zoom-in" style={{fontFamily:'orbitron',fontSize:'4rem',color:'white'}}>Our <span className="" style={{ background: 'linear-gradient(90deg,rgb(242, 244, 247) 0%, #00f2fe 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',}} >App Development</span> Expertise</h2>
-          <p className="lead text-muted">Custom mobile solutions for every industry need</p>
+          <p className="lead text-muted" data-aos="fade-up">Custom mobile solutions for every industry need</p>
         </div>
 
         <div className="row g-4">
           {services.map((service, index) => (
-            <div key={index} className="col-12 col-md-6 col-lg-4" >
+            <div key={index} className="col-12 col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay={`${index * 100}`} >
               <div className="card h-100 border-0 shadow-sm hover-effect" style={{backgroundColor: '#020617'}}>
                 <div className="card-body p-4 text-center">
                   <div className="service-icon mb-4 mx-auto rounded-circle p-3 d-flex align-items-center justify-content-center"

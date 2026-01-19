@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import 'aos/dist/aos.css';
+import AOS from 'aos';
 
 const reviews = [
   {
@@ -110,6 +112,15 @@ const ClientReviewsCarousel = () => {
     return () => clearInterval(id);
   }, [len]);
 
+  // Initialize AOS
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+      easing: 'ease-in-out',
+    });
+  }, []);
+
   const renderCard = (review, variant) => (
     <article
       key={review.id + variant}
@@ -156,17 +167,17 @@ const ClientReviewsCarousel = () => {
 </script>
 
         <div className="reviews-inner">
-          <h2 className="reviews-title">
+          <h2 className="reviews-title" data-aos="zoom-in">
             What Our Clients Say
           </h2>
 
-          <p className="reviews-subtitle">
+          <p className="reviews-subtitle" data-aos="fade-up">
             Honest feedback from clients who partnered with{" "}
             <span className="accent">NexaTech Innovation</span> for web, app,
             SEO, UI/UX and social media growth.
           </p>
 
-          <div className="reviews-carousel">
+          <div className="reviews-carousel" data-aos="fade-up" data-aos-delay="100">
             <button className="nav-btn nav-btn-prev" onClick={handlePrev}>
               ❮
             </button>
