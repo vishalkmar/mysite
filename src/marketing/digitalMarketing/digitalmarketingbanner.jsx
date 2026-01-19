@@ -1,124 +1,139 @@
-import React, { useState, useEffect ,useMemo} from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'aos/dist/aos.css';
-import AOS from 'aos';
-import digitalmarketingbanner from '../../serviceImages/software/digitalmarketing.jpg'; // Update with your digital marketing banner image path
+import React, { useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "aos/dist/aos.css";
+import AOS from "aos";
+import digitalmarketingbanner from '../../serviceImages/software/digitalmarketing.jpg';
+import { GridScan } from "../../Ui/background/GridScan";
 
-const HeroDigitalMarketingBanner = () => {
-  const [text, setText] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [loopNum, setLoopNum] = useState(0);
-  const [typingSpeed, setTypingSpeed] = useState(150);
-
+const GridScanHeroBanner = () => {
   useEffect(() => {
     AOS.init({
-      duration: 1000,
+      duration: 900,
       once: true,
-      easing: 'ease-in-out',
+      easing: "ease-in-out",
     });
   }, []);
-      const texts = useMemo(() => [
-     "SEO & SEM Strategies",
-    "Social Media Campaigns",
-    "Content Marketing Experts",
-    "Pay-Per-Click Advertising",
-    "Email Marketing Solutions",
-    "Brand Awareness Boosters",
-    "Analytics & Data Insights",
-    "Lead Generation Tactics",
-    "ROI-Focused Campaigns",
-    "Multi-Channel Marketing"
-    ], []);
-
-  useEffect(() => {
-    const handleTyping = () => {
-      const current = loopNum % texts.length;
-      const fullText = texts[current];
-
-      setText(isDeleting
-        ? fullText.substring(0, text.length - 1)
-        : fullText.substring(0, text.length + 1)
-      );
-
-      setTypingSpeed(isDeleting ? 30 : 150);
-
-      if (!isDeleting && text === fullText) {
-        setTimeout(() => setIsDeleting(true), 1000);
-      } else if (isDeleting && text === '') {
-        setIsDeleting(false);
-        setLoopNum(loopNum + 1);
-      }
-    };
-
-    const timer = setTimeout(handleTyping, typingSpeed);
-    return () => clearTimeout(timer);
-  }, [text, isDeleting, loopNum, typingSpeed, texts]);
 
   return (
-    <div className="position-relative overflow-hidden"
+    <section
+      className="position-relative overflow-hidden"
       style={{
-        height: '90vh',
-        minHeight: '500px',
-        backgroundImage: `linear-gradient(rgba(10, 26, 46, 0.6), rgba(26, 58, 106, 0.1)), url(${digitalmarketingbanner})`,
-        backgroundSize: '100% 100%',
-        backgroundPosition: 'center',
-        display: 'flex',
-        alignItems: 'center'
-      }}>
-      <div className="container">
-        <div className="row">
-          <div className="col-12 col-md-10 col-lg-8 mx-auto text-center" data-aos="fade-up">
-            <h1 className="display-3 fw-bold mb-4" style={{
-              color: 'rgba(255, 255, 255, 0.9)',
-              textShadow: '0 2px 10px rgba(0, 0, 0, 0.3)',
-            }}>
+        height: "90vh",
+        minHeight: "520px",
+        background: "#050b18",
+        display: "flex",
+        alignItems: "center",
+      }}
+    >
+      {/* ✅ GridScan Background */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 0,
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        <GridScan
+          sensitivity={0.55}
+          lineThickness={1}
+          linesColor="#392e4e"
+          gridScale={0.1}
+          scanColor="#FF9FFC"
+          scanOpacity={0.4}
+          enablePost={true}
+          bloomIntensity={0.6}
+          chromaticAberration={0.002}
+          noiseIntensity={0.01}
+        />
+      </div>
 
-              <span className="gradient-text" style={{
-                background: 'linear-gradient(90deg,rgb(242, 244, 247) 0%, #00f2fe 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                borderRight: '0.15em solid #4facfe',
-                animation: 'blink-caret 0.75s step-end infinite',
-                paddingRight: '5px',
+      {/* ✅ Overlay for readability */}
+      <div className="gridscan-overlay" />
+
+      {/* ✅ Content */}
+      <div className="container position-relative" style={{ zIndex: 2 }}>
+        <div className="row">
+          <div
+            className="col-12 col-md-10 col-lg-8 mx-auto text-center"
+            data-aos="fade-up"
+          >
+            {/* 🔥 Digital Marketing Headline */}
+            <h1
+              className="display-3 fw-bold mb-3"
+              style={{
+                color: "rgba(255,255,255,0.95)",
+                textShadow: "0 2px 18px rgba(0,0,0,0.55)",
                 fontFamily: "orbitron",
-                fontSize: '4rem'
-              }}>
-                {text}
+              }}
+            >
+              Digital Marketing That <br />
+              <span className="gridscan-gradient-text">
+                Drives Real Business Growth
               </span>
             </h1>
+
+            {/* 🔹 Sub-headline */}
+            <p
+              className="lead text-white-50 mb-4"
+              data-aos="fade-up"
+              data-aos-delay="150"
+            >
+              Data-driven strategies, high-impact campaigns, and measurable
+              results across SEO, social media, and paid advertising.
+            </p>
+
+            <button className="btn gridscan-btn btn-lg px-5 py-2">
+              Grow Your Brand
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Animation for text cursor */}
+      {/* Styles */}
       <style>{`
-        @keyframes blink-caret {
-          from, to { border-color: transparent }
-          50% { border-color: #4facfe; }
+        .gridscan-overlay{
+          position:absolute;
+          inset:0;
+          z-index:1;
+          background:
+            radial-gradient(900px 520px at 50% 40%, rgba(255,159,252,0.12), transparent 60%),
+            linear-gradient(rgba(5,11,24,0.88), rgba(5,11,24,0.55));
+          pointer-events:none;
         }
-        
-        .gradient-text {
-          display: inline-block;
+
+        .gridscan-gradient-text{
+          background: linear-gradient(90deg, #ffffff 0%, #FF9FFC 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
         }
-        
+
+        .gridscan-btn{
+          border:none;
+          border-radius:999px;
+          font-weight:700;
+          letter-spacing:0.4px;
+          background: linear-gradient(90deg, #FF9FFC, #5227FF);
+          box-shadow: 0 16px 40px rgba(255,159,252,0.25);
+          transition: transform .25s ease, box-shadow .25s ease;
+        }
+
+        .gridscan-btn:hover{
+          transform: translateY(-2px);
+          box-shadow: 0 22px 50px rgba(255,159,252,0.35);
+        }
+
         @media (max-width: 768px) {
-          .display-3 {
-            font-size: 2.5rem;
-          }
+          .display-3 { font-size: 2.5rem; }
         }
-        
+
         @media (max-width: 576px) {
-          .display-3 {
-            font-size: 2rem;
-          }
-          
-          .lead {
-            font-size: 1rem;
-          }
+          .display-3 { font-size: 2rem; }
         }
       `}</style>
-    </div>
+    </section>
   );
 };
 
-export default HeroDigitalMarketingBanner;
+export default GridScanHeroBanner;

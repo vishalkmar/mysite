@@ -125,15 +125,15 @@ const HeroBanner = () => {
           50% { border-color: #4facfe; }
         }
 
-        .hero-overlay{
-          position:absolute;
-          inset:0;
-          z-index:1;
-          background: linear-gradient(
-            rgba(5,11,24,0.78),
-            rgba(5,11,24,0.35)
-          );
-        }
+        // .hero-overlay{
+        //   position:absolute;
+        //   inset:0;
+        //   z-index:1;
+        //   background: linear-gradient(
+        //     rgba(5,11,24,0.78),
+        //     rgba(5,11,24,0.35)
+        //   );
+        // }
 
         .gradient-text{
           display:inline-block;

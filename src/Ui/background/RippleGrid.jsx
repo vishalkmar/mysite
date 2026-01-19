@@ -4,7 +4,7 @@ import { Renderer, Program, Triangle, Mesh } from 'ogl';
 
 const RippleGrid = ({
   enableRainbow = false,
-  gridColor = '#ffffff',
+  gridColor = '#030a49',
   rippleIntensity = 0.05,
   gridSize = 10.0,
   gridThickness = 15.0,
@@ -230,8 +230,6 @@ void main() {
         container.removeEventListener('mousemove', handleMouseMove);
         container.removeEventListener('mouseenter', handleMouseEnter);
         container.removeEventListener('mouseleave', handleMouseLeave);
-        document.removeEventListener('mousemove', handleMouseMove);
-        window.removeEventListener('mousemove', handleMouseMove);
       }
       renderer.gl.getExtension('WEBGL_lose_context')?.loseContext();
       container?.removeChild(gl.canvas);

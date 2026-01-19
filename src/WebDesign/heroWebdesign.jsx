@@ -26,7 +26,7 @@ const RippleGridHeroBanner = () => {
       style={{
         height: "90vh",
         minHeight: "520px",
-        background: "#050b18",
+        background: "#000309",
         display: "flex",
         alignItems: "center",
       }}
@@ -42,13 +42,13 @@ const RippleGridHeroBanner = () => {
       >
         <RippleGrid
           enableRainbow={false}
-          gridColor="#ffffff"
-          rippleIntensity={0.05}
-          gridSize={10}
+          gridColor="#0087ff"
+          rippleIntensity={0.27}
+          gridSize={11}
           gridThickness={15}
           mouseInteraction={true}
           mouseInteractionRadius={1.2}
-          opacity={0.8}
+          opacity={1}
         />
       </div>
 
@@ -70,7 +70,7 @@ const RippleGridHeroBanner = () => {
                 fontFamily: "orbitron",
               }}
             >
-              Mobile App Development <br />
+             Desing and Develop Hight Classic Webpage <br />
              
             </h1>
 
@@ -91,7 +91,7 @@ const RippleGridHeroBanner = () => {
           position:absolute;
           inset:0;
           z-index:1;
-          background: radial-gradient(900px 520px at 50% 40%, rgba(0,242,254,0.10), transparent 60%),
+          background:
                       linear-gradient(rgba(5,11,24,0.84), rgba(5,11,24,0.55));
         }
 
