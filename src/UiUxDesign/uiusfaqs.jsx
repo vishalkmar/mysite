@@ -36,7 +36,7 @@ const UiUxFAQ = () => {
 ];
 
   return (
-    <div className="container-fluid" style={{background: 'linear-gradient(135deg, #0a1a2e 0%)'}}>
+    <div className="container-fluid" style={{background:  "#020617",}}>
     <div className="container py-5">
       <div className="text-center mb-5">
         <h2 className="display-5 fw-bold" style={{fontFamily:'orbitron',fontSize:'4.5rem' ,background: 'linear-gradient(90deg,rgb(242, 244, 247) 0%, #00f2fe 100%)',

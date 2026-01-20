@@ -15,7 +15,7 @@ export default function WebDevelopment(){
         <HeroBanner/>
         <FeatureSection/>
         <TechnologyExpertise/>
-       <div className="container-fluid py-5" style={{background: 'linear-gradient(135deg, #0a1a2e 0%)'}}>
+       <div className="container-fluid py-5" style={{background:  "#020617",}}>
            <h1 className="text-center" style={{  background: 'linear-gradient(90deg,rgb(242, 244, 247) 0%, #00f2fe 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent', fontFamily:'orbitron',fontSize:'4.2rem' }}>Have an Eye To Our Decent Work</h1>

@@ -33,49 +33,78 @@ const TechnologyExpertise = () => {
 
   return (
     <>
-    <div className='container-fluid' style={{background: 'linear-gradient(135deg, #0a1a2e 0%)'}}>
+    <div className='container-fluid' style={{background:  "#020617"}}>
     <div className="container py-5">
       <h2 className="text-center responsive-text mb-5 fw-bold" style={{ background: 'linear-gradient(90deg,rgb(242, 244, 247) 0%, #00f2fe 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent', fontFamily:'orbitron',fontSize:'4.5rem' }}>Our Technology Expertise</h2>
       
-      <div className="row g-4">
-        {technologies.map((tech, index) => (
-          <div key={index} className="col-6 col-md-4 col-lg-3">
-            <div 
-              className="tech-card p-3 text-center shadow-sm rounded h-100 d-flex flex-column align-items-center justify-content-center"
-              style={{
-                transition: 'all 0.3s ease',
-                // border: `2px solid ${tech.color}`,
-                backgroundColor: 'white',
-                cursor: 'pointer',
-                 background: 'linear-gradient(135deg, #0a1a2e 0%, #1a3a6a 100%)'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-5px)';
-                e.currentTarget.style.boxShadow = `0 10px 20px ${tech.color}40`;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-              }}
-            >
-              <div 
-                className="icon-wrapper mb-3 p-3 rounded-circle d-flex align-items-center justify-content-center"
-                style={{ 
-                
-                  width: '60px',
-                  height: '60px',
-                    background: `white`,
-                }}
-              >
-                <span style={{ color: tech.color, }}>{tech.icon}</span>
-              </div>
-              <h5 className="mb-0" style={{ color: 'white',fontFamily:'orbitron' }}>{tech.name}</h5>
-            </div>
-          </div>
-        ))}
+     <div className="row g-4">
+  {technologies.map((tech, index) => (
+    <div key={index} className="col-6 col-md-4 col-lg-3">
+      <div
+        className="p-4 text-center h-100"
+        style={{
+          backgroundColor: "transparent",
+          borderRadius: "16px",
+          border: "1px solid rgba(0,136,255,0.35)",
+
+          /* inner blue light */
+          boxShadow: `
+            inset 0 0 10px rgba(0,136,255,0.35),
+            inset 0 0 24px rgba(0,136,255,0.18)
+          `,
+          transition: "all 0.35s ease",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.boxShadow = `
+            0 0 14px rgba(0,136,255,0.55),
+            0 0 30px rgba(0,136,255,0.4),
+            0 0 55px rgba(0,136,255,0.25),
+            inset 0 0 14px rgba(0,136,255,0.45)
+          `;
+          e.currentTarget.style.transform = "translateY(-5px)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.boxShadow = `
+            inset 0 0 10px rgba(0,136,255,0.35),
+            inset 0 0 24px rgba(0,136,255,0.18)
+          `;
+          e.currentTarget.style.transform = "translateY(0)";
+        }}
+      >
+        <div
+          style={{
+            width: "64px",
+            height: "64px",
+            margin: "0 auto 12px",
+            borderRadius: "50%",
+            background: "white",
+            color: tech.color,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "28px",
+          }}
+        >
+          {tech.icon}
+        </div>
+
+        <h5
+          style={{
+            color: "white",
+            fontFamily: "orbitron",
+            fontWeight: "700",
+            marginBottom: 0,
+          }}
+        >
+          {tech.name}
+        </h5>
       </div>
+    </div>
+  ))}
+</div>
+
     </div>
     </div>
      <style>{`

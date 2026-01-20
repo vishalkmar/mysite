@@ -35,7 +35,7 @@ const UIUXShowcase = () => {
         `}
       </style>
 
-      <div className='container-fluid py-5' style={{background: 'linear-gradient(135deg, #0a1a2e 0%)' }}>
+      <div className='container-fluid py-5' style={{background:  "#020617", }}>
         <div className="container py-5">
           <div className="row align-items-center g-5">
             {/* Image Column */}

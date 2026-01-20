@@ -65,7 +65,7 @@ const HappyClients = () => {
   };
 
   return (
-    <div style={{  background: 'linear-gradient(135deg, #0a1a2e 0%)', padding: '80px 0' }}>
+    <div style={{  background:  "#020617", padding: '80px 0' }}>
       <div className="container text-center">
         <h2 className="mb-5" style={{ fontWeight: '700',  background: 'linear-gradient(90deg,rgb(242, 244, 247) 0%, #00f2fe 100%)',
               WebkitBackgroundClip: 'text',

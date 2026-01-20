@@ -51,31 +51,82 @@ const AppTechnologies = () => {
         `}
       </style>
  
-   <div className='container-fluid' style={{background: 'linear-gradient(135deg, #0a1a2e 0%, #1a3a6a 100%)'}} >
+   <div className='container-fluid' style={{background: '#020617'}} >
       <div className="container py-5">
         <div className="text-center mb-5">
-          <h2 className="display-5 fw-bold mb-3 text-white" style={{fontSize:'4.5rem'}}>Our <span style={{background: 'linear-gradient(90deg,rgb(242, 244, 247) 0%, #00f2fe 100%)',
+          <h2 className="display-5 fw-bold mb-3 text-white" style={{fontSize:'4.5rem'}}>Our <span style={{background: 'linear-gradient(90deg,rgb(34, 75, 92) 0%, #00f2fe 100%)',
               WebkitBackgroundClip: 'text',
             
               WebkitTextFillColor: 'transparent', fontSize:'3.5rem',}}>App Development</span> Tech Stack</h2>
-          <p className="lead text-muted">Cutting-edge technologies for building cross-platform mobile solutions</p>
+          <p className="lead text-white">Cutting-edge technologies for building cross-platform mobile solutions</p>
         </div>
 
         <div className="row g-4">
-          {technologies.map((tech, index) => (
-            <div key={index} className="col-6 col-md-4 col-lg-3" >
-              <div className="tech-card p-4 text-center h-100"  style={{backgroundColor: '#020617'}} >
-                <div 
-                  className="tech-icon-wrapper"
-                  style={{ background: `white`, color: tech.color }}
-                >
-                  {tech.icon}
-                </div>
-                <h5 className="fw-bold mb-0" style={{color:'white',fontFamily:'orbitron'}} >{tech.name}</h5>
-              </div>
-            </div>
-          ))}
+  {technologies.map((tech, index) => (
+    <div key={index} className="col-6 col-md-4 col-lg-3">
+      <div
+        className="p-4 text-center h-100"
+        style={{
+          backgroundColor: "transparent",
+          borderRadius: "16px",
+          border: "1px solid rgba(0,136,255,0.25)",
+
+          /* inner blue light */
+          boxShadow: `
+            inset 0 0 12px rgba(0,136,255,0.35),
+            inset 0 0 28px rgba(0,136,255,0.15)
+          `,
+          transition: "all 0.35s ease",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.boxShadow = `
+            0 0 15px rgba(0,136,255,0.6),
+            0 0 35px rgba(0,136,255,0.45),
+            0 0 60px rgba(0,136,255,0.3),
+            inset 0 0 15px rgba(0,136,255,0.4)
+          `;
+          e.currentTarget.style.transform = "translateY(-6px)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.boxShadow = `
+            inset 0 0 12px rgba(0,136,255,0.35),
+            inset 0 0 28px rgba(0,136,255,0.15)
+          `;
+          e.currentTarget.style.transform = "translateY(0)";
+        }}
+      >
+        <div
+          style={{
+            width: "64px",
+            height: "64px",
+            margin: "0 auto 12px",
+            borderRadius: "50%",
+            background: "white",
+            color: tech.color,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "28px",
+          }}
+        >
+          {tech.icon}
         </div>
+
+        <h5
+          style={{
+            color: "white",
+            fontFamily: "orbitron",
+            fontWeight: "700",
+            marginBottom: 0,
+          }}
+        >
+          {tech.name}
+        </h5>
+      </div>
+    </div>
+  ))}
+</div>
+
       </div>
       </div>
     </>
