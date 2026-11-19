@@ -26,7 +26,7 @@ const RippleGridHeroBanner = () => {
       style={{
         height: "90vh",
         minHeight: "520px",
-        background: "#000309",
+        background: "var(--site-bg)",
         display: "flex",
         alignItems: "center",
       }}

@@ -327,7 +327,12 @@ class CanvAscii {
   }
 
   load() {
-    this.animate();
+    if (!this.animationFrameId) this.animate();
+  }
+
+  pause() {
+    cancelAnimationFrame(this.animationFrameId);
+    this.animationFrameId = null;
   }
 
   onMouseMove(evt) {
@@ -400,6 +405,7 @@ class CanvAscii {
 }
 
 export default function ASCIIText({
+  active = true,
   text = 'David!',
   asciiFontSize = 8,
   textFontSize = 200,
@@ -409,6 +415,13 @@ export default function ASCIIText({
 }) {
   const containerRef = useRef(null);
   const asciiRef = useRef(null);
+  const activeRef = useRef(active);
+
+  useEffect(() => {
+    activeRef.current = active;
+    if (active) asciiRef.current?.load();
+    else asciiRef.current?.pause();
+  }, [active]);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -425,6 +438,7 @@ export default function ASCIIText({
         h
       );
       await instance.init();
+      if (cancelled) { instance.dispose(); return null; }
       return instance;
     };
 
@@ -443,7 +457,7 @@ export default function ASCIIText({
               if (!cancelled) {
                 asciiRef.current = await createAndInit(containerRef.current, w, h);
                 if (!cancelled && asciiRef.current) {
-                  asciiRef.current.load();
+                  if (activeRef.current) asciiRef.current.load();
                 }
               }
             }
@@ -456,7 +470,7 @@ export default function ASCIIText({
 
       asciiRef.current = await createAndInit(containerRef.current, width, height);
       if (!cancelled && asciiRef.current) {
-        asciiRef.current.load();
+        if (activeRef.current) asciiRef.current.load();
 
         ro = new ResizeObserver(entries => {
           if (!entries[0] || !asciiRef.current) return;

@@ -28,7 +28,7 @@ const Header = () => {
       <nav className="navbar navbar-expand-lg navbar-dark h-auto" style={{
           background: isScrolled
             ? "transparent"
-            : "linear-gradient(135deg, #0a1a2e 0%)",
+            : "var(--site-bg)",
           boxShadow: isScrolled
             ? "none"
             : "0 2px 15px rgba(0, 119, 255, 0.3)",
@@ -147,7 +147,7 @@ const Header = () => {
                   }}></i>
                 </Link>
                 <ul className="dropdown-menu dropdown-menu-dark" style={{
-                  background: 'linear-gradient(135deg, #0a1a2e 0%)',
+                  background: 'var(--site-bg)',
                   border: '1px solid rgba(255, 255, 255, 0.1)',
                   borderRadius: '0.5rem',
                   padding: '0.5rem 0'
@@ -201,7 +201,7 @@ const Header = () => {
                   }}></i>
                 </Link>
                 <ul className="dropdown-menu dropdown-menu-dark" style={{
-                   background: 'linear-gradient(135deg, #0a1a2e 0%)',
+                   background: 'var(--site-bg)',
                   border: '1px solid rgba(255, 255, 255, 0.1)',
                   borderRadius: '0.5rem',
                   padding: '0.5rem 0'
@@ -267,7 +267,7 @@ const Header = () => {
                   }}></i>
                 </Link>
                 <ul className="dropdown-menu dropdown-menu-dark" style={{
-                  background: 'linear-gradient(135deg, #0a1a2e 0%)',
+                  background: 'var(--site-bg)',
                   border: '1px solid rgba(255, 255, 255, 0.1)',
                   borderRadius: '0.5rem',
                   padding: '0.5rem 0'
@@ -367,7 +367,7 @@ const Header = () => {
         style={{
           visibility: mobileMenuOpen ? 'visible' : 'hidden',
           width: '75%',
-         background: 'linear-gradient(135deg, #0a1a2e 0%)',
+         background: 'var(--site-bg)',
           color: 'white'
         }}
       >
@@ -416,7 +416,7 @@ const Header = () => {
                 }}></i>
               </Link>
               <ul className="dropdown-menu" style={{
-                background: 'linear-gradient(135deg, #0a1a2e 0%, #1a3a6a 100%)',
+                background: 'var(--site-surface)',
                 border: 'none',
                 marginLeft: '1rem',
                 zIndex: 5000,           // Bootstrap dropdown default z-index is 1050, use this or higher
@@ -465,7 +465,7 @@ const Header = () => {
 
                 border: 'none',
                 marginLeft: '1rem',
-                background: 'linear-gradient(135deg, #0a1a2e 0%)',
+                background: 'var(--site-bg)',
 
               }}>
                 <li><Link className="dropdown-item" to="/webdevelopment" onClick={() => setMobileMenuOpen(false)} style={{
@@ -520,7 +520,7 @@ const Header = () => {
 
                 border: 'none',
                 marginLeft: '1rem',
-                 background: 'linear-gradient(135deg, #0a1a2e 0%)',
+                 background: 'var(--site-bg)',
               }}>
                 <li><Link className="dropdown-item" to="/digitalmarketing" onClick={() => setMobileMenuOpen(false)} style={{
                   color: 'rgba(255, 255, 255, 0.8)',

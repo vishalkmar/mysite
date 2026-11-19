@@ -65,7 +65,7 @@ const HappyClients = () => {
   };
 
   return (
-    <div style={{  background:  "#020617", padding: '80px 0' }}>
+    <div style={{  background:  "var(--site-bg)", padding: '80px 0' }}>
       <div className="container text-center">
         <h2 className="mb-5" style={{ fontWeight: '700',  background: 'linear-gradient(90deg,rgb(242, 244, 247) 0%, #00f2fe 100%)',
               WebkitBackgroundClip: 'text',
@@ -77,7 +77,7 @@ const HappyClients = () => {
           <div className="row justify-content-center">
             {getVisibleClients().map((client) => (
               <div className="col-md-6 col-12 mb-4" key={client.id}>
-                <div className="card h-100 shadow-sm  p-4" style={{ borderRadius: '15px',background: 'linear-gradient(135deg, #0a1a2e 0%, #1a3a6a 100%)',border:"1px solid white" }}>
+                <div className="card h-100 shadow-sm  p-4" style={{ borderRadius: '15px',background: 'var(--site-surface)',border:"1px solid white" }}>
                   <img
                     src={client.image}
                     alt={client.name}
@@ -92,7 +92,7 @@ const HappyClients = () => {
                     }}
                   />
                   <h5 className="" style={{color:'white',fontFamily:'orbitron'}}>{client.name}</h5>
-                  <div className="mb-2" style={{ background: 'linear-gradient(135deg, #0a1a2e 0%, #1a3a6a 100%)'}}>
+                  <div className="mb-2" style={{ background: 'var(--site-surface)'}}>
                     {[...Array(client.rating)].map((_, i) => (
                       <i key={i} className="fas fa-star text-warning"></i>
                     ))}

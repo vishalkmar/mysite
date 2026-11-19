@@ -28,7 +28,7 @@ const HeroBanner = () => {
         minHeight: "520px",
         display: "flex",
         alignItems: "center",
-        background: "#050b18",
+        background: "var(--site-bg)",
       }}
     >
       {/* ✅ GradientBlinds Background */}

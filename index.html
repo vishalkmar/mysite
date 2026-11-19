@@ -86,8 +86,15 @@
       }
     </script>
 
+    <!-- Hero first slide + its two preview cards: fetched in parallel with the JS -->
+    <link rel="preload" as="image" type="image/webp" href="/hero/web-development-wide.webp" media="(min-width: 768px)" fetchpriority="high" />
+    <link rel="preload" as="image" type="image/webp" href="/hero/web-development-mobile.webp" media="(max-width: 767px)" fetchpriority="high" />
+    <link rel="preload" as="image" type="image/webp" href="/hero/web-design-card.webp" />
+    <link rel="preload" as="image" type="image/webp" href="/hero/app-development-card.webp" />
+
     <style>
       html, body { overflow-x: hidden; margin: 0; padding: 0; }
+      body { background-color: #020617; }
     </style>
   </head>
 

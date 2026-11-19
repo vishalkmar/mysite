@@ -211,7 +211,7 @@ const FAQPage = () => {
       backgroundColor: '#f8f9fa',
       minHeight: '100vh',
       fontFamily: 'Arial, sans-serif',
-       background: 'linear-gradient(135deg, #0a1a2e 0%, #1a3a6a 100%)',
+       background: 'var(--site-bg)',
 
     }}>
       <div className="text-center mb-5">
@@ -247,10 +247,10 @@ const FAQPage = () => {
               transition: 'transform 0.3s ease',
               ':hover': { transform: 'translateY(-5px)' }
             }}>
-              <div className="card-header bg-white" style={{ 
+              <div className="card-header site-surface" style={{ 
                 borderBottom: '1px solid rgba(0,0,0,0.1)',
                 padding: '1.5rem',
-                 background: 'linear-gradient(135deg, #0a1a2e 0%, #1a3a6a 100%)',
+                 background: 'var(--site-surface)',
               }}>
                 <div className="d-flex align-items-center">
                   {category.icon}
@@ -263,7 +263,7 @@ const FAQPage = () => {
                   </h3>
                 </div>
               </div>
-              <div className="card-body" style={{ padding: '0', background: 'linear-gradient(135deg, #0a1a2e 0%, #1a3a6a 100%)', }}>
+              <div className="card-body" style={{ padding: '0', background: 'var(--site-surface)', }}>
                 {category.questions.map((item) => (
                   <div key={item.id} className="border-bottom" style={{ 
                     borderColor: 'rgba(0,0,0,0.05)',

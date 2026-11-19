@@ -33,7 +33,7 @@ const TechnologyExpertise = () => {
 
   return (
     <>
-    <div className='container-fluid' style={{background:  "#020617"}}>
+    <div className='container-fluid' style={{background:  "var(--site-bg)"}}>
     <div className="container py-5">
       <h2 className="text-center responsive-text mb-5 fw-bold" style={{ background: 'linear-gradient(90deg,rgb(242, 244, 247) 0%, #00f2fe 100%)',
               WebkitBackgroundClip: 'text',

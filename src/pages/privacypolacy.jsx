@@ -193,7 +193,7 @@ const PrivacyPolicy = () => {
       backgroundColor: '#f8f9fa',
       minHeight: '100vh',
       fontFamily: 'Arial, sans-serif',
-           background: 'linear-gradient(135deg, #0a1a2e 0%, #1a3a6a 100%)'
+           background: 'var(--site-bg)'
     }}>
       <div className="text-center mb-5">
         <h1 style={{ 
@@ -228,12 +228,12 @@ const PrivacyPolicy = () => {
               transition: 'all 0.3s ease'
             }}>
               <div 
-                className="card-header bg-white d-flex justify-content-between align-items-center" 
+                className="card-header site-surface d-flex justify-content-between align-items-center" 
                 style={{ 
                   borderBottom: '1px solid rgba(0,0,0,0.1)',
                   padding: '1.25rem 1.5rem',
                   cursor: 'pointer',
-                    background: 'linear-gradient(135deg, #0a1a2e 0%, #1a3a6a 100%)'
+                    background: 'var(--site-surface)'
                 }}
                 onClick={() => toggleSection(section.id)}
               >
@@ -263,13 +263,13 @@ const PrivacyPolicy = () => {
                     animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
                     transition={{ duration: 0.3 }}
-                    style={{ overflow: 'hidden' ,  background: 'linear-gradient(135deg, #0a1a2e 0%, #1a3a6a 100%)'}}
+                    style={{ overflow: 'hidden' ,  background: 'var(--site-surface)'}}
                   >
                     <div className="card-body" style={{ 
                       padding: '1.5rem',
                     
                       lineHeight: '1.7',
-                        background: 'linear-gradient(135deg, #0a1a2e 0%, #1a3a6a 100%)',
+                        background: 'var(--site-surface)',
                         color:"white"
                     }}>
                       {section.content}

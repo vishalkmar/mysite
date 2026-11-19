@@ -160,7 +160,7 @@ const ClientReviewsCarousel = () => {
 
       <section
         className="reviews-wrapper"
-        style={{ backgroundColor: "#020617", color: "#0f172a" }}
+        style={{ backgroundColor: "var(--site-bg)", color: "#0f172a" }}
       >
         <script type="application/ld+json">
   {JSON.stringify(reviewSchema)}

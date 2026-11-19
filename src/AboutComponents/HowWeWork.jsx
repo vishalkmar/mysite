@@ -65,7 +65,7 @@ const HowWeWorkStrip = () => {
  
     <section
       className="py-5"
-      style={{ backgroundColor: "#020617", color: "#e5e7eb" }}
+      style={{ backgroundColor: "var(--site-bg)", color: "#e5e7eb" }}
     >   <script
   type="application/ld+json"
   dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}

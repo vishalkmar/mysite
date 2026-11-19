@@ -51,7 +51,7 @@ const AppTechnologies = () => {
         `}
       </style>
  
-   <div className='container-fluid' style={{background: '#020617'}} >
+   <div className='container-fluid' style={{background: 'var(--site-bg)'}} >
       <div className="container py-5">
         <div className="text-center mb-5">
           <h2 className="display-5 fw-bold mb-3 text-white" style={{fontSize:'4.5rem'}}>Our <span style={{background: 'linear-gradient(90deg,rgb(34, 75, 92) 0%, #00f2fe 100%)',

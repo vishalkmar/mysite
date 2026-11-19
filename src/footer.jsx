@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
   return (
     <footer className="pt-5 pb-4 position-relative" style={{
-      background: 'linear-gradient(135deg, #0a1a2e 0%)',
+      background: 'var(--site-bg)',
       color: 'white',
       overflow: 'hidden'
     }}>

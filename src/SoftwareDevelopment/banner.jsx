@@ -26,7 +26,7 @@ const GalaxyHeroBanner = () => {
       style={{
         height: "90vh",
         minHeight: "520px",
-        background: "#050b18",
+        background: "var(--site-bg)",
         display: "flex",
         alignItems: "center",
       }}

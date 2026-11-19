@@ -1,17 +1,18 @@
-import React from "react";
+import React, { lazy } from "react";
 import Header from "./header";
 import HomeBanner from "./HomeBanner";
 import WhoWeAre from "./whoWeAre";
 import StatsSection from "./count";
-import ServicesSection from "./serviceSection";
+const ServicesSection = lazy(() => import("./serviceSection"));
 import ClientReviews from "./clientReview";
 import CompanyIntro from "./compnay";
 import Footer from "./footer";
-import InfiniteZoomGallery from "./Ui/InfiniteZoomGallery";
-import DomeGallery from "./Ui/DomegaGallery";
+const InfiniteZoomGallery = lazy(() => import("./Ui/InfiniteZoomGallery"));
+const DomeGallery = lazy(() => import("./Ui/DomegaGallery"));
+import DeferredSection from "./Ui/DeferredSection";
 
 
-import ASCIIText from "./Ui/Ascii";
+const ASCIIText = lazy(() => import("./Ui/Ascii"));
 
 
 function Home() {
@@ -54,7 +55,7 @@ function Home() {
       <section
   className="py-3"
   style={{
-    backgroundColor: "#020617",
+    backgroundColor: "var(--site-bg)",
     color: "#e5e7eb",
   
   }}
@@ -70,14 +71,14 @@ function Home() {
         display: "block",
       }}
     >
-      <ASCIIText text="Our Services" enableWaves asciiFontSize={7} />
+      <DeferredSection component={ASCIIText} minHeight={300} label="Our Services" text="Our Services" enableWaves asciiFontSize={7} />
     </div>
   </div>
 </section>
 
-      <ServicesSection />
+      <DeferredSection component={ServicesSection} minHeight={1400} label="Explore our services" />
 
-       <section className="py-5" style={{ backgroundColor: "#020617", color: "#e5e7eb" }}>
+       <section className="py-5" style={{ backgroundColor: "var(--site-bg)", color: "#e5e7eb" }}>
         <div className="container">
           <h2
             className="py-5 text-center responsive-text"
@@ -94,8 +95,8 @@ function Home() {
           </h2>
         </div>
       </section>
-   <InfiniteZoomGallery />
-     <section className="py-5" style={{ backgroundColor: "#020617", color: "#e5e7eb" }}>
+   <DeferredSection component={InfiniteZoomGallery} minHeight="100svh" label="Our portfolio" />
+     <section className="py-5" style={{ backgroundColor: "var(--site-bg)", color: "#e5e7eb" }}>
         <div className="container">
           <h2
             className="py-5 text-center responsive-text"
@@ -113,7 +114,7 @@ function Home() {
         </div>
       </section>
    <div style={{ width: '100%', height: '800px', position: 'relative' }}>
-     <DomeGallery />
+     <DeferredSection component={DomeGallery} minHeight={800} label="Our technologies" />
    </div>
 
 

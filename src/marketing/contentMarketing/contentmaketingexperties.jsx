@@ -32,7 +32,7 @@ const ContentMarketingExpertise = () => {
 
   return (
     <>
-    <div className='container-fluid' style={{backgroundColor: '#020617'  }}>
+    <div className='container-fluid' style={{backgroundColor: 'var(--site-bg)'  }}>
       <div className="container py-5">
         <h2 className="text-center mb-5 fw-bold responsive-text" style={{
           background: 'linear-gradient(90deg, rgb(242, 244, 247) 0%, #00f2fe 100%)',

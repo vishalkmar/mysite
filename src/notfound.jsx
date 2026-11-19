@@ -11,7 +11,7 @@ const NotFound = () => {
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #0a1a2e 0%, #1a3a6a 100%);
+            background: var(--site-bg);
             padding: 2rem;
             text-align: center;
           }

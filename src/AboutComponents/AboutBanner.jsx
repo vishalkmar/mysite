@@ -148,7 +148,7 @@ const AboutHeroBanner = () => {
       {/* minimal custom CSS */}
       <style>{`
         .about-hero-section {
-          background-color: #020617;
+          background-color: var(--site-bg);
           position: relative;
           overflow: hidden;
         }

@@ -35,13 +35,15 @@ const DigitalMarketingShowcase = () => {
         `}
       </style>
 
-      <div className='container-fluid py-5' style={{ background: 'linear-gradient(135deg, #0a1a2e 0%' }}>
+      <div className='container-fluid py-5' style={{ background: 'var(--site-bg)' }}>
         <div className="container py-5">
           <div className="row align-items-center g-5">
             {/* Image Column */}
             <div className="col-lg-6">
               <img
                 src={showcase}
+                loading="lazy"
+                decoding="async"
                 alt="Digital Marketing"
                 className="img-fluid dm-image"
                 style={{
@@ -68,7 +70,7 @@ const DigitalMarketingShowcase = () => {
               <div className="row g-4">
                 {/* Feature 1 */}
                 <div className="col-md-6">
-                  <div className="feature-card p-4 h-100 rounded-3" style={{ background: 'linear-gradient(135deg, #0a1a2e 0%, #1a3a6a 100%)' }}>
+                  <div className="feature-card p-4 h-100 rounded-3" style={{ background: 'var(--site-surface)' }}>
                     <div className="feature-icon" style={{ backgroundColor: '#6f42c1' }}>
                       <FaBullseye />
                     </div>
@@ -85,7 +87,7 @@ const DigitalMarketingShowcase = () => {
 
                 {/* Feature 2 */}
                 <div className="col-md-6">
-                  <div className="feature-card p-4 h-100 rounded-3" style={{ background: 'linear-gradient(135deg, #0a1a2e 0%, #1a3a6a 100%)' }}>
+                  <div className="feature-card p-4 h-100 rounded-3" style={{ background: 'var(--site-surface)' }}>
                     <div className="feature-icon" style={{ backgroundColor: '#28a745' }}>
                       <FaGlobe />
                     </div>
@@ -102,7 +104,7 @@ const DigitalMarketingShowcase = () => {
 
                 {/* Feature 3 */}
                 <div className="col-md-6">
-                  <div className="feature-card p-4 h-100 rounded-3" style={{ background: 'linear-gradient(135deg, #0a1a2e 0%, #1a3a6a 100%)' }}>
+                  <div className="feature-card p-4 h-100 rounded-3" style={{ background: 'var(--site-surface)' }}>
                     <div className="feature-icon" style={{ backgroundColor: '#ff5722' }}>
                       <FaEnvelopeOpenText />
                     </div>
@@ -119,7 +121,7 @@ const DigitalMarketingShowcase = () => {
 
                 {/* Feature 4 */}
                 <div className="col-md-6">
-                  <div className="feature-card p-4 h-100 rounded-3" style={{ background: 'linear-gradient(135deg, #0a1a2e 0%, #1a3a6a 100%)' }}>
+                  <div className="feature-card p-4 h-100 rounded-3" style={{ background: 'var(--site-surface)' }}>
                     <div className="feature-icon" style={{ backgroundColor: '#17a2b8' }}>
                       <FaPoll />
                     </div>

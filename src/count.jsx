@@ -35,7 +35,7 @@ const NexaStatsSection = () => {
   // Reusable wrapper style for all image cards
   const imageCardStyle = {
     border: "1px solid rgba(148,163,184,0.35)",
-    backgroundColor: "#020617",
+    backgroundColor: "var(--site-bg)",
   };
 
   // Reusable Tilted card props (tweak once, affects all)
@@ -51,7 +51,7 @@ const NexaStatsSection = () => {
     <>
       <section
         className="py-5 position-relative overflow-hidden"
-        style={{ backgroundColor: "#020617", color: "#e5e7eb" }}
+        style={{ backgroundColor: "var(--site-bg)", color: "#e5e7eb" }}
       >
      
         <div style={{ position: "relative", zIndex: 1 }}>

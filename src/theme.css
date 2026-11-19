@@ -1,0 +1,41 @@
+:root {
+  --site-bg: #020617;
+  --site-bg-rgb: 2, 6, 23;
+  --site-surface: #0b1224;
+  --site-text: #e5e7eb;
+  --site-muted: #aebbd0;
+}
+
+html, body, #root {
+  min-height: 100%;
+}
+
+/* Only body gets the colour: the browser paints it on the page canvas, so
+   fixed backgrounds with z-index:-1 (About page Lightning) stay visible.
+   Painting html or #root as well would cover them. */
+body {
+  margin: 0;
+  background-color: var(--site-bg);
+  color: var(--site-text);
+}
+
+html, #root {
+  background: transparent;
+}
+
+.site-surface {
+  background: var(--site-surface);
+  color: var(--site-text);
+}
+
+.deferred-section {
+  background: var(--site-bg);
+  position: relative;
+}
+
+.deferred-placeholder {
+  display: grid;
+  place-items: center;
+  min-height: inherit;
+  color: var(--site-text);
+}

@@ -113,7 +113,7 @@ const ContactUsBanner = () => {
     <section
       className="contact-banner position-relative min-vh-90 d-flex align-items-center py-5 px-3 px-md-5 text-white"
       style={{
-        backgroundColor: "#020617",
+        backgroundColor: "var(--site-bg)",
         backgroundSize: '200% 200%',
         overflow: 'hidden',
         marginTop: '60px'

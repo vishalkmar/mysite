@@ -35,7 +35,7 @@ const AppDevelopmentShowcase = () => {
       </style>
 
 
-<div className='container-fluid py-5' style={{backgroundColor: '#020617'  }}>
+<div className='container-fluid py-5' style={{backgroundColor: 'var(--site-bg)'  }}>
       <div className="container py-5">
         <div className="row align-items-center g-5">
           {/* Image Column */}
@@ -66,7 +66,7 @@ const AppDevelopmentShowcase = () => {
             <div className="row g-4">
               {/* Feature 1 */}
               <div className="col-md-6">
-                <div className="feature-card p-4 h-100 rounded-3" style={{ background: 'linear-gradient(135deg, #0a1a2e 0%, #1a3a6a 100%)' }}>
+                <div className="feature-card p-4 h-100 rounded-3" style={{ background: 'var(--site-surface)' }}>
                   <div className="feature-icon" style={{ backgroundColor: '#6f42c1' }}>
                     <FaMobileAlt />
                   </div>
@@ -81,7 +81,7 @@ const AppDevelopmentShowcase = () => {
 
               {/* Feature 2 */}
               <div className="col-md-6">
-                <div className="feature-card p-4 h-100 rounded-3" style={{ background: 'linear-gradient(135deg, #0a1a2e 0%, #1a3a6a 100%)' }}>
+                <div className="feature-card p-4 h-100 rounded-3" style={{ background: 'var(--site-surface)' }}>
                   <div className="feature-icon" style={{ backgroundColor: '#6610f2' }}>
                     <FaCode />
                   </div>
@@ -97,7 +97,7 @@ const AppDevelopmentShowcase = () => {
 
               {/* Feature 5 */}
               <div className="col-md-6">
-                <div className="feature-card p-4 h-100 rounded-3" style={{ background: 'linear-gradient(135deg, #0a1a2e 0%, #1a3a6a 100%)' }}>
+                <div className="feature-card p-4 h-100 rounded-3" style={{ background: 'var(--site-surface)' }}>
                   <div className="feature-icon" style={{ backgroundColor: '#20c997' }}>
                     <FaRocket />
                   </div>
@@ -112,7 +112,7 @@ const AppDevelopmentShowcase = () => {
 
               {/* Feature 6 */}
               <div className="col-md-6">
-                <div className="feature-card p-4 h-100 rounded-3" style={{ background: 'linear-gradient(135deg, #0a1a2e 0%, #1a3a6a 100%)' }}>
+                <div className="feature-card p-4 h-100 rounded-3" style={{ background: 'var(--site-surface)' }}>
                   <div className="feature-icon" style={{ backgroundColor: '#dc3545' }}>
                     <FaShieldAlt />
                   </div>

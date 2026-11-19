@@ -51,7 +51,7 @@ const WhoWeAre = () => {
     <>
       <section
         className="min-vh-100 py-5 position-relative overflow-hidden"
-        style={{ backgroundColor: "#020617", color: "#e5e7eb" }}
+        style={{ backgroundColor: "var(--site-bg)", color: "#e5e7eb" }}
       >
         <script
           type="application/ld+json"

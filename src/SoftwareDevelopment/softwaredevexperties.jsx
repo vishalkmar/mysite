@@ -42,7 +42,7 @@ const SoftwareDevelopmentExpertise = () => {
 
   return (
     <>
-    <div className='container-fluid' style={{background: 'linear-gradient(135deg, #0a1a2e 0%'}}>
+    <div className='container-fluid' style={{background: 'var(--site-bg)'}}>
       <div className="container py-5">
         <h2 className="text-center responsive-text mb-5 fw-bold" data-aos="zoom-in" style={{
           background: 'linear-gradient(90deg, rgb(242, 244, 247) 0%, #00f2fe 100%)',

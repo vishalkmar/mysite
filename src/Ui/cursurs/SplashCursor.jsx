@@ -2,6 +2,7 @@
 import { useEffect, useRef } from 'react';
 
 function SplashCursor({
+  paused = false,
   SIM_RESOLUTION = 128,
   DYE_RESOLUTION = 1440,
   CAPTURE_RESOLUTION = 512,
@@ -19,6 +20,13 @@ function SplashCursor({
 }) {
   const canvasRef = useRef(null);
   const animationFrameId = useRef(null);
+  const pausedRef = useRef(paused);
+  const pauseControl = useRef(null);
+
+  useEffect(() => {
+    pausedRef.current = paused;
+    pauseControl.current?.();
+  }, [paused]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -61,6 +69,7 @@ function SplashCursor({
     let pointers = [new pointerPrototype()];
 
     const { gl, ext } = getWebGLContext(canvas);
+    if (!gl || !ext || !ext.formatRGBA || !ext.formatRG || !ext.formatR) return;
     if (!ext.supportLinearFiltering) {
       config.DYE_RESOLUTION = 256;
       config.SHADING = false;
@@ -77,6 +86,7 @@ function SplashCursor({
       let gl = canvas.getContext('webgl2', params);
       const isWebGL2 = !!gl;
       if (!isWebGL2) gl = canvas.getContext('webgl', params) || canvas.getContext('experimental-webgl', params);
+      if (!gl) return { gl: null, ext: null };
 
       let halfFloat;
       let supportLinearFiltering;
@@ -673,9 +683,42 @@ function SplashCursor({
     initFramebuffers();
     let lastUpdateTime = Date.now();
     let colorUpdateTimer = 0.0;
+    let lastInputTime = 0;
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    function stopAnimation() {
+      cancelAnimationFrame(animationFrameId.current);
+      animationFrameId.current = null;
+      pointers.forEach(pointer => { pointer.moved = false; pointer.down = false; });
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+      gl.clearColor(0, 0, 0, 0);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+    }
+
+    function wake(event) {
+      if (pausedRef.current || document.hidden || motion.matches
+        || event.target?.closest?.('[data-pause-pointer-effects]')) return false;
+      lastInputTime = performance.now();
+      if (!animationFrameId.current) {
+        lastUpdateTime = Date.now();
+        animationFrameId.current = requestAnimationFrame(updateFrame);
+      }
+      return true;
+    }
+
+    function syncPause() {
+      if (pausedRef.current || document.hidden || motion.matches) stopAnimation();
+      // Resume only on the next pointer interaction, never an idle loop.
+    }
+    pauseControl.current = syncPause;
 
     function updateFrame() {
+      animationFrameId.current = null;
       if (!isActive) return;
+      if (pausedRef.current || document.hidden || motion.matches || performance.now() - lastInputTime > 1800) {
+        stopAnimation();
+        return;
+      }
       const dt = calcDeltaTime();
       if (resizeCanvas()) initFramebuffers();
       updateColors(dt);
@@ -948,7 +991,7 @@ function SplashCursor({
     }
 
     function scaleByPixelRatio(input) {
-      const pixelRatio = window.devicePixelRatio || 1;
+      const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
       return Math.floor(input * pixelRatio);
     }
 
@@ -964,6 +1007,7 @@ function SplashCursor({
 
     // Named event handlers for proper cleanup
     function handleMouseDown(e) {
+      if (!wake(e)) return;
       let pointer = pointers[0];
       let posX = scaleByPixelRatio(e.clientX);
       let posY = scaleByPixelRatio(e.clientY);
@@ -973,6 +1017,7 @@ function SplashCursor({
 
     let firstMouseMoveHandled = false;
     function handleMouseMove(e) {
+      if (!wake(e)) return;
       let pointer = pointers[0];
       let posX = scaleByPixelRatio(e.clientX);
       let posY = scaleByPixelRatio(e.clientY);
@@ -986,6 +1031,7 @@ function SplashCursor({
     }
 
     function handleTouchStart(e) {
+      if (!wake(e)) return;
       const touches = e.targetTouches;
       let pointer = pointers[0];
       for (let i = 0; i < touches.length; i++) {
@@ -996,6 +1042,7 @@ function SplashCursor({
     }
 
     function handleTouchMove(e) {
+      if (!wake(e)) return;
       const touches = e.targetTouches;
       let pointer = pointers[0];
       for (let i = 0; i < touches.length; i++) {
@@ -1006,6 +1053,7 @@ function SplashCursor({
     }
 
     function handleTouchEnd(e) {
+      if (pausedRef.current) return;
       const touches = e.changedTouches;
       let pointer = pointers[0];
       for (let i = 0; i < touches.length; i++) {
@@ -1019,12 +1067,13 @@ function SplashCursor({
     window.addEventListener('touchstart', handleTouchStart);
     window.addEventListener('touchmove', handleTouchMove, false);
     window.addEventListener('touchend', handleTouchEnd);
-
-    updateFrame();
+    document.addEventListener('visibilitychange', syncPause);
+    motion.addEventListener('change', syncPause);
 
     // Cleanup function
     return () => {
       isActive = false;
+      pauseControl.current = null;
 
       // Cancel animation frame
       if (animationFrameId.current) {
@@ -1038,12 +1087,16 @@ function SplashCursor({
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('touchend', handleTouchEnd);
+      document.removeEventListener('visibilitychange', syncPause);
+      motion.removeEventListener('change', syncPause);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div
+      data-pointer-effect="fluid"
+      data-paused={paused}
       style={{
         position: 'fixed',
         top: 0,
@@ -1051,7 +1104,8 @@ function SplashCursor({
         zIndex: 50,
         pointerEvents: 'none',
         width: '100%',
-        height: '100%'
+        height: '100%',
+        visibility: paused ? 'hidden' : 'visible'
       }}
     >
       <canvas

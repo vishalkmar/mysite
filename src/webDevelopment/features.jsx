@@ -72,7 +72,7 @@ const FeatureSection = () => {
       <section
         className="py-5"
         style={{
-          backgroundColor: "#020617",
+          backgroundColor: "var(--site-bg)",
         }}
       >
         <div className="container py-5">

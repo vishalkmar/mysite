@@ -65,7 +65,7 @@ const HeroBanner = () => {
         minHeight: "500px",
         display: "flex",
         alignItems: "center",
-        background: "#050b18",
+        background: "var(--site-bg)",
       }}
     >
       {/* ✅ Plasma Background Layer */}

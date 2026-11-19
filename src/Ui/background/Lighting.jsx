@@ -166,12 +166,15 @@ const Lightning = ({ hue = 230, xOffset = 0, speed = 1, intensity = 1, size = 1 
       gl.uniform1f(uIntensityLocation, intensity);
       gl.uniform1f(uSizeLocation, size);
       gl.drawArrays(gl.TRIANGLES, 0, 6);
-      requestAnimationFrame(render);
+      frameId = requestAnimationFrame(render);
     };
-    requestAnimationFrame(render);
+    let frameId = requestAnimationFrame(render);
 
     return () => {
+      // Stop the loop when leaving the page, otherwise it runs forever.
+      cancelAnimationFrame(frameId);
       window.removeEventListener('resize', resizeCanvas);
+      gl.deleteProgram(program);
     };
   }, [hue, xOffset, speed, intensity, size]);
 

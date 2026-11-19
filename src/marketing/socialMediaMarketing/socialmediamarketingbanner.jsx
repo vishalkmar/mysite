@@ -2,7 +2,7 @@ import React, { useState, useEffect ,useMemo} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'aos/dist/aos.css';
 import AOS from 'aos';
-import socialbanner from '../../serviceImages/software/socialmedia.jpg'; // Update this path if needed
+import WarpSpeed from '../../Ui/background/WarpSpeed';
 
 const HeroSocialMediaBanner = () => {
   const [text, setText] = useState('');
@@ -61,12 +61,17 @@ const HeroSocialMediaBanner = () => {
       style={{
         height: '90vh',
         minHeight: '500px',
-        backgroundImage: `linear-gradient(rgba(10, 26, 46, 0.6), rgba(26, 58, 106, 0.1)), url(${socialbanner})`,
-        backgroundSize: '100% 100%',
-        backgroundPosition: 'center',
+        backgroundColor: 'var(--site-bg)',
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        isolation: 'isolate'
       }}>
+      <WarpSpeed style={{ zIndex: -2 }} />
+      {/* Soft centre shade so the heading stays crisp over the streaks */}
+      <div aria-hidden="true" style={{
+        position: 'absolute', inset: 0, zIndex: -1, pointerEvents: 'none',
+        background: 'radial-gradient(ellipse 45% 35% at 50% 50%, rgba(var(--site-bg-rgb), 0.55), transparent 70%), linear-gradient(0deg, var(--site-bg), transparent 18%)'
+      }} />
       <div className="container">
         <div className="row">
           <div className="col-12 col-md-10 col-lg-8 mx-auto text-center" data-aos="fade-up">

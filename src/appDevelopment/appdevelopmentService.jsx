@@ -98,7 +98,7 @@ const AppDevelopmentServices = () => {
         `}
       </style>
     
-    <div className='container-fluid'  style={{backgroundColor: '#020617'}}>
+    <div className='container-fluid'  style={{backgroundColor: 'var(--site-bg)'}}>
       <div className="container py-5">
         <div className="text-center mb-5">
           <h2 className="display-5 fw-bold responsive-text" data-aos="zoom-in" style={{fontFamily:'orbitron',fontSize:'4rem',color:'white'}}>Our <span className="" style={{ background: 'linear-gradient(90deg,rgb(242, 244, 247) 0%, #00f2fe 100%)',
@@ -110,7 +110,7 @@ const AppDevelopmentServices = () => {
         <div className="row g-4">
           {services.map((service, index) => (
             <div key={index} className="col-12 col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay={`${index * 100}`} >
-              <div className="card h-100 border-0 shadow-sm hover-effect" style={{backgroundColor: '#020617'}}>
+              <div className="card h-100 border-0 shadow-sm hover-effect" style={{backgroundColor: 'var(--site-bg)'}}>
                 <div className="card-body p-4 text-center">
                   <div className="service-icon mb-4 mx-auto rounded-circle p-3 d-flex align-items-center justify-content-center"
                     style={{ width: '70px', height: '70px',background:'white' }}>

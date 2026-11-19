@@ -43,7 +43,7 @@ const CompanyIntro = () => {
 
   return (
     <>
-      <section className="py-5" style={{ backgroundColor: "#020617", color: "#e5e7eb" }}>
+      <section className="py-5" style={{ backgroundColor: "var(--site-bg)", color: "#e5e7eb" }}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(companyIntroSchema) }}

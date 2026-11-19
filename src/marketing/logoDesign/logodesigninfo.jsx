@@ -50,7 +50,7 @@ const LogoDesignInfoSection = () => {
         `}
       </style>
 
-      <div className="container-fluid py-5" style={{ background: 'linear-gradient(135deg, #0a1a2e 0%' }}>
+      <div className="container-fluid py-5" style={{ background: 'var(--site-bg)' }}>
         <div className="container py-5">
           <div className="text-center mb-5">
             <h2 className="display-5 fw-bold" style={{
@@ -87,7 +87,7 @@ const LogoDesignInfoSection = () => {
                 </button>
               </div>
 
-              <div style={{ background: '#0f2b4c', padding: '1.5rem', borderRadius: '15px', color: 'white' }}>
+              <div style={{ background: 'var(--site-surface)', padding: '1.5rem', borderRadius: '15px', color: 'white' }}>
                 <h4 style={{ fontFamily: 'orbitron', color: '#00f2fe' }}>{content[active].title}</h4>
                 <p style={{ whiteSpace: 'pre-line', color: '#adb5bd' }}>
                   {content[active].desc}

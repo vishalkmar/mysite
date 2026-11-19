@@ -1,29 +1,29 @@
 
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Home from "./Home"
-import About from "./AboutComponents/About";
-import WebDevelopment from "./webDevelopment/webDevelopment";
-import AppDevelopment from "./appDevelopment/AppDevelopment";
-import SoftwareDevelopment from "./SoftwareDevelopment/softwareDevelopment";
-import WebDesign from "./WebDesign/webDesign";
-import UiUxdDevelopment from "./UiUxDesign/UiUxDevelopment";
-import Contact from "./contactComponents/contact";
-import SEO from "./marketing/SEO/SEO";
-import SocialMediaMarketing from "./marketing/socialMediaMarketing/socialMediaMarketing";
-import ContentMarketing from "./marketing/contentMarketing/contentMarketing";
-import LogoDesign from "./marketing/logoDesign/logoDesign";
-import DigitalMarketing from "./marketing/digitalMarketing/digitalMarketing";
-import FAQPage from "./pages/faqs";
-import PrivacyPolicy from "./pages/privacypolacy";
-import TermsAndConditions from "./pages/termsandconditions";
-import NotFound from "./notfound";
+// Landing page is bundled eagerly so the hero paints without waiting for a chunk.
+import Home from "./Home";
+const About = lazy(() => import("./AboutComponents/About"));
+const WebDevelopment = lazy(() => import("./webDevelopment/webDevelopment"));
+const AppDevelopment = lazy(() => import("./appDevelopment/AppDevelopment"));
+const SoftwareDevelopment = lazy(() => import("./SoftwareDevelopment/softwareDevelopment"));
+const WebDesign = lazy(() => import("./WebDesign/webDesign"));
+const UiUxdDevelopment = lazy(() => import("./UiUxDesign/UiUxDevelopment"));
+const Contact = lazy(() => import("./contactComponents/contact"));
+const SEO = lazy(() => import("./marketing/SEO/SEO"));
+const SocialMediaMarketing = lazy(() => import("./marketing/socialMediaMarketing/socialMediaMarketing"));
+const ContentMarketing = lazy(() => import("./marketing/contentMarketing/contentMarketing"));
+const LogoDesign = lazy(() => import("./marketing/logoDesign/logoDesign"));
+const DigitalMarketing = lazy(() => import("./marketing/digitalMarketing/digitalMarketing"));
+const FAQPage = lazy(() => import("./pages/faqs"));
+const PrivacyPolicy = lazy(() => import("./pages/privacypolacy"));
+const TermsAndConditions = lazy(() => import("./pages/termsandconditions"));
+const NotFound = lazy(() => import("./notfound"));
 import LeadPopupForm from "./LeadPopForm";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SocialSidebar from "./SocialSideBarIcons";
-import GlobalDotParticles from "./Ui/ButtonClick";
-
-import SplashCursor from "./Ui/cursurs/SplashCursor";
+import GlobalPointerEffects from "./Ui/GlobalPointerEffects";
 // import Ribbons from "./Ui/cursurs/PattaRibbon";
 export default function App() {
   
@@ -46,8 +46,7 @@ export default function App() {
     baseThickness={29}
   />
 </div> */}
-<SplashCursor />
- <GlobalDotParticles />
+<GlobalPointerEffects />
             {window.location.pathname === "/" && (
         <LeadPopupForm
           logoSrc="/logo.png"
@@ -56,6 +55,7 @@ export default function App() {
       )}
 
         <SocialSidebar/>
+            <Suspense fallback={<div role="status" style={{ minHeight: "100svh", display: "grid", placeItems: "center", background: "var(--site-bg)", color: "#f5f3fa" }}>Loading…</div>}>
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
@@ -75,6 +75,7 @@ export default function App() {
                   <Route path="/termsandconditions" element={<TermsAndConditions/>}/>
                 <Route path="*" element={<NotFound />} />
             </Routes>
+            </Suspense>
         </BrowserRouter>
     );
 }

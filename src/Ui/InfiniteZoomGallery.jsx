@@ -2,7 +2,7 @@ import React, { useRef, useLayoutEffect, useEffect } from "react";
 import gsap from "gsap";
 import * as THREE from "three";
 
-const InfiniteZoomGallery = ({ isDarkMode }) => {
+const InfiniteZoomGallery = ({ isDarkMode, active = true }) => {
   // ✅ Pinned scroll refs (component stays fixed, only gallery moves)
   const virtualScrollRef = useRef(0); // pinned mode scroll value
   const baseOffsetRef = useRef(0); // unpin ke baad continuity
@@ -20,6 +20,12 @@ const InfiniteZoomGallery = ({ isDarkMode }) => {
   const cameraRef = useRef(null);
   const segmentsRef = useRef([]);
   const scrollPosRef = useRef(0);
+  const activeRef = useRef(active);
+  const playbackRef = useRef(null);
+  useEffect(() => {
+    activeRef.current = active;
+    playbackRef.current?.();
+  }, [active]);
 
   // --- CONFIGURATION ---
   const TUNNEL_WIDTH = 24;
@@ -219,7 +225,7 @@ const InfiniteZoomGallery = ({ isDarkMode }) => {
     });
 
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     rendererRef.current = renderer;
 
     // ✅ PIN helpers
@@ -327,6 +333,7 @@ const InfiniteZoomGallery = ({ isDarkMode }) => {
     // Animation Loop
     let frameId;
     const animate = () => {
+      if (!activeRef.current) { frameId = null; return; }
       frameId = requestAnimationFrame(animate);
       if (!cameraRef.current || !sceneRef.current || !rendererRef.current)
         return;
@@ -396,7 +403,12 @@ const InfiniteZoomGallery = ({ isDarkMode }) => {
 
       rendererRef.current.render(sceneRef.current, cameraRef.current);
     };
-    animate();
+    playbackRef.current = () => {
+      cancelAnimationFrame(frameId);
+      frameId = null;
+      if (activeRef.current) animate();
+    };
+    playbackRef.current();
 
     // ✅ Normal scroll sync (when not pinned)
     const onScroll = () => {
@@ -428,6 +440,7 @@ const InfiniteZoomGallery = ({ isDarkMode }) => {
       document.body.style.overflow = "auto";
 
       cancelAnimationFrame(frameId);
+      playbackRef.current = null;
       renderer.dispose();
     };
   }, []); // Run once on mount
@@ -436,8 +449,8 @@ const InfiniteZoomGallery = ({ isDarkMode }) => {
   useEffect(() => {
     if (!sceneRef.current) return;
 
-    const bgHex = isDarkMode ? 0x0a1a2e : 0x0a1a2e;
-    const fogHex = isDarkMode ? 0x0a1a2e : 0x0a1a2e;
+    const bgHex = isDarkMode ? 0x020617 : 0x020617;
+    const fogHex = isDarkMode ? 0x020617 : 0x020617;
 
     const lineHex = isDarkMode ? 0x555555 : 0xb0b0b0;
     const lineOp = isDarkMode ? 0.35 : 0.5;
@@ -484,7 +497,7 @@ const InfiniteZoomGallery = ({ isDarkMode }) => {
       ref={containerRef}
       className={`relative w-full h-[10000vh] transition-colors duration-700`}
       style={{
-        background: 'linear-gradient(135deg, "#020617" 0%)'
+        background: 'var(--site-bg)'
       }}
     >
       <div className="fixed inset-0 w-full h-full overflow-hidden z-0">

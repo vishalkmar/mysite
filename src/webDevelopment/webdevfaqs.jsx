@@ -39,7 +39,7 @@ const WebDevelopmentFAQ = () => {
 
   return (
     <>
-    <div className="container-fluid" style={{background:  "#020617",}}>
+    <div className="container-fluid" style={{background:  "var(--site-bg)",}}>
     <div className="container py-5">
       <div className="text-center mb-5">
         <h2 className="display-5 fw-bold responsive-text" style={{fontFamily:'orbitron',fontSize:'4.5rem' ,background: 'linear-gradient(90deg,rgb(242, 244, 247) 0%, #00f2fe 100%)',
@@ -59,7 +59,7 @@ const WebDevelopmentFAQ = () => {
                 type="button"
                 onClick={() => toggleAccordion(index)}
                 style={{
-                  background: 'linear-gradient(135deg, #0a1a2e 0%, #1a3a6a 100%)',
+                  background: 'var(--site-surface)',
                   color: 'white',
                   fontFamily:'orbitron'
                 }}
@@ -70,8 +70,8 @@ const WebDevelopmentFAQ = () => {
             </h3>
             <div 
               className={`accordion-collapse collapse ${activeIndex === index ? 'show' : ''}`}
-            style={{background: 'linear-gradient(135deg, #0a1a2e 0%, #1a3a6a 100%)'}}>
-              <div className="accordion-body bg-light">
+            style={{background: 'var(--site-surface)'}}>
+              <div className="accordion-body site-surface">
                 {faq.answer}
               </div>
             </div>

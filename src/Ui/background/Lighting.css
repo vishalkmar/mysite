@@ -8,6 +8,6 @@
   height: 100vh;
   z-index: -1; /* keep behind main content */
   pointer-events: none; /* allow clicks through */
-  background: black; /* fallback/background for shader */
+  background: var(--site-bg); /* fallback/background for shader */
   display: block;
 }
