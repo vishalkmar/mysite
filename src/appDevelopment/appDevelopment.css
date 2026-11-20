@@ -1,0 +1,31 @@
+.app-development-page {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  background: var(--site-bg);
+}
+
+.app-development-rain {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Let the shared rain show through every section, keeping card surfaces legible. */
+.app-development-content > .container-fluid,
+.app-development-content > .app-development-hero,
+.app-development-page > footer {
+  background: transparent !important;
+}
+
+.app-development-content .lead {
+  color: var(--site-muted) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-development-rain {
+    display: none;
+  }
+}

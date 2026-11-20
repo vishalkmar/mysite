@@ -4,6 +4,8 @@
 import { useEffect, useMemo, useRef, useCallback } from 'react';
 import { useGesture } from '@use-gesture/react';
 import './DomeGallery.css';
+import appFallback from '../serviceImages/mobileapp.png';
+import seoFallback from '../serviceImages/seo.png';
 
 
 const DEFAULT_IMAGES = [
@@ -43,6 +45,16 @@ const getDataNumber = (el, name, fallback) => {
   const n = attr == null ? NaN : parseFloat(attr);
   return Number.isFinite(n) ? n : fallback;
 };
+
+function handleImageError(event) {
+  const image = event.currentTarget;
+  if (image.dataset.fallbackApplied) return;
+  const fallback = image.alt === 'SEO & analytics' ? seoFallback : appFallback;
+  image.dataset.fallbackApplied = 'true';
+  image.src = fallback;
+  // The enlarged viewer must use the same working image as the tile.
+  image.closest('.item').dataset.src = fallback;
+}
 
 function buildItems(pool, seg) {
   const xCols = Array.from({ length: seg }, (_, i) => -37 + i * 2);
@@ -624,7 +636,7 @@ export default function DomeGallery({
                   onClick={onTileClick}
                   onPointerUp={onTilePointerUp}
                 >
-                  <img src={it.src} draggable={false} alt={it.alt} />
+                  <img src={it.src} draggable={false} alt={it.alt} onError={handleImageError} />
                 </div>
               </div>
             ))}
