@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "aos/dist/aos.css";
 import AOS from "aos";
+import GradientBlinds from "../Ui/background/GradientBliend";
 
 const HeroBanner = () => {
   const [text, setText] = useState("");
@@ -30,6 +31,32 @@ const HeroBanner = () => {
         background: "var(--site-bg)",
       }}
     >
+      {/* Original hero animation, retained alongside the page-wide rain. */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 0,
+          height: "100%",
+          width: "100%",
+        }}
+      >
+        <GradientBlinds
+          gradientColors={["#FF9FFC", "#5227FF"]}
+          angle={0}
+          noise={0.3}
+          blindCount={12}
+          blindMinWidth={50}
+          spotlightRadius={0.5}
+          spotlightSoftness={1}
+          spotlightOpacity={1}
+          mouseDampening={0.15}
+          distortAmount={0}
+          shineDirection="left"
+          mixBlendMode="lighten"
+        />
+      </div>
+
       {/* ✅ Dark overlay for text readability */}
       <div className="hero-overlay" />
 
@@ -72,8 +99,8 @@ const HeroBanner = () => {
           inset:0;
           z-index:1;
           background: linear-gradient(
-            rgba(5,11,24,0.35),
-            rgba(5,11,24,0.1)
+            rgba(5,11,24,0.82),
+            rgba(5,11,24,0.45)
           );
         }
 

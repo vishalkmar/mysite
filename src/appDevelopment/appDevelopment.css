@@ -13,9 +13,8 @@
   overflow: hidden;
 }
 
-/* Let the shared rain show through every section, keeping card surfaces legible. */
+/* Show shared rain below the hero, which keeps its original background. */
 .app-development-content > .container-fluid,
-.app-development-content > .app-development-hero,
 .app-development-page > footer {
   background: transparent !important;
 }
