@@ -1,9 +1,10 @@
 
 import { lazy, Suspense } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom"
 // Landing page is bundled eagerly so the hero paints without waiting for a chunk.
 import Home from "./Home";
 const About = lazy(() => import("./AboutComponents/About"));
+const HomeTwo = lazy(() => import("./homeTwo/HomeTwo"));
 const WebDevelopment = lazy(() => import("./webDevelopment/webDevelopment"));
 const AppDevelopment = lazy(() => import("./appDevelopment/AppDevelopment"));
 const SoftwareDevelopment = lazy(() => import("./SoftwareDevelopment/softwareDevelopment"));
@@ -24,7 +25,14 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SocialSidebar from "./SocialSideBarIcons";
 import GlobalPointerEffects from "./Ui/GlobalPointerEffects";
+import PageCursor from "./Ui/cursurs/PageCursor";
+import RouteCursorEffects from "./Ui/cursurs/RouteCursorEffects";
 // import Ribbons from "./Ui/cursurs/PattaRibbon";
+function HomeLeadPopup() {
+  const { pathname } = useLocation();
+  return pathname === "/" ? <LeadPopupForm logoSrc="/logo.png" companyName="NexaTech Innovation" /> : null;
+}
+
 export default function App() {
   
     return (
@@ -47,17 +55,15 @@ export default function App() {
   />
 </div> */}
 <GlobalPointerEffects />
-            {window.location.pathname === "/" && (
-        <LeadPopupForm
-          logoSrc="/logo.png"
-          companyName="NexaTech Innovation"
-        />
-      )}
+<RouteCursorEffects />
+<PageCursor />
+            <HomeLeadPopup />
 
         <SocialSidebar/>
             <Suspense fallback={<div role="status" style={{ minHeight: "100svh", display: "grid", placeItems: "center", background: "var(--site-bg)", color: "#f5f3fa" }}>Loading…</div>}>
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/hometwo" element={<HomeTwo />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/webdevelopment" element={<WebDevelopment/>} />

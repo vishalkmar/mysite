@@ -152,6 +152,7 @@ const Header = () => {
                   borderRadius: '0.5rem',
                   padding: '0.5rem 0'
                 }}>
+                  <li><Link className="dropdown-item" to="/hometwo" style={{ color: '#82d8ff', padding: '0.5rem 1.5rem', fontFamily: 'orbitron' }}>Home Two</Link></li>
                   <li><Link className="dropdown-item" to="/privacy" style={{
                     color: 'rgba(255, 255, 255, 0.8)',
                     padding: '0.5rem 1.5rem',
@@ -391,6 +392,9 @@ const Header = () => {
                 borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
                 fontFamily: 'orbitron'
               }}>Home</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/hometwo" onClick={() => setMobileMenuOpen(false)} style={{ color: '#82d8ff', padding: '0.75rem 0', fontFamily: 'orbitron' }}>Home Two</Link>
             </li>
 
             <li className="nav-item dropdown">

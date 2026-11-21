@@ -1,14 +1,7 @@
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { FiPlus, FiMinus } from 'react-icons/fi';
+/* Restyled with the shared service kit (src/serviceKit). Content unchanged. */
+import { SkFAQ, SkCTA } from "../../serviceKit/ServiceKit";
 
-const SeoFAQ = () => {
-  const [activeIndex, setActiveIndex] = useState(null);
-
-  const toggleAccordion = (index) => {
-    setActiveIndex(activeIndex === index ? null : index);
-  };
- const faqs = [
+const faqs = [
   {
     question: "What is SEO and why is it important for my business?",
     answer: "SEO (Search Engine Optimization) improves your website’s visibility in search engines like Google, helping potential customers find you organically and increasing traffic without paid ads."
@@ -35,49 +28,11 @@ const SeoFAQ = () => {
   }
 ];
 
-  return (
-    <div className="container-fluid" style={{ background: 'var(--site-bg)' }}>
-    <div className="container py-5">
-      <div className="text-center mb-5">
-        <h2 className="display-5 fw-bold" style={{fontFamily:'orbitron',fontSize:'4.5rem' ,background: 'linear-gradient(90deg,rgb(242, 244, 247) 0%, #00f2fe 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent', }}>SEO <span style={{background: 'linear-gradient(90deg,rgb(242, 244, 247) 0%, #00f2fe 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',}}>FAQs</span></h2>
-        <p className="lead text-white">Answers to common questions about our mobile app services</p>
-      </div>
-
-      <div className="accordion" id="appFAQAccordion">
-        {faqs.map((faq, index) => (
-          <div key={index} className="accordion-item border-0 mb-3 rounded-3 overflow-hidden shadow-sm" style={{}}>
-            <h3 className="accordion-header">
-              <button 
-                className={`accordion-button ${activeIndex === index ? '' : 'collapsed'} fw-semibold`}
-                type="button"
-                onClick={() => toggleAccordion(index)}
-                style={{
-                  background: 'var(--site-surface)',
-                  color: 'white',
-                  fontFamily:'orbitron'
-                }}
-              >
-                {activeIndex === index ? <FiMinus className="me-2" /> : <FiPlus className="me-2" />}
-                {faq.question}
-              </button>
-            </h3>
-            <div 
-              className={`accordion-collapse collapse ${activeIndex === index ? 'show' : ''}`}
-            style={{background: 'var(--site-surface)'}}>
-              <div className="accordion-body site-surface">
-                {faq.answer}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-    </div>
-  );
-};
+const SeoFAQ = () => (
+  <>
+    <SkFAQ heading={{"eyebrow": "SEO FAQ", "title": "Good questions.", "accent": "Straight answers.", "copy": "What clients usually ask before starting a SEO project with us."}} faqs={faqs} />
+    <SkCTA />
+  </>
+);
 
 export default SeoFAQ;

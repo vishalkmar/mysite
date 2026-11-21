@@ -4,15 +4,21 @@ import { useLocation } from "react-router-dom";
 const SplashCursor = lazy(() => import("./cursurs/SplashCursor"));
 const GlobalDotParticles = lazy(() => import("./ButtonClick"));
 
+// These pages run ApexUI FluidCursor instead (see ./cursurs/RouteCursorEffects.jsx).
+const FLUID_CURSOR_ROUTES = ["/seo", "/socialmediamarketing", "/contentmarketing", "/digitalmarketing"];
+
 export default function GlobalPointerEffects() {
   const { pathname, key } = useLocation();
   const [hero, setHero] = useState({ key: null, visible: true });
   const [started, setStarted] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(() => matchMedia("(prefers-reduced-motion: reduce)").matches);
-  const hasAnimatedHero = pathname === "/" || pathname.replace(/\/$/, "") === "/digitalmarketing";
+  const hasAnimatedHero = ["/", "/digitalmarketing", "/contentmarketing"].includes(pathname.replace(/\/$/, "") || "/");
   // Suppress from the first render, including while the route chunk loads.
-  const paused = hasAnimatedHero
-    && (hero.key !== key || hero.visible);
+  const route = pathname.replace(/\/$/, "") || "/";
+  const isHomeTwo = route === "/hometwo";
+  const hasOwnFluid = FLUID_CURSOR_ROUTES.includes(route);
+  const paused = isHomeTwo || hasOwnFluid || (hasAnimatedHero
+    && (hero.key !== key || hero.visible));
 
   useEffect(() => {
     const media = matchMedia("(prefers-reduced-motion: reduce)");
@@ -23,15 +29,20 @@ export default function GlobalPointerEffects() {
 
   useEffect(() => {
     if (!hasAnimatedHero) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      setHero({ key, visible: entry.isIntersecting });
+    const visibleSections = new Set();
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) visibleSections.add(entry.target);
+        else visibleSections.delete(entry.target);
+      });
+      setHero({ key, visible: visibleSections.size > 0 });
     });
     // Lazy routes may commit after this component's effect.
     const mutations = new MutationObserver(observeHero);
     function observeHero() {
-      const element = document.querySelector("[data-pause-pointer-effects]");
-      if (!element) return false;
-      observer.observe(element);
+      const elements = document.querySelectorAll("[data-pause-pointer-effects]");
+      if (!elements.length) return false;
+      elements.forEach(element => observer.observe(element));
       mutations.disconnect();
       return true;
     }
@@ -45,7 +56,7 @@ export default function GlobalPointerEffects() {
 
   // No fluid module download, WebGL setup, or particle canvas on hero entry.
   // After first use keep the fluid context, but stop its loop while paused.
-  if (reducedMotion || (!started && paused)) return null;
+  if (isHomeTwo || hasOwnFluid || reducedMotion || (!started && paused)) return null;
   return (
     <Suspense fallback={null}>
       <SplashCursor paused={paused} DYE_RESOLUTION={512} SIM_RESOLUTION={96} PRESSURE_ITERATIONS={12} />

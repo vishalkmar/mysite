@@ -1,0 +1,84 @@
+.nx-company {
+  padding: 0 7% 120px;
+  background: var(--site-bg, #070a10);
+  color: #f4f6fa;
+  font-family: 'Rubik', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.nx-company__grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 70px; align-items: center; }
+
+/* ----- Gallery: asymmetric bento ----- */
+.nx-company__gallery {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  grid-template-rows: 230px 170px 210px;
+  gap: 16px;
+}
+.nx-company__shot { position: relative; margin: 0; border-radius: 22px; overflow: hidden; background: #12253b; isolation: isolate; }
+.nx-company__shot--1 { grid-row: 1 / 3; }
+.nx-company__shot--2 { grid-row: 1 / 2; }
+.nx-company__shot--3 { grid-row: 2 / 4; }
+.nx-company__shot--4 { grid-row: 3 / 4; grid-column: 1 / 2; }
+.nx-company__shot img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s cubic-bezier(.16,1,.3,1), filter .6s; filter: saturate(.85); }
+.nx-company__shot::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, #070a10d9 0%, #070a1000 55%); transition: opacity .5s; }
+.nx-company__shot:hover img { transform: scale(1.06); filter: saturate(1.05); }
+.nx-company__shot figcaption {
+  position: absolute; left: 18px; right: 18px; bottom: 16px; z-index: 1;
+  display: flex; flex-direction: column; gap: 2px;
+  transform: translateY(6px); transition: transform .5s cubic-bezier(.16,1,.3,1);
+}
+.nx-company__shot:hover figcaption { transform: none; }
+.nx-company__shot figcaption small { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: #8abfff; }
+.nx-company__shot figcaption span { font-size: 18px; font-weight: 500; letter-spacing: -.02em; }
+.nx-company__badge {
+  position: absolute; right: -18px; top: 50%; z-index: 3;
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 18px; border-radius: 14px;
+  background: #a9d4ff; color: #0a172a;
+  font-size: 12px; font-weight: 500; line-height: 1.25;
+  transform: rotate(5deg); box-shadow: 0 18px 40px #0008;
+}
+
+/* ----- Copy ----- */
+.nx-company__copy h3 { margin: 0 0 26px; font-size: clamp(30px, 3.1vw, 48px); font-weight: 450; line-height: 1.08; letter-spacing: -.05em; }
+.nx-company__copy h3 span { color: #8fa4bf; }
+.nx-company__lead { color: #a6afbf; font-size: 17px; line-height: 1.75; margin: 0 0 28px; }
+.nx-company__caps { list-style: none; padding: 0; margin: 0 0 32px; display: flex; flex-wrap: wrap; gap: 8px; }
+.nx-company__caps a {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 14px; border-radius: 999px; border: 1px solid #ffffff22;
+  color: #d0d9e5; text-decoration: none; font-size: 13px;
+  transition: background .25s, color .25s, border-color .25s, transform .25s;
+}
+.nx-company__caps a:hover { background: #368bff; border-color: #368bff; color: #fff; transform: translateY(-2px); }
+.nx-company__caps a svg { opacity: .6; }
+.nx-company__quote { padding: 24px 0; border-block: 1px solid #ffffff1a; margin-bottom: 30px; }
+.nx-company__quote .mask-view { margin: 0; font-size: clamp(18px, 1.6vw, 22px); line-height: 1.55; letter-spacing: -.02em; color: #7f8ca0; }
+.nx-company__foot { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+.nx-company__foot dl { display: flex; gap: 30px; margin: 0; }
+.nx-company__foot dt { font-size: 30px; font-weight: 450; letter-spacing: -.04em; color: #82d8ff; }
+.nx-company__foot dd { margin: 0; font-size: 12px; color: #8693a5; }
+.nx-company__cta {
+  display: inline-flex; align-items: center; gap: 12px;
+  min-height: 52px; padding: 14px 24px; border-radius: 999px;
+  background: #368bff; color: #fff; text-decoration: none; font-size: 14px; font-weight: 500;
+  transition: background .25s, transform .25s, box-shadow .25s;
+}
+.nx-company__cta:hover { background: #1667e5; color: #fff; transform: translateY(-3px); box-shadow: 0 8px 35px #228aff40; }
+
+@media (min-width: 1700px) { .nx-company { padding-inline: max(7%, calc((100vw - 1450px) / 2)); } }
+@media (max-width: 1100px) {
+  .nx-company { padding: 0 5% 90px; }
+  .nx-company__grid { grid-template-columns: 1fr; gap: 50px; }
+  .nx-company__badge { right: 12px; top: auto; bottom: -16px; }
+}
+@media (max-width: 767px) {
+  .nx-company { padding: 0 6% 70px; }
+  .nx-company__gallery { grid-template-rows: 170px 120px 160px; gap: 10px; }
+  .nx-company__shot { border-radius: 16px; }
+  .nx-company__shot figcaption span { font-size: 14px; }
+  .nx-company__lead { font-size: 15px; }
+  .nx-company__foot { flex-direction: column; align-items: start; }
+  .nx-company__foot dl { gap: 22px; }
+}

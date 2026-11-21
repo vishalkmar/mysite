@@ -1,21 +1,28 @@
 import React, { lazy } from "react";
 import Header from "./header";
 import HomeBanner from "./HomeBanner";
-import WhoWeAre from "./whoWeAre";
-import StatsSection from "./count";
-const ServicesSection = lazy(() => import("./serviceSection"));
+import ServicesSection from "./serviceSection";
 import ClientReviews from "./clientReview";
 import CompanyIntro from "./compnay";
 import Footer from "./footer";
 const InfiniteZoomGallery = lazy(() => import("./Ui/InfiniteZoomGallery"));
 const DomeGallery = lazy(() => import("./Ui/DomegaGallery"));
 import DeferredSection from "./Ui/DeferredSection";
+import ParticleText from "./ApexUI-Kit/ParticleText/ParticleText";
+import SectionHeading from "./Ui/SectionHeading";
+import {
+  HomeTwoScope,
+  HomeTwoHero,
+  HomeTwoStory,
+  HomeTwoClosing,
+} from "./homeTwo/HomeTwoSections";
+import useHomeTwoDocument from "./homeTwo/useHomeTwoDocument";
 
 
-const ASCIIText = lazy(() => import("./Ui/Ascii"));
 
 
 function Home() {
+  useHomeTwoDocument();
   const orgSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -49,70 +56,43 @@ function Home() {
 
       <Header />
       <HomeBanner />
-      <WhoWeAre />
-      <StatsSection />
-
-      <section
-  className="py-3"
-  style={{
-    backgroundColor: "var(--site-bg)",
-    color: "#e5e7eb",
-  
-  }}
->
-  <div className="container">
-    <div
-      style={{
-        position: "relative",
-        width: "100%",
-        height: "300px",     // fixed space
-        minHeight: "300px",
-        overflow: "hidden",  // overlap roko
-        display: "block",
-      }}
-    >
-      <DeferredSection component={ASCIIText} minHeight={300} label="Our Services" text="Our Services" enableWaves asciiFontSize={7} />
-    </div>
-  </div>
-</section>
-
-      <DeferredSection component={ServicesSection} minHeight={1400} label="Explore our services" />
-
-       <section className="py-5" style={{ backgroundColor: "var(--site-bg)", color: "#e5e7eb" }}>
-        <div className="container">
-          <h2
-            className="py-5 text-center responsive-text"
-            style={{
-              fontWeight: "bold",
-              fontFamily: "orbitron",
-              fontSize: "3.5rem",
-              background: "linear-gradient(90deg,rgb(242, 244, 247) 0%, #00f2fe 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-          >
-            Our Portfolios
-          </h2>
-        </div>
+      <section className="home-particle-brand" aria-label="NexaTech Innovation" data-pause-pointer-effects>
+        <p className="home-particle-brand__eyebrow">Imagine. Build. Evolve.</p>
+        <ParticleText text="NEXATECH" intro="assemble" replayOn="hover"
+          accentColor="#00e0ff" particleSize={2} gap={4}
+          height="clamp(12rem, 25vw, 24rem)" />
+        <p className="home-particle-brand__caption">Ideas into digital experiences. Built for what comes next.</p>
       </section>
+      <HomeTwoScope>
+        <HomeTwoHero HeadingTag="h2" />
+        <HomeTwoStory withProcess={false} />
+      </HomeTwoScope>
+
+      <SectionHeading
+        id="services"
+        eyebrow="Our services"
+        index="09 disciplines"
+        title="Everything you need"
+        accent="to go digital."
+        copy="Web development, mobile apps, backend systems and APIs, backed by SEO, UI/UX design, automation and marketing. Built for startups and brands that want to launch, scale and grow with confidence."
+      />
+      <ServicesSection />
+
+      <SectionHeading
+        eyebrow="Selected work"
+        index="Portfolio"
+        title="Our portfolio."
+        accent="Work in motion."
+        copy="Websites, apps and brands we have designed and shipped. Scroll in and explore the details."
+      />
    <DeferredSection component={InfiniteZoomGallery} minHeight="100svh" label="Our portfolio" />
-     <section className="py-5" style={{ backgroundColor: "var(--site-bg)", color: "#e5e7eb" }}>
-        <div className="container">
-          <h2
-            className="py-5 text-center responsive-text"
-            style={{
-              fontWeight: "bold",
-              fontFamily: "orbitron",
-              fontSize: "3.5rem",
-              background: "linear-gradient(90deg,rgb(242, 244, 247) 0%, #00f2fe 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-          >
-            Experties & TechStacks
-          </h2>
-        </div>
-      </section>
+      <SectionHeading
+        eyebrow="Expertise & tech stack"
+        index="Tools we trust"
+        title="Modern stack."
+        accent="Proven expertise."
+        copy="React, Next.js, Node, mobile frameworks, cloud and the design tools behind them. Drag the dome to explore what we build with."
+      />
    <div style={{ width: '100%', height: '800px', position: 'relative' }}>
      <DeferredSection component={DomeGallery} minHeight={800} label="Our technologies" />
    </div>
@@ -122,6 +102,10 @@ function Home() {
       <CompanyIntro />
    
       <ClientReviews />
+
+      <HomeTwoScope>
+        <HomeTwoClosing withPlayground={false} />
+      </HomeTwoScope>
 
      
       <Footer />

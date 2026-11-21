@@ -1,0 +1,25 @@
+/* Replaces the Tailwind classes ApexUI's components expect (Tailwind isn't set up in this project). */
+
+/* FluidCursor: full-viewport, click-through layer over the page. */
+.route-fluid-cursor {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  pointer-events: none;
+}
+.route-fluid-cursor > div {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* CursorTrail (global): its canvas covers the viewport, above content, below the custom cursor. */
+.route-cursor-trail > canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9991;
+  pointer-events: none;
+}

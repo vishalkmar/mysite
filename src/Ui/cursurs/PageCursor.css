@@ -1,0 +1,66 @@
+/* Hide the native arrow only while the custom cursor is active; text fields keep the caret. */
+html.has-page-cursor, html.has-page-cursor * { cursor: none !important; }
+html.has-page-cursor :is(input:not([type="button"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]), textarea, [contenteditable="true"]) { cursor: text !important; }
+
+.page-cursor { position: fixed; inset: 0; pointer-events: none; z-index: 2147483000; opacity: 0; transition: opacity .25s; }
+html[data-cursor-visible] .page-cursor { opacity: 1; }
+html[data-cursor-state="text"] .page-cursor { opacity: 0; }
+
+.page-cursor__dot, .page-cursor__ring { position: fixed; left: 0; top: 0; will-change: transform; }
+/* inner span is centred on the pointer and carries scale changes, so they never fight the translate */
+.page-cursor__dot > span, .page-cursor__ring > span {
+  position: absolute; left: 0; top: 0; display: block;
+  translate: -50% -50%;
+  transition: scale .35s cubic-bezier(.16,1,.3,1), background .3s, border-color .3s, rotate .5s cubic-bezier(.16,1,.3,1), width .35s, height .35s;
+}
+
+/* ---------- orbit (home): dot + trailing ring ---------- */
+.page-cursor--orbit .page-cursor__dot > span { width: 7px; height: 7px; border-radius: 50%; background: #82d8ff; box-shadow: 0 0 12px #82d8ff; }
+.page-cursor--orbit .page-cursor__ring > span { width: 38px; height: 38px; border-radius: 50%; border: 1.5px solid #82d8ff88; }
+html[data-cursor-state="hover"] .page-cursor--orbit .page-cursor__ring > span { scale: 1.7; background: #368bff22; border-color: #82d8ff; }
+html[data-cursor-state="hover"] .page-cursor--orbit .page-cursor__dot > span { scale: .5; }
+
+/* ---------- blend (hometwo): big inverting disc ---------- */
+.page-cursor--blend { mix-blend-mode: difference; }
+.page-cursor--blend .page-cursor__dot > span { width: 0; height: 0; }
+.page-cursor--blend .page-cursor__ring > span { width: 22px; height: 22px; border-radius: 50%; background: #fff; }
+html[data-cursor-state="hover"] .page-cursor--blend .page-cursor__ring > span { scale: 3.4; }
+
+/* ---------- crosshair (about) ---------- */
+.page-cursor--crosshair .page-cursor__dot > span { width: 26px; height: 26px;
+  background: linear-gradient(#f4f6fa, #f4f6fa) center / 1.5px 100% no-repeat, linear-gradient(#f4f6fa, #f4f6fa) center / 100% 1.5px no-repeat; }
+.page-cursor--crosshair .page-cursor__ring > span { width: 44px; height: 44px; border: 1px dashed #8abfff; border-radius: 50%; }
+html[data-cursor-state="hover"] .page-cursor--crosshair .page-cursor__ring > span { rotate: 90deg; scale: 1.3; border-style: solid; }
+html[data-cursor-state="hover"] .page-cursor--crosshair .page-cursor__dot > span { rotate: 45deg; }
+
+/* ---------- spark (contact): four-point star ---------- */
+.page-cursor--spark .page-cursor__dot > span { width: 18px; height: 18px; background: #a9d4ff;
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%); }
+.page-cursor--spark .page-cursor__ring > span { width: 34px; height: 34px; border-radius: 50%; background: radial-gradient(#368bff55, transparent 70%); }
+html[data-cursor-state="hover"] .page-cursor--spark .page-cursor__dot > span { rotate: 45deg; scale: 1.5; }
+html[data-cursor-state="hover"] .page-cursor--spark .page-cursor__ring > span { scale: 2; }
+
+/* ---------- code (development pages): bracket square ---------- */
+.page-cursor--code .page-cursor__dot > span { width: 6px; height: 6px; background: #22d3ee; }
+.page-cursor--code .page-cursor__ring > span { width: 36px; height: 36px; border-radius: 6px;
+  background:
+    linear-gradient(#22d3ee, #22d3ee) top left / 10px 1.5px, linear-gradient(#22d3ee, #22d3ee) top left / 1.5px 10px,
+    linear-gradient(#22d3ee, #22d3ee) top right / 10px 1.5px, linear-gradient(#22d3ee, #22d3ee) top right / 1.5px 10px,
+    linear-gradient(#22d3ee, #22d3ee) bottom left / 10px 1.5px, linear-gradient(#22d3ee, #22d3ee) bottom left / 1.5px 10px,
+    linear-gradient(#22d3ee, #22d3ee) bottom right / 10px 1.5px, linear-gradient(#22d3ee, #22d3ee) bottom right / 1.5px 10px;
+  background-repeat: no-repeat; }
+html[data-cursor-state="hover"] .page-cursor--code .page-cursor__ring > span { scale: 1.45; rotate: 45deg; }
+
+/* ---------- pen (design pages): diamond nib ---------- */
+.page-cursor--pen .page-cursor__dot > span { width: 10px; height: 10px; background: #f0abfc; rotate: 45deg; border-radius: 2px; }
+.page-cursor--pen .page-cursor__ring > span { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid #f0abfc77; }
+html[data-cursor-state="hover"] .page-cursor--pen .page-cursor__ring > span { scale: 1.6; border-color: #f0abfc; background: #f0abfc1f; }
+html[data-cursor-state="hover"] .page-cursor--pen .page-cursor__dot > span { rotate: 225deg; }
+
+/* ---------- target (marketing pages): bullseye ---------- */
+.page-cursor--target .page-cursor__dot > span { width: 8px; height: 8px; border-radius: 50%; background: #facc15; }
+.page-cursor--target .page-cursor__ring > span { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid #facc1588; box-shadow: inset 0 0 0 7px #070a10, inset 0 0 0 8.5px #facc1555; }
+html[data-cursor-state="hover"] .page-cursor--target .page-cursor__ring > span { scale: .7; border-color: #facc15; }
+
+/* press feedback, every variant */
+html[data-cursor-down] .page-cursor__ring > span { scale: .8; }

@@ -10,9 +10,10 @@ import contentmarketing from "../src/serviceImages/contentmarketing.png";
 import webdesign from "../src/serviceImages/webdesign.png";
 import softwaredevelopment from "../src/serviceImages/softwaredevelopment.png";
 import { useNavigate } from "react-router-dom";
-import 'aos/dist/aos.css';
-import AOS from 'aos';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import "./Ui/SectionHeading.css";
+import "./serviceCarousel.css";
 
 
 import ElectricBorder from "./Ui/ElectricBorder";
@@ -21,13 +22,7 @@ import ElectricBorder from "./Ui/ElectricBorder";
 
 const ServicesSection = () => {
 
-   useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,
-      easing: 'ease-in-out',
-    });
-  }, []);
+  const gridRef = useRef(null);
 
   const navigate = useNavigate();
 
@@ -116,6 +111,66 @@ const ServicesSection = () => {
   ];
 
 
+  /* ---------- carousel state ---------- */
+  const n = services.length;
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const drag = useRef(null);
+  const suppressClick = useRef(false);
+
+  const go = (dir) => setActive((a) => (a + dir + n) % n);
+  // shortest signed distance from the active card, wrapping around (-4..4)
+  const offsetOf = (i) => {
+    let off = (((i - active) % n) + n) % n;
+    if (off > n / 2) off -= n;
+    return off;
+  };
+
+  // Autoplay: only while the carousel is on screen, not hovered/focused, tab visible, motion allowed.
+  useEffect(() => {
+    const el = gridRef.current;
+    if (!el || paused || matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
+    let onScreen = false;
+    const io = new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; }, { threshold: 0.35 });
+    io.observe(el);
+    const id = setInterval(() => { if (onScreen && !document.hidden) setActive((a) => (a + 1) % n); }, 4200);
+    return () => { clearInterval(id); io.disconnect(); };
+  }, [paused, n]);
+
+  const onPointerDown = (e) => {
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    drag.current = { x: e.clientX, y: e.clientY };
+  };
+  const onPointerUp = (e) => {
+    const start = drag.current;
+    drag.current = null;
+    if (!start) return;
+    const dx = e.clientX - start.x;
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(e.clientY - start.y)) {
+      suppressClick.current = true;
+      go(dx < 0 ? 1 : -1);
+    }
+  };
+  // A side card click brings it to the front; a swipe never triggers a click.
+  const onClickCapture = (e) => {
+    if (suppressClick.current) {
+      suppressClick.current = false;
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+    const slide = e.target.closest?.(".svc-cf__slide");
+    if (slide && !slide.classList.contains("is-active")) {
+      e.preventDefault();
+      e.stopPropagation();
+      setActive(Number(slide.dataset.index));
+    }
+  };
+  const onKeyDown = (e) => {
+    if (e.key === "ArrowRight") { e.preventDefault(); go(1); }
+    if (e.key === "ArrowLeft") { e.preventDefault(); go(-1); }
+  };
+
   const servicesSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -135,7 +190,7 @@ const ServicesSection = () => {
   return (
     <>
       <section
-        className="py-5"
+        className="pb-5 nx-services"
         style={{ backgroundColor: "var(--site-bg)", color: "#e5e7eb" }}
       >
         <script
@@ -143,31 +198,41 @@ const ServicesSection = () => {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesSchema) }}
         />
 
-        <div className="container py-5">
-          {/* ASCII Heading - Top Center */}
-          
-
-          {/* Description Text */}
-          <div className="row mb-5">
-            <div className="col-12 text-center">
-              <p className="mb-1">
-                <span className="fw-semibold">NexaTech Innovation</span>{" "}
-                delivers everything you need to go digital — web development,
-                mobile apps, backend systems, API engineering, and secure
-                database management.
-              </p>
-              <p className="mb-0">
-                We build reliable, high-performing software backed with SEO,
-                UI/UX design, automation, and optimization — helping startups
-                and brands launch, scale, and grow with confidence.
-              </p>
-            </div>
-          </div>
-
-          {/* Services Cards Grid */}
-          <div className="row g-4">
-            {services.map((service) => (
-              <div key={service.id} className="col-12 col-md-4">
+        <div className="container pb-5">
+          {/* Services: 3D coverflow carousel (same cards, new showcase) */}
+          <div
+            className="svc-cf"
+            ref={gridRef}
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="Our services"
+            onKeyDown={onKeyDown}
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+            onFocus={() => setPaused(true)}
+            onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) setPaused(false); }}
+          >
+            <div
+              className="svc-cf__stage"
+              onPointerDown={onPointerDown}
+              onPointerUp={onPointerUp}
+              onPointerCancel={() => (drag.current = null)}
+              onClickCapture={onClickCapture}
+            >
+            {services.map((service, i) => {
+              const off = offsetOf(i);
+              const abs = Math.abs(off);
+              return (
+              <div
+                key={service.id}
+                className={`svc-cf__slide${off === 0 ? " is-active" : ""}${abs > 2 ? " is-far" : ""}`}
+                data-index={i}
+                style={{ "--off": off, "--abs": abs, zIndex: 20 - abs }}
+                aria-hidden={off !== 0}
+                role="group"
+                aria-roledescription="slide"
+                aria-label={`${i + 1} of ${services.length}: ${service.title}`}
+              >
                 {/* ElectricBorder wrap */}
                 <ElectricBorder
                   color={service.color}      // per-card color
@@ -175,8 +240,6 @@ const ServicesSection = () => {
                   chaos={0.08}
                   style={{ borderRadius: 20 }}
                   className="eb-wrap"
-                  data-aos="zoom-in"
-                  data-aos-delay={service.id * 100 - 100}
                 >
                   <div
                     className="card text-center shadow-sm border-0 h-100 position-relative service-card"
@@ -187,17 +250,9 @@ const ServicesSection = () => {
                     }}
                   >
                     {/* Top Design strip */}
-                    <div
-                      className="w-100"
-                      style={{
-                        height: "170px",
-                        background:
-                          "linear-gradient(135deg, #e0f2fe, #f9fafb)",
-                        borderBottomLeftRadius: "999px",
-                        borderBottomRightRadius: "999px",
-                        boxShadow: "0 10px 30px rgba(15,23,42,0.35)",
-                      }}
-                    />
+                    <div className="service-card__strip w-100">
+                      <span className="service-card__index">{String(i + 1).padStart(2, "0")}</span>
+                    </div>
 
                     {/* Profile image with glow ring */}
                     <div
@@ -205,6 +260,7 @@ const ServicesSection = () => {
                       style={{ marginTop: "-80px" }}
                     >
                       <div
+                        className="service-card__ring"
                         style={{
                           width: "150px",
                           height: "150px",
@@ -216,6 +272,8 @@ const ServicesSection = () => {
                         }}
                       >
                         <img
+                          loading="lazy"
+                          decoding="async"
                           src={service.image}
                           alt={`${service.title} services by NexaTech Innovation`}
                           style={{
@@ -231,26 +289,19 @@ const ServicesSection = () => {
 
                     <div className="card-body px-4 pb-4 d-flex flex-column">
                       <h3
-                        className="h5 mb-2 text-white"
-                        style={{
-                          fontFamily: "orbitron",
-                          letterSpacing: "0.03em",
-                          marginTop: "12px",
-                        }}
+                        className="service-card__title mb-2 text-white"
                       >
                         {service.title}
                       </h3>
 
-                      <p
-                        className="text-white-50 small flex-grow-1"
-                        style={{ lineHeight: 1.6 }}
-                      >
+                      <p className="service-card__copy flex-grow-1">
                         {service.description}
                       </p>
 
                       {/* Animated outline button (smaller) */}
                       <button
                         className="nexa-btn mt-auto mx-auto"
+                        tabIndex={off === 0 ? 0 : -1}
                         onClick={() => navigate(`/${service.url}`)}
                       >
                         <svg
@@ -290,7 +341,36 @@ const ServicesSection = () => {
                   </div>
                 </ElectricBorder>
               </div>
-            ))}
+              );
+            })}
+            </div>
+
+            <div className="svc-cf__controls">
+              <button type="button" className="svc-cf__arrow" onClick={() => go(-1)} aria-label="Previous service">
+                <ChevronLeft size={22} />
+              </button>
+              <div className="svc-cf__info" aria-live="polite">
+                <span className="svc-cf__count">
+                  <strong>{String(active + 1).padStart(2, "0")}</strong> / {String(services.length).padStart(2, "0")}
+                </span>
+                <span className="svc-cf__name">{services[active].title}</span>
+                <div className="svc-cf__dots">
+                  {services.map((service, i) => (
+                    <button
+                      type="button"
+                      key={service.id}
+                      className={i === active ? "is-active" : ""}
+                      onClick={() => setActive(i)}
+                      aria-label={`Show ${service.title}`}
+                      aria-current={i === active}
+                    />
+                  ))}
+                </div>
+              </div>
+              <button type="button" className="svc-cf__arrow" onClick={() => go(1)} aria-label="Next service">
+                <ChevronRight size={22} />
+              </button>
+            </div>
           </div>
         </div>
 
@@ -311,14 +391,43 @@ const ServicesSection = () => {
           }
 
           .service-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            background: linear-gradient(180deg, rgba(17,24,34,.92), rgba(7,10,16,.96)) !important;
+            transition: transform 0.45s cubic-bezier(.16,1,.3,1), box-shadow 0.45s ease;
           }
-
           .service-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 26px 60px rgba(15, 23, 42, 0.95);
-            border-color: rgba(56, 189, 248, 0.7);
+            box-shadow: 0 30px 70px rgba(3, 10, 24, 0.9), 0 0 0 1px rgba(130, 216, 255, 0.18);
           }
+          .service-card__strip {
+            position: relative;
+            height: 170px;
+            border-bottom-left-radius: 999px;
+            border-bottom-right-radius: 999px;
+            background:
+              radial-gradient(#4f8fd633 1px, transparent 1px) 0 0 / 18px 18px,
+              linear-gradient(135deg, #d9efff 0%, #f4f9ff 55%, #b9dcff 100%);
+            box-shadow: 0 10px 30px rgba(15,23,42,0.35);
+          }
+          .service-card__index {
+            position: absolute; top: 18px; left: 22px;
+            font-family: 'Rubik', sans-serif; font-size: 13px; font-weight: 600;
+            letter-spacing: .08em; color: #1d4f86;
+          }
+          .service-card__ring { transition: transform .8s cubic-bezier(.16,1,.3,1), box-shadow .5s ease; }
+          .service-card:hover .service-card__ring {
+            transform: rotate(-6deg) scale(1.04);
+            box-shadow: 0 18px 45px rgba(54,139,255,.45) !important;
+          }
+          .service-card__ring img { transition: transform .8s cubic-bezier(.16,1,.3,1); }
+          .service-card:hover .service-card__ring img { transform: rotate(6deg); }
+          .service-card__title {
+            margin-top: 14px;
+            font-family: 'Rubik', sans-serif;
+            font-size: 1.45rem;
+            font-weight: 500;
+            letter-spacing: -.03em;
+          }
+          .service-card__copy { color: #929aaa; font-size: .92rem; line-height: 1.7; }
 
           /* ---------- Animated SVG Button ---------- */
 

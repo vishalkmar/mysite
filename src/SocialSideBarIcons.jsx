@@ -1,7 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const SocialSidebar = () => {
+  const { pathname } = useLocation();
+  if (pathname.replace(/\/$/, "") === "/hometwo") return null;
   // ---- yaha apne real links / number / email daal dena ----
 //   const phoneNumber = "+91 9540792427"; // call ke liye
   const phoneHref = "tel:+919540792427";

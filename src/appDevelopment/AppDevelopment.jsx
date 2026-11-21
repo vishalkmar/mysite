@@ -11,6 +11,7 @@ import AppTechnologies from "./apptechnologies"
 import AppDevelopmentFAQ from "./faqs"
 import AppDevelopmentShowcase from "./Appdevshowcase"
 import HeroBanner from "./banner"
+import { SkAppProjects } from "../serviceKit/Projects"
 export default function AppDevelopment(){
 
      return(
@@ -28,6 +29,14 @@ export default function AppDevelopment(){
             
             <AppTechnologies/>
             <AppDevelopmentShowcase/>
+            <SkAppProjects
+                heading={{
+                    eyebrow: "Apps we have shipped",
+                    title: "In your pocket.",
+                    accent: "On every screen.",
+                    copy: "Calling, chat, travel, AI and education apps. Each one designed and engineered end to end by our team.",
+                }}
+            />
             <AppDevelopmentServices/>
             <AppDevelopmentFAQ/>
         </main>

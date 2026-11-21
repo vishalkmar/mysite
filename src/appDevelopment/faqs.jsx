@@ -1,15 +1,7 @@
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { FiPlus, FiMinus } from 'react-icons/fi';
+/* Restyled with the shared service kit (src/serviceKit). Content unchanged. */
+import { SkFAQ, SkCTA } from "../serviceKit/ServiceKit";
 
-const AppDevelopmentFAQ = () => {
-  const [activeIndex, setActiveIndex] = useState(null);
-
-  const toggleAccordion = (index) => {
-    setActiveIndex(activeIndex === index ? null : index);
-  };
-
-  const faqs = [
+const faqs = [
     {
       question: "What's the difference between native and cross-platform app development?",
       answer: "Native apps are built specifically for one platform (iOS or Android) using platform-specific languages (Swift/Objective-C for iOS, Java/Kotlin for Android). Cross-platform apps use frameworks like React Native or Flutter to build for multiple platforms with a single codebase, offering faster development but sometimes with performance trade-offs."
@@ -36,58 +28,11 @@ const AppDevelopmentFAQ = () => {
     }
   ];
 
-  return (
-     <>
-    <div className="container-fluid" style={{backgroundColor: 'var(--site-bg)'}}>
-    <div className="container py-5">
-      <div className="text-center mb-5">
-        <h2 className="display-5 fw-bold responsive-text" style={{fontFamily:'orbitron',fontSize:'4.5rem' ,background: 'linear-gradient(90deg,rgb(242, 244, 247) 0%, #00f2fe 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent', }}>App Development <span style={{background: 'linear-gradient(90deg,rgb(242, 244, 247) 0%, #00f2fe 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',}}>FAQs</span></h2>
-        <p className="lead text-white">Answers to common questions about our mobile app services</p>
-      </div>
-
-      <div className="accordion" id="appFAQAccordion">
-        {faqs.map((faq, index) => (
-          <div key={index} className="accordion-item border-0 mb-3 rounded-3 overflow-hidden shadow-sm" style={{}}>
-            <h3 className="accordion-header">
-              <button 
-                className={`accordion-button ${activeIndex === index ? '' : 'collapsed'} fw-semibold`}
-                type="button"
-                onClick={() => toggleAccordion(index)}
-                style={{
-                  background: 'var(--site-surface)',
-                  color: 'white',
-                  fontFamily:'orbitron'
-                }}
-              >
-                {activeIndex === index ? <FiMinus className="me-2" /> : <FiPlus className="me-2" />}
-                {faq.question}
-              </button>
-            </h3>
-            <div 
-              className={`accordion-collapse collapse ${activeIndex === index ? 'show' : ''}`}
-            style={{background: 'var(--site-surface)'}}>
-              <div className="accordion-body site-surface">
-                {faq.answer}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-    </div>
-      <style>{`
-        @media (max-width: 575.98px) {
-          .responsive-text {
-            font-size: 2.8rem !important;
-          }
-        }
-      `}</style>
-     </>
-  );
-};
+const AppDevelopmentFAQ = () => (
+  <>
+    <SkFAQ heading={{"eyebrow": "App development FAQ", "title": "Good questions.", "accent": "Straight answers.", "copy": "What clients usually ask before starting a app development project with us."}} faqs={faqs} />
+    <SkCTA />
+  </>
+);
 
 export default AppDevelopmentFAQ;

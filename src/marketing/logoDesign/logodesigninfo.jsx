@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+/* Restyled with the shared service kit (src/serviceKit). Content unchanged. */
 import { FaPaintBrush, FaStar, FaEye, FaFeatherAlt } from 'react-icons/fa';
-import logoImg from '../../serviceImages/software/logodesignthree.jpg'; // replace with actual image path
+import logoImg from '../../serviceImages/software/logodesignthree.jpg';
+import { SkTabs } from "../../serviceKit/ServiceKit";
 
-const LogoDesignInfoSection = () => {
-  const [active, setActive] = useState('overview');
-
-  const content = {
+const content = {
     overview: {
       title: 'What is Logo Design?',
       desc: 'Logo design is the art of creating a unique symbol or mark that represents your brand’s identity, values, and mission in a memorable visual form.',
@@ -25,80 +22,13 @@ const LogoDesignInfoSection = () => {
     },
   };
 
-  return (
-    <>
-      <style>
-        {`
-          .logo-btn {
-            font-family: orbitron;
-            margin-right: 0.5rem;
-            margin-bottom: 1rem;
-          }
-          .logo-btn.active {
-            background-color: #00f2fe;
-            color: #0a1a2e;
-          }
-          .logo-image {
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            transition: all 0.5s ease;
-          }
-          .logo-image:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
-          }
-        `}
-      </style>
+const tabs = [
+  { key: "overview", label: "Overview", icon: <FaPaintBrush />, ...content.overview },
+  { key: "importance", label: "Importance", icon: <FaStar />, ...content.importance },
+  { key: "styles", label: "Styles", icon: <FaFeatherAlt />, ...content.styles },
+  { key: "features", label: "Features", icon: <FaEye />, ...content.features }
+];
 
-      <div className="container-fluid py-5" style={{ background: 'var(--site-bg)' }}>
-        <div className="container py-5">
-          <div className="text-center mb-5">
-            <h2 className="display-5 fw-bold" style={{
-              background: 'linear-gradient(90deg,rgb(242, 244, 247) 0%, #00f2fe 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              fontFamily: 'orbitron'
-            }}>
-              <span style={{ color: '#6f42c1' }}>Creative</span> Logo Design Services
-            </h2>
-            <p className="lead" style={{ color: '#ced4da' }}>
-              Make your brand stand out with memorable, professional logo designs.
-            </p>
-          </div>
-
-          <div className="row g-4 align-items-center">
-            <div className="col-md-6">
-              <img src={logoImg} alt="Logo Design" className="img-fluid logo-image" />
-            </div>
-
-            <div className="col-md-6">
-              <div className="mb-3">
-                <button className={`btn btn-outline-info logo-btn ${active === 'overview' ? 'active' : ''}`} onClick={() => setActive('overview')}>
-                  <FaPaintBrush className="me-2" /> Overview
-                </button>
-                <button className={`btn btn-outline-info logo-btn ${active === 'importance' ? 'active' : ''}`} onClick={() => setActive('importance')}>
-                  <FaStar className="me-2" /> Importance
-                </button>
-                <button className={`btn btn-outline-info logo-btn ${active === 'styles' ? 'active' : ''}`} onClick={() => setActive('styles')}>
-                  <FaFeatherAlt className="me-2" /> Styles
-                </button>
-                <button className={`btn btn-outline-info logo-btn ${active === 'features' ? 'active' : ''}`} onClick={() => setActive('features')}>
-                  <FaEye className="me-2" /> Features
-                </button>
-              </div>
-
-              <div style={{ background: 'var(--site-surface)', padding: '1.5rem', borderRadius: '15px', color: 'white' }}>
-                <h4 style={{ fontFamily: 'orbitron', color: '#00f2fe' }}>{content[active].title}</h4>
-                <p style={{ whiteSpace: 'pre-line', color: '#adb5bd' }}>
-                  {content[active].desc}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
+const LogoDesignInfoSection = () => <SkTabs heading={{"eyebrow": "Logo design · Deep dive", "title": "Creative Logo Design", "accent": "Services.", "copy": "Make your brand stand out with memorable, professional logo designs."}} tabs={tabs} image={logoImg} imageAlt="Logo Design" />;
 
 export default LogoDesignInfoSection;

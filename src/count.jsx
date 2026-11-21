@@ -1,329 +1,83 @@
-import CurvedLoop from "./Ui/CurveLoop";
-import ShinyText from "./Ui/ShinyText";
-import TilteCard from "./Ui/cards/TitleCards";
-import 'aos/dist/aos.css';
-import AOS from 'aos';
-import { useEffect } from 'react';
+import ScrollMarquee from "./ApexUI-Kit/ScrollMarquee/ScrollMarquee.jsx";
+import "./homeTwo/HomeTwo.css";
+import "./homeTwo/HomeOneSections.css";
 
-const NexaStatsSection = () => {
-  useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,
-      easing: 'ease-in-out',
-    });
-  }, []);
-  const statsSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "NexaTech Innovation",
-    url: "https://nexatechinnovation.in/",
-    knowsAbout: [
-      "Web Development",
-      "Mobile App Development",
-      "Software Development",
-      "UI/UX Design",
-      "SEO",
-      "Digital Marketing",
-    ],
-    numberOfEmployees: {
-      "@type": "QuantitativeValue",
-      value: "10",
-    },
-  };
-
-  // Reusable wrapper style for all image cards
-  const imageCardStyle = {
-    border: "1px solid rgba(148,163,184,0.35)",
-    backgroundColor: "var(--site-bg)",
-  };
-
-  // Reusable Tilted card props (tweak once, affects all)
-  const tiltedCommon = {
-    rotateAmplitude: 12,
-    scaleOnHover: 1.15,
-    showMobileWarning: false,
-    showTooltip: false,
-    displayOverlayContent: false,
-  };
-
-  return (
-    <>
-      <section
-        className="py-5 position-relative overflow-hidden"
-        style={{ backgroundColor: "var(--site-bg)", color: "#e5e7eb" }}
-      >
-     
-        <div style={{ position: "relative", zIndex: 1 }}>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(statsSchema) }}
-        />
-
-        <div className="container">
-          {/* TOP HEADING */}
-          <div className="text-center mb-5">
-            <h2
-              className="display-4 fw-bold mb-3 responsive-text"
-              style={{
-                background:
-                  "linear-gradient(90deg,rgb(242, 244, 247) 0%, #00f2fe 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                fontSize: "4.3rem",
-                fontFamily: "orbitron",
-              }}
-            >
-              <div style={{ marginTop: "150px" }}>
-                <CurvedLoop
-                  marqueeText="VALUE ✦ STATS ✦ THAT ✦ SPEAK ✦ TRUE"
-                  height={130}
-                  fontSize={70}
-                  curveAmount={-380}
-                />
-              </div>
-            </h2>
-
-            <p className="mb-1">
-              <span className="fw-semibold">NexaTech Innovation</span> is an IT
-              service provider specializing in web development, mobile app
-              development, and custom software solutions.
-            </p>
-            <p className="mb-0">
-              We also deliver UI/UX design, SEO optimization, and digital
-              marketing to help businesses grow with scalable, conversion-focused
-              digital products.
-            </p>
-          </div>
-
-          <div className="row g-4 align-items-stretch">
-            {/* LEFT BIG IMAGE CARD */}
-            <div className="col-lg-5" data-aos="fade-right">
-              <div
-                className="h-100 rounded-4 overflow-hidden"
-                style={{
-                  ...imageCardStyle,
-                  boxShadow: "0 20px 40px rgba(15,23,42,0.7)",
-                  minHeight: "420px", // keeps it tall like a feature card
-                }}
-              >
-                <TilteCard
-                  imageSrc="/stateimages/statemain.jpg"
-                  containerHeight="100%"
-                  containerWidth="100%"
-                  imageHeight="100%"
-                  imageWidth="100%"
-                  {...tiltedCommon}
-                />
-              </div>
-            </div>
-
-            {/* RIGHT GRID: 2 ROW x 3 COL */}
-            <div className="col-lg-7">
-              <div className="row g-4">
-                {/* ROW 1 - COL 1 : TEXT CARD */}
-                <div className="col-12 col-md-4" data-aos="zoom-in" data-aos-delay="0">
-                  <div
-                    className="h-100 rounded-4 d-flex flex-column align-items-center text-center p-4"
-                    style={{
-                      background:
-                        "linear-gradient(135deg, #0f172a 0%, #111827 100%)",
-                      border: "1px solid rgba(148,163,184,0.35)",
-                      boxShadow: "0 18px 45px rgba(15,23,42,0.6)",
-                    }}
-                  >
-                    <div
-                      className="mb-3 rounded-circle d-flex align-items-center justify-content-center"
-                      style={{
-                        width: "60px",
-                        height: "60px",
-                        border: "1px solid rgba(56,189,248,0.6)",
-                        background:
-                          "radial-gradient(circle, rgba(15,23,42,1) 0%, rgba(15,23,42,0.2) 100%)",
-                        color: "#00e0ff",
-                      }}
-                    >
-                      <span style={{ fontSize: "1.4rem", lineHeight: 1 }}>
-                        50+
-                      </span>
-                    </div>
-
-                    <h3
-                      className="fw-semibold mb-2 text-white"
-                      style={{ fontFamily: "orbitron", fontSize: "1.1rem" }}
-                    >
-                      Satisfied Customers
-                    </h3>
-
-                    <p className="mb-0" style={{ fontSize: "0.9rem", color: "#9ca3af" }}>
-                      <ShinyText
-                        text="Brands and startups who trusted us for their digital growth."
-                        speed={2}
-                        delay={0}
-                        color="#b5b5b5"
-                        shineColor="#ffffff"
-                        spread={120}
-                        direction="left"
-                        yoyo={false}
-                        pauseOnHover={false}
-                      />
-                    </p>
-                  </div>
-                </div>
-
-                {/* ROW 1 - COL 2 : IMAGE (Tilted) */}
-                <div className="col-12 col-md-4" data-aos="zoom-in" data-aos-delay="100">
-                  <div
-                    className="h-100 rounded-4 overflow-hidden"
-                    style={{ ...imageCardStyle, minHeight: "220px" }}
-                  >
-                    <TilteCard
-                      imageSrc="/stateimages/sixtyplus.jpg"
-                      containerHeight="100%"
-                      containerWidth="100%"
-                      imageHeight="100%"
-                      imageWidth="100%"
-                      {...tiltedCommon}
-                    />
-                  </div>
-                </div>
-
-                {/* ROW 1 - COL 3 : TEXT CARD */}
-                <div className="col-12 col-md-4" data-aos="zoom-in" data-aos-delay="200">
-                  <div
-                    className="h-100 rounded-4 d-flex flex-column align-items-center text-center p-4"
-                    style={{
-                      background:
-                        "linear-gradient(135deg, #020617 0%, #0b1120 100%)",
-                      border: "1px solid rgba(148,163,184,0.35)",
-                      boxShadow: "0 18px 45px rgba(15,23,42,0.6)",
-                    }}
-                  >
-                    <div
-                      className="mb-3 rounded-circle d-flex align-items-center justify-content-center"
-                      style={{
-                        width: "60px",
-                        height: "60px",
-                        border: "1px solid rgba(56,189,248,0.6)",
-                        background:
-                          "radial-gradient(circle, rgba(15,23,42,1) 0%, rgba(15,23,42,0.2) 100%)",
-                        color: "#00e0ff",
-                      }}
-                    >
-                      <span style={{ fontSize: "1.4rem", lineHeight: 1 }}>
-                        4+
-                      </span>
-                    </div>
-
-                    <h5 className="fw-semibold mb-2 text-white" style={{ fontFamily: "orbitron" }}>
-                      Years of Experience
-                    </h5>
-
-                    <p className="mb-0" style={{ fontSize: "0.9rem", color: "#9ca3af" }}>
-                      <ShinyText
-                        text="Consistently delivering modern, reliable digital solutions."
-                        speed={2}
-                        delay={0}
-                        color="#b5b5b5"
-                        shineColor="#ffffff"
-                        spread={120}
-                        direction="left"
-                        yoyo={false}
-                        pauseOnHover={false}
-                      />
-                    </p>
-                  </div>
-                </div>
-
-                {/* ROW 2 - COL 1 : IMAGE (Tilted) */}
-                <div className="col-12 col-md-4" data-aos="zoom-in" data-aos-delay="300">
-                  <div
-                    className="h-100 rounded-4 overflow-hidden"
-                    style={{ ...imageCardStyle, minHeight: "220px" }}
-                  >
-                    <TilteCard
-                      imageSrc="/stateimages/fifyplus.jpg"
-                      containerHeight="100%"
-                      containerWidth="100%"
-                      imageHeight="100%"
-                      imageWidth="100%"
-                      {...tiltedCommon}
-                    />
-                  </div>
-                </div>
-
-                {/* ROW 2 - COL 2 : TEXT CARD */}
-                <div className="col-12 col-md-4" data-aos="zoom-in" data-aos-delay="400">
-                  <div
-                    className="h-100 rounded-4 d-flex flex-column align-items-center text-center p-4"
-                    style={{
-                      background:
-                        "linear-gradient(135deg, #0b1120 0%, #111827 100%)",
-                      border: "1px solid rgba(148,163,184,0.35)",
-                      boxShadow: "0 18px 45px rgba(15,23,42,0.6)",
-                    }}
-                  >
-                    <div
-                      className="mb-3 rounded-circle d-flex align-items-center justify-content-center"
-                      style={{
-                        width: "60px",
-                        height: "60px",
-                        border: "1px solid rgba(56,189,248,0.6)",
-                        background:
-                          "radial-gradient(circle, rgba(15,23,42,1) 0%, rgba(15,23,42,0.2) 100%)",
-                        color: "#00e0ff",
-                      }}
-                    >
-                      <span style={{ fontSize: "1.4rem", lineHeight: 1 }}>
-                        60+
-                      </span>
-                    </div>
-
-                    <h5 className="fw-semibold mb-2 text-white" style={{ fontFamily: "orbitron" }}>
-                      Projects Completed
-                    </h5>
-
-                    <p className="mb-0" style={{ fontSize: "0.9rem", color: "#9ca3af" }}>
-                      <ShinyText
-                        text="Websites, web apps, mobile apps, and campaigns delivered across industries."
-                        speed={2}
-                        delay={0}
-                        color="#b5b5b5"
-                        shineColor="#ffffff"
-                        spread={120}
-                        direction="left"
-                        yoyo={false}
-                        pauseOnHover={false}
-                      />
-                    </p>
-                  </div>
-                </div>
-
-                {/* ROW 2 - COL 3 : IMAGE (Tilted) */}
-                <div className="col-12 col-md-4" data-aos="zoom-in" data-aos-delay="500">
-                  <div
-                    className="h-100 rounded-4 overflow-hidden"
-                    style={{ ...imageCardStyle, minHeight: "220px" }}
-                  >
-                    <TilteCard
-                      imageSrc="/stateimages/exp.jpg"
-                      containerHeight="100%"
-                      containerWidth="100%"
-                      imageHeight="100%"
-                      imageWidth="100%"
-                      {...tiltedCommon}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* END RIGHT GRID */}
-          </div>
-        </div>
-        </div>
-      </section>
-    </>
-  );
+const statsSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "NexaTech Innovation",
+  url: "https://nexatechinnovation.in/",
+  knowsAbout: [
+    "Web Development",
+    "Mobile App Development",
+    "Software Development",
+    "UI/UX Design",
+    "SEO",
+    "Digital Marketing",
+  ],
+  numberOfEmployees: { "@type": "QuantitativeValue", value: "10" },
 };
+
+/* Bento grid: one feature image + alternating stat and image tiles. */
+const tiles = [
+  { type: "stat", value: "50+", title: "Satisfied Customers", copy: "Brands and startups who trusted us for their digital growth." },
+  { type: "image", src: "/stateimages/sixtyplus.jpg", alt: "NexaTech developer in the office" },
+  { type: "stat", value: "4+", title: "Years of Experience", copy: "Consistently delivering modern, reliable digital solutions.", tone: "blue" },
+  { type: "image", src: "/stateimages/fifyplus.jpg", alt: "NexaTech team member celebrating a launch" },
+  { type: "stat", value: "60+", title: "Projects Completed", copy: "Websites, web apps, mobile apps, and campaigns delivered across industries.", tone: "light" },
+  { type: "image", src: "/stateimages/exp.jpg", alt: "NexaTech project lead" },
+];
+
+/* Rendered inside <HomeTwoScope> on the home page, so h2-* styles and [data-reveal] motion apply. */
+const NexaStatsSection = () => (
+  <section className="h1-stats" aria-labelledby="h1-stats-title">
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(statsSchema) }}
+    />
+
+    <ScrollMarquee />
+
+    <div className="h2-section">
+      <div className="h2-section-meta" data-reveal>
+        <p className="h2-eyebrow">BY THE NUMBERS</p>
+        <span>Small team. Real results.</span>
+      </div>
+
+      <div className="h1-stats-intro" data-reveal>
+        <h2 id="h1-stats-title">
+          An IT partner for <span>web, apps</span> and custom software.
+        </h2>
+        <p>
+          We also deliver UI/UX design, SEO optimization, and digital marketing to help
+          businesses grow with scalable, conversion-focused digital products.
+        </p>
+      </div>
+
+      <div className="h1-bento">
+        <figure className="h1-bento-feature" data-reveal>
+          <img src="/stateimages/statemain.jpg" alt="NexaTech Innovation presenting digital solutions" loading="lazy" decoding="async" />
+          <figcaption>BUILT FOR<br />WHAT’S NEXT.</figcaption>
+        </figure>
+
+        {tiles.map((tile, i) =>
+          tile.type === "stat" ? (
+            <article key={tile.title} className={`h1-stat${tile.tone ? ` h1-stat--${tile.tone}` : ""}`} data-reveal style={{ transitionDelay: `${i * 70}ms` }}>
+              <strong>{tile.value}</strong>
+              <div>
+                <h3>{tile.title}</h3>
+                <p>{tile.copy}</p>
+              </div>
+            </article>
+          ) : (
+            <figure key={tile.src} className="h1-bento-image" data-reveal style={{ transitionDelay: `${i * 70}ms` }}>
+              <img src={tile.src} alt={tile.alt} loading="lazy" decoding="async" />
+            </figure>
+          )
+        )}
+      </div>
+    </div>
+  </section>
+);
 
 export default NexaStatsSection;

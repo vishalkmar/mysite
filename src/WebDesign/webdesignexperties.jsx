@@ -1,4 +1,4 @@
-import React from 'react';
+/* Restyled with the shared service kit (src/serviceKit). Content unchanged. */
 import { 
   FaPaintBrush, FaMobile, FaDesktop, FaSearch, FaShoppingCart,
   FaPalette, FaServer, FaEye, FaLightbulb, FaRocket
@@ -7,9 +7,9 @@ import {
   SiFigma, SiAdobe, SiWordpress, SiShopify, SiWebflow,
   SiSquarespace, SiWix, SiElementor, SiTailwindcss, SiBootstrap
 } from 'react-icons/si';
+import { SkSkills } from "../serviceKit/ServiceKit";
 
-const WebDesignExpertise = () => {
-  const expertiseAreas = [
+const skills = [
     { name: "UI/UX Design", icon: <FaPaintBrush size={30} />, color: "#FF6B6B" },
     { name: "Responsive Design", icon: <FaMobile size={30} />, color: "#4ECDC4" },
     { name: "Landing Pages", icon: <FaDesktop size={30} />, color: "#45B7D1" },
@@ -32,77 +32,6 @@ const WebDesignExpertise = () => {
     { name: "Frontend Development", icon: <FaServer size={30} />, color: "#3A86FF" }
   ];
 
-  return (
-    <>
-    <div className='container-fluid' style={{background:  "var(--site-bg)",}}>
-      <div className="container py-5">
-        <h2 className="text-center responsive-text mb-5 fw-bold" style={{
-          background: 'linear-gradient(90deg, rgb(242, 244, 247) 0%, #00f2fe 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          fontFamily: 'orbitron',
-          fontSize: '4.5rem'
-        }}>
-          Our Web Design Expertise
-        </h2>
-        
-        <div className="row g-4">
-          {expertiseAreas.map((tech, index) => (
-            <div key={index} className="col-6 col-md-4 col-lg-3">
-              <div 
-                className="tech-card p-3 text-center shadow-sm rounded h-100 d-flex flex-column align-items-center justify-content-center"
-                style={{
-                  transition: 'all 0.3s ease',
-                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                  backdropFilter: 'blur(10px)',
-                  cursor: 'pointer',
-                  border: `1px solid ${tech.color}20`
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-5px)';
-                  e.currentTarget.style.boxShadow = `0 10px 20px ${tech.color}40`;
-                  e.currentTarget.style.backgroundColor = `${tech.color}15`;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = 'none';
-                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
-                }}
-              >
-                <div 
-                  className="icon-wrapper mb-3 p-3 rounded-circle d-flex align-items-center justify-content-center"
-                  style={{ 
-                    background: `white`,
-                    width: '70px',
-                    height: '70px'
-                  }}
-                >
-                  <span style={{ color: tech.color }}>{tech.icon}</span>
-                </div>
-                <h5 className="mb-0" style={{ 
-                  color: 'white',
-                  fontFamily: 'orbitron',
-                  fontWeight: '500',
-                  letterSpacing: '1px'
-                }}>
-                  {tech.name}
-                </h5>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-
-       <style>{`
-        @media (max-width: 575.98px) {
-          .responsive-text {
-            font-size: 3.8rem !important;
-          }
-        }
-      `}</style>
-      </>
-  );
-};
+const WebDesignExpertise = () => <SkSkills heading={{"eyebrow": "Web design expertise", "title": "Tools we master.", "accent": "Skills that ship.", "copy": "The platforms, practices and specialist skills behind every web design project we deliver."}} skills={skills} />;
 
 export default WebDesignExpertise;

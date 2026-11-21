@@ -1,18 +1,8 @@
-import React, { useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'aos/dist/aos.css';
-import AOS from 'aos';
+/* Restyled with the shared service kit (src/serviceKit). Content unchanged. */
 import { FiShoppingBag, FiTruck, FiActivity, FiShare2, FiFilm, FiCamera, FiGlobe, FiCloud, FiDollarSign, FiBookOpen, FiHeart } from 'react-icons/fi';
+import { SkFeatures } from "../serviceKit/ServiceKit";
 
-const AppDevelopmentServices = () => {
-  useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,
-      easing: 'ease-in-out',
-    });
-  }, []);
-  const services = [
+const services = [
     { 
       title: "Retail Revolution Apps", 
       icon: <FiShoppingBag size={32} />,
@@ -70,65 +60,18 @@ const AppDevelopmentServices = () => {
     }
   ];
 
-  return (
-    <>
-      <style>
-        {`
-          .hover-effect {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-          }
-          .hover-effect:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
-          }
-          .service-icon {
-            color: #0d6efd;
-            background-color: white;
-            transition: all 0.3s ease;
-          }
-          // .card:hover .service-icon {
-          //   color: white;
-          //   background-color: #0d6efd;
-          // }
-             @media (max-width: 575.98px) {
-          .responsive-text {
-            font-size: 3rem !important;
-          }
-        }
-        `}
-      </style>
-    
-    <div className='container-fluid'  style={{backgroundColor: 'var(--site-bg)'}}>
-      <div className="container py-5">
-        <div className="text-center mb-5">
-          <h2 className="display-5 fw-bold responsive-text" data-aos="zoom-in" style={{fontFamily:'orbitron',fontSize:'4rem',color:'white'}}>Our <span className="" style={{ background: 'linear-gradient(90deg,rgb(242, 244, 247) 0%, #00f2fe 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',}} >App Development</span> Expertise</h2>
-          <p className="lead text-muted" data-aos="fade-up">Custom mobile solutions for every industry need</p>
-        </div>
+const items = services.map(({ title, description, icon }) => ({ title, desc: description, icon }));
 
-        <div className="row g-4">
-          {services.map((service, index) => (
-            <div key={index} className="col-12 col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay={`${index * 100}`} >
-              <div className="card h-100 border-0 shadow-sm hover-effect" style={{backgroundColor: 'var(--site-bg)'}}>
-                <div className="card-body p-4 text-center">
-                  <div className="service-icon mb-4 mx-auto rounded-circle p-3 d-flex align-items-center justify-content-center"
-                    style={{ width: '70px', height: '70px',background:'white' }}>
-                    {service.icon}
-                  </div>
-                  <h3 className="h5 fw-bold mb-3 text-white" style={{fontFamily:'orbitron'}}>{service.title}</h3>
-                  <p className="mb-0 text-white" style={{background: 'linear-gradient(90deg,rgb(242, 244, 247) 0%, #00f2fe 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent'}}>{service.description}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      </div>
-    </>
-  );
-};
+const AppDevelopmentServices = () => (
+  <SkFeatures
+    heading={{
+      eyebrow: "Apps we build",
+      title: "Every industry.",
+      accent: "One standard.",
+      copy: "From retail and delivery to finance, learning and health. Mobile products shaped around how people actually use them.",
+    }}
+    items={items}
+  />
+);
 
 export default AppDevelopmentServices;

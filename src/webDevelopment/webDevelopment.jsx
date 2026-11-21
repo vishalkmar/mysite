@@ -5,7 +5,8 @@ import Footer from "../footer"
 import HappyClients from "./client"
 import FeatureSection from "./features"
 import TechnologyExpertise from "./experites"
-import BootstrapCarousel from "./webcrowsel"
+import { SkWebProjects } from "../serviceKit/Projects"
+import { webProjects } from "../serviceKit/projectData"
 import WebDevelopmentFAQ from "./webdevfaqs"
 export default function WebDevelopment(){
 
@@ -15,18 +16,15 @@ export default function WebDevelopment(){
         <HeroBanner/>
         <FeatureSection/>
         <TechnologyExpertise/>
-       <div className="container-fluid py-5" style={{background:  "var(--site-bg)",}}>
-           <h1 className="text-center" style={{  background: 'linear-gradient(90deg,rgb(242, 244, 247) 0%, #00f2fe 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent', fontFamily:'orbitron',fontSize:'4.2rem' }}>Have an Eye To Our Decent Work</h1>
-            <div className="container">
-                   <div className="row">
-               <div className="col-auto py-5">
-                     <BootstrapCarousel/>
-               </div>
-           </div>
-            </div>
-       </div>
+        <SkWebProjects
+          heading={{
+            eyebrow: "Selected work",
+            title: "Live websites.",
+            accent: "Real businesses.",
+            copy: "Product sites, booking platforms, portals and brand websites we have designed, built and launched.",
+          }}
+          projects={webProjects}
+        />
         <HappyClients/>
         <WebDevelopmentFAQ/>
         <Footer/>

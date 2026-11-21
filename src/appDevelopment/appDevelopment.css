@@ -15,6 +15,7 @@
 
 /* Show shared rain below the hero, which keeps its original background. */
 .app-development-content > .container-fluid,
+.app-development-content > .sk:not(.sk--blue),
 .app-development-page > footer {
   background: transparent !important;
 }

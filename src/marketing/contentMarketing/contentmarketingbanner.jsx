@@ -2,7 +2,7 @@ import React, { useState, useEffect ,useMemo} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'aos/dist/aos.css';
 import AOS from 'aos';
-import contentbanner from '../../serviceImages/software/contentmarketing.jpg'; // Update with actual image path
+import LuminousParticleOcean from '../../ApexUI-Kit/LuminousParticleOcean/LuminousParticleOcean.jsx';
 
 const HeroContentMarketingBanner = () => {
   const [text, setText] = useState('');
@@ -43,29 +43,36 @@ const HeroContentMarketingBanner = () => {
       setTypingSpeed(isDeleting ? 30 : 150);
 
       if (!isDeleting && text === fullText) {
-        setTimeout(() => setIsDeleting(true), 1000);
+        setIsDeleting(true);
       } else if (isDeleting && text === '') {
         setIsDeleting(false);
         setLoopNum(loopNum + 1);
       }
     };
 
-    const timer = setTimeout(handleTyping, typingSpeed);
+    const timer = setTimeout(handleTyping, !isDeleting && text === texts[loopNum % texts.length] ? 1000 : typingSpeed);
     return () => clearTimeout(timer);
   }, [text, isDeleting, loopNum, typingSpeed, texts]);
 
   return (
-    <div className="position-relative overflow-hidden"
+    <div className="content-marketing-hero position-relative overflow-hidden" data-pause-pointer-effects
       style={{
         height: '90vh',
         minHeight: '500px',
-        backgroundImage: `linear-gradient(rgba(10, 26, 46, 0.6), rgba(26, 58, 106, 0.1)), url(${contentbanner})`,
-        backgroundSize: '100% 100%',
-        backgroundPosition: 'center',
+        backgroundColor: 'var(--site-bg)',
+        isolation: 'isolate',
         display: 'flex',
         alignItems: 'center'
       }}>
-      <div className="container">
+      <LuminousParticleOcean
+        sphereCount={100}
+        sphereColor="#67d9ed"
+        interactionStrength={15}
+        separation={4}
+        bgColor1="var(--site-bg)"
+        bgColor2="#050915"
+      />
+      <div className="container position-relative" style={{ zIndex: 1 }}>
         <div className="row">
           <div className="col-12 col-md-10 col-lg-8 mx-auto text-center" data-aos="fade-up">
             <h1 className="display-3 fw-bold mb-4" style={{
@@ -80,7 +87,7 @@ const HeroContentMarketingBanner = () => {
                 animation: 'blink-caret 0.75s step-end infinite',
                 paddingRight: '5px',
                 fontFamily: "orbitron",
-                fontSize: '4rem'
+                fontSize: 'clamp(1.75rem, 5vw, 4rem)'
               }}>
                 {text}
               </span>
@@ -96,19 +103,12 @@ const HeroContentMarketingBanner = () => {
           50% { border-color: #4facfe; }
         }
         
-        .gradient-text {
+        .content-marketing-hero .gradient-text {
           display: inline-block;
         }
-
-        @media (max-width: 768px) {
-          .display-3 {
-            font-size: 2.5rem;
-          }
-        }
-
-        @media (max-width: 576px) {
-          .display-3 {
-            font-size: 2rem;
+        @media (prefers-reduced-motion: reduce) {
+          .content-marketing-hero .gradient-text {
+            animation: none !important;
           }
         }
       `}</style>

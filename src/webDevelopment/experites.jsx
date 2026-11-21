@@ -1,10 +1,9 @@
-import React from 'react';
-
+/* Restyled with the shared service kit (src/serviceKit). Content unchanged. */
 import { BiLogoJavascript, BiLogoReact, BiLogoNodejs, BiLogoPython, BiLogoJava, BiLogoPhp, BiLogoHtml5, BiLogoCss3, BiLogoMongodb, BiLogoPostgresql, BiLogoFirebase, BiLogoAws } from 'react-icons/bi';
 import { SiExpress, SiDjango, SiSpring, SiLaravel, SiNextdotjs, SiVuedotjs, SiAngular, SiSvelte, SiTailwindcss, SiBootstrap, SiMysql } from 'react-icons/si';
+import { SkSkills } from "../serviceKit/ServiceKit";
 
-const TechnologyExpertise = () => {
-  const technologies = [
+const technologies = [
     { name: "JavaScript", icon: <BiLogoJavascript size={30} />, color: "#F7DF1E" },
     { name: "React", icon: <BiLogoReact size={30} />, color: "#61DAFB" },
     { name: "Node.js", icon: <BiLogoNodejs size={30} />, color: "#339933" },
@@ -31,93 +30,16 @@ const TechnologyExpertise = () => {
     { name: "AWS", icon: <BiLogoAws size={30} />, color: "#232F3E" }
   ];
 
-  return (
-    <>
-    <div className='container-fluid' style={{background:  "var(--site-bg)"}}>
-    <div className="container py-5">
-      <h2 className="text-center responsive-text mb-5 fw-bold" style={{ background: 'linear-gradient(90deg,rgb(242, 244, 247) 0%, #00f2fe 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent', fontFamily:'orbitron',fontSize:'4.5rem' }}>Our Technology Expertise</h2>
-      
-     <div className="row g-4">
-  {technologies.map((tech, index) => (
-    <div key={index} className="col-6 col-md-4 col-lg-3">
-      <div
-        className="p-4 text-center h-100"
-        style={{
-          backgroundColor: "transparent",
-          borderRadius: "16px",
-          border: "1px solid rgba(0,136,255,0.35)",
-
-          /* inner blue light */
-          boxShadow: `
-            inset 0 0 10px rgba(0,136,255,0.35),
-            inset 0 0 24px rgba(0,136,255,0.18)
-          `,
-          transition: "all 0.35s ease",
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.boxShadow = `
-            0 0 14px rgba(0,136,255,0.55),
-            0 0 30px rgba(0,136,255,0.4),
-            0 0 55px rgba(0,136,255,0.25),
-            inset 0 0 14px rgba(0,136,255,0.45)
-          `;
-          e.currentTarget.style.transform = "translateY(-5px)";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.boxShadow = `
-            inset 0 0 10px rgba(0,136,255,0.35),
-            inset 0 0 24px rgba(0,136,255,0.18)
-          `;
-          e.currentTarget.style.transform = "translateY(0)";
-        }}
-      >
-        <div
-          style={{
-            width: "64px",
-            height: "64px",
-            margin: "0 auto 12px",
-            borderRadius: "50%",
-            background: "white",
-            color: tech.color,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: "28px",
-          }}
-        >
-          {tech.icon}
-        </div>
-
-        <h5
-          style={{
-            color: "white",
-            fontFamily: "orbitron",
-            fontWeight: "700",
-            marginBottom: 0,
-          }}
-        >
-          {tech.name}
-        </h5>
-      </div>
-    </div>
-  ))}
-</div>
-
-    </div>
-    </div>
-     <style>{`
-        @media (max-width: 575.98px) {
-          .responsive-text {
-            font-size: 3.5rem !important;
-          }
-        }
-      `}</style>
-    </>
-  );
-};
-
-  
+const TechnologyExpertise = () => (
+  <SkSkills
+    heading={{
+      eyebrow: "Web development stack",
+      title: "Modern stack.",
+      accent: "Proven tools.",
+      copy: "Frontend, backend, databases and cloud. We pick what fits your product, not what is trendy.",
+    }}
+    skills={technologies}
+  />
+);
 
 export default TechnologyExpertise;
