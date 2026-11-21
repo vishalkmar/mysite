@@ -238,6 +238,8 @@ const ServicesSection = () => {
                   color={service.color}      // per-card color
                   speed={0.3}
                   chaos={0.08}
+                  displacement={8}
+                  lineWidth={10}
                   style={{ borderRadius: 20 }}
                   className="eb-wrap"
                 >

@@ -1,2 +1,9 @@
 [build]
   functions = "functions/sendEmail"
+
+# Single-page app: let React Router handle every route (fixes 404 on refresh / direct links).
+# Real files (assets, sitemap.xml, robots.txt, /projects/*.webp) and /.netlify/functions/* are served first.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

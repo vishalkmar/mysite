@@ -6,6 +6,8 @@ const ElectricBorder = ({
   speed = 1,
   chaos = 0.12,
   borderRadius = 24,
+  displacement = 60, // how far the noisy line may wander from the edge (px)
+  lineWidth = 1,     // >2 draws a glowing band: soft outer stroke + bright core
   className,
   style
 }) => {
@@ -150,13 +152,15 @@ const ElectricBorder = ({
     const amplitude = chaos;
     const frequency = 10;
     const baseFlatness = 0;
-    const displacement = 60;
-    const borderOffset = 60;
+    const borderOffset = displacement + lineWidth + 4;
+    // keep the band just outside the content edge so it never cuts into the card
+    const outset = lineWidth > 2 ? lineWidth / 2 : 0;
 
     const updateSize = () => {
-      const rect = container.getBoundingClientRect();
-      const width = rect.width + borderOffset * 2;
-      const height = rect.height + borderOffset * 2;
+      // layout size, not getBoundingClientRect(): that one shrinks under CSS transforms
+      // (scaled / 3D-rotated carousel cards) and the border would end up inside the card
+      const width = container.offsetWidth + borderOffset * 2;
+      const height = container.offsetHeight + borderOffset * 2;
 
       // Use device pixel ratio for sharp rendering
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -191,17 +195,16 @@ const ElectricBorder = ({
       ctx.scale(dpr, dpr);
 
       ctx.strokeStyle = color;
-      ctx.lineWidth = 1;
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
 
       const scale = displacement;
-      const left = borderOffset;
-      const top = borderOffset;
-      const borderWidth = width - 2 * borderOffset;
-      const borderHeight = height - 2 * borderOffset;
+      const left = borderOffset - outset;
+      const top = borderOffset - outset;
+      const borderWidth = width - 2 * borderOffset + 2 * outset;
+      const borderHeight = height - 2 * borderOffset + 2 * outset;
       const maxRadius = Math.min(borderWidth, borderHeight) / 2;
-      const radius = Math.min(borderRadius, maxRadius);
+      const radius = Math.min(borderRadius + outset, maxRadius);
 
       const approximatePerimeter = 2 * (borderWidth + borderHeight) + 2 * Math.PI * radius;
       const sampleCount = Math.floor(approximatePerimeter / 2);
@@ -245,7 +248,22 @@ const ElectricBorder = ({
       }
 
       ctx.closePath();
-      ctx.stroke();
+      if (lineWidth > 2) {
+        // soft outer band
+        ctx.globalAlpha = 0.35;
+        ctx.lineWidth = lineWidth;
+        ctx.stroke();
+        // bright core
+        ctx.globalAlpha = 1;
+        ctx.lineWidth = Math.max(2, lineWidth * 0.3);
+        ctx.shadowColor = color;
+        ctx.shadowBlur = lineWidth;
+        ctx.stroke();
+        ctx.shadowBlur = 0;
+      } else {
+        ctx.lineWidth = lineWidth;
+        ctx.stroke();
+      }
 
       animationRef.current = requestAnimationFrame(drawElectricBorder);
     };
@@ -266,7 +284,7 @@ const ElectricBorder = ({
       resizeObserver.disconnect();
       lastFrameTimeRef.current = 0;
     };
-  }, [color, speed, chaos, borderRadius, octavedNoise, getRoundedRectPoint]);
+  }, [color, speed, chaos, borderRadius, displacement, lineWidth, octavedNoise, getRoundedRectPoint]);
 
   const vars = {
     '--electric-border-color': color,

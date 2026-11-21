@@ -1,5 +1,5 @@
 
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useLayoutEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom"
 // Landing page is bundled eagerly so the hero paints without waiting for a chunk.
 import Home from "./Home";
@@ -28,6 +28,16 @@ import GlobalPointerEffects from "./Ui/GlobalPointerEffects";
 import PageCursor from "./Ui/cursurs/PageCursor";
 import RouteCursorEffects from "./Ui/cursurs/RouteCursorEffects";
 // import Ribbons from "./Ui/cursurs/PattaRibbon";
+// New route = start at the top of the page (in-page #hash links still jump to their target).
+function ScrollToTop() {
+  const { pathname, hash } = useLocation();
+  useLayoutEffect(() => {
+    if (hash) return;
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [pathname, hash]);
+  return null;
+}
+
 function HomeLeadPopup() {
   const { pathname } = useLocation();
   return pathname === "/" ? <LeadPopupForm logoSrc="/logo.png" companyName="NexaTech Innovation" /> : null;
@@ -54,6 +64,7 @@ export default function App() {
     baseThickness={29}
   />
 </div> */}
+<ScrollToTop />
 <GlobalPointerEffects />
 <RouteCursorEffects />
 <PageCursor />
