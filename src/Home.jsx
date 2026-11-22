@@ -71,7 +71,7 @@ function Home() {
       <SectionHeading
         id="services"
         eyebrow="Our services"
-        index="09 disciplines"
+        index="08 disciplines"
         title="Everything you need"
         accent="to go digital."
         copy="Web development, mobile apps, backend systems and APIs, backed by SEO, UI/UX design, automation and marketing. Built for startups and brands that want to launch, scale and grow with confidence."

@@ -94,23 +94,6 @@ const FAQPage = () => {
     ]
   },
   {
-    id: 6,
-    title: "Logo Designing",
-    icon: <FiPenTool style={{ color: '#4facfe', fontSize: '1.5rem' }} />,
-    questions: [
-      {
-        id: 1,
-        question: "Do you provide multiple logo concepts?",
-        answer: "Yes, we provide 2-3 initial concepts with unlimited revisions."
-      },
-      {
-        id: 2,
-        question: "What file formats will I receive?",
-        answer: "You’ll receive PNG, JPG, SVG, and editable vector files (AI or EPS)."
-      }
-    ]
-  },
-  {
     id: 7,
     title: "Software Development",
     icon: <FiCpu style={{ color: '#4facfe', fontSize: '1.5rem' }} />,

@@ -1,4 +1,6 @@
 [build]
+  command = "npm run build"
+  publish = "dist"
   functions = "functions/sendEmail"
 
 # Vite hashes these filenames, so repeat visits can reuse the exact asset.
@@ -11,6 +13,17 @@
   for = "/index.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+
+# Public images have stable names: cache briefly, then revalidate after updates.
+[[headers]]
+  for = "/projects/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+[[headers]]
+  for = "/hero/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
 
 # Single-page app: let React Router handle every route (fixes 404 on refresh / direct links).
 # Real files (assets, sitemap.xml, robots.txt, /projects/*.webp) and /.netlify/functions/* are served first.

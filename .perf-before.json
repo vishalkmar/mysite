@@ -1,0 +1,60 @@
+[
+  {
+    "path": "/",
+    "js": 490113,
+    "css": 315511,
+    "scripts": [
+      "index-DXwlFZrS.js"
+    ],
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "path": "/webdevelopment",
+    "js": 639335,
+    "css": 338048,
+    "scripts": [
+      "index-DXwlFZrS.js",
+      "webDevelopment-C1CfGRZJ.js",
+      "projectData-BPPhupIO.js",
+      "ServiceKit-CxdZRrf0.js",
+      "index-CIyMEag-.js",
+      "Projects-BrB5BC7o.js",
+      "search-B4lSz5aF.js"
+    ],
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "path": "/webdesign",
+    "js": 614489,
+    "css": 337972,
+    "scripts": [
+      "index-DXwlFZrS.js",
+      "webDesign-BcOmfNUY.js",
+      "ServiceKit-CxdZRrf0.js",
+      "index-CIyMEag-.js",
+      "projectData-BPPhupIO.js",
+      "Projects-BrB5BC7o.js",
+      "search-B4lSz5aF.js"
+    ],
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "path": "/softwaredevelopment",
+    "js": 616975,
+    "css": 338032,
+    "scripts": [
+      "index-DXwlFZrS.js",
+      "softwareDevelopment-t2t5OHKt.js",
+      "ServiceKit-CxdZRrf0.js",
+      "index-CIyMEag-.js",
+      "projectData-BPPhupIO.js",
+      "Projects-BrB5BC7o.js",
+      "search-B4lSz5aF.js"
+    ],
+    "overflow": false,
+    "errors": []
+  }
+]

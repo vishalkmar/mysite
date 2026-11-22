@@ -1,194 +1,181 @@
-import React from "react";
+import React from "react"
 
-const HowWeWorkStrip = () => {
-
-  
-  const steps = [
+const steps = [
   {
     id: "01",
     title: "Discover",
-    desc: "We understand your business goals, target users, competitors and project requirements.",
+    description: "Understand goals and define the right plan.",
   },
   {
     id: "02",
-    title: "Define",
-    desc: "We finalize scope, features, user flows, tech stack, milestones and delivery timeline.",
+    title: "Build",
+    description: "Design, develop, and bring the solution to life.",
   },
   {
     id: "03",
-    title: "Design",
-    desc: "We create UI/UX wireframes, prototypes and final screens for a smooth user experience.",
-  },
-  {
-    id: "04",
-    title: "Build",
-    desc: "We develop frontend, backend, APIs and integrations in agile sprints with regular updates.",
-  },
-  {
-    id: "05",
     title: "Launch",
-    desc: "We test, optimize performance, deploy to production and ensure a stable release.",
+    description: "Go live and create real impact.",
   },
-  {
-    id: "06",
-    title: "Grow",
-    desc: "We improve SEO, UX, conversion funnels and plan upgrades based on analytics and feedback.",
-  },
-];
+]
 
-
+const HowWeWorkStrip = () => {
   const howToSchema = {
-  "@context": "https://schema.org",
-  "@type": "HowTo",
-  "name": "How We Work: NexaTech Innovation Project Delivery Process",
-  "description":
-    "A clear 6-step workflow used by NexaTech Innovation to deliver web development, app development and custom software projects— from discovery to launch and growth.",
-  "inLanguage": "en",
-  "publisher": {
-    "@type": "Organization",
-    "name": "NexaTech Innovation",
-    "url": "https://nexatechinnovation.in/"
-  },
- 
-  "step": steps.map((s, idx) => ({
-    "@type": "HowToStep",
-    "position": idx + 1,
-    "name": s.title,
-    "text": s.desc
-  }))
-};
-
-
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How We Work: NexaTech Innovation Project Delivery Process",
+    "description": "Our three-step process from discovery to launch.",
+    "step": steps.map((step, index) => ({
+      "@type": "HowToStep",
+      "position": index + 1,
+      "name": step.title,
+      "text": step.description,
+    })),
+  }
 
   return (
-    <>
- 
-    <section
-      className="py-5"
-      style={{ backgroundColor: "var(--site-bg)", color: "#e5e7eb" }}
-    >   <script
-  type="application/ld+json"
-  dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
-/>
-      <div className="container py-4">
-        {/* Center heading + description */}
-        <div className="text-center mb-5">
-          <h2
-            className="fw-bold mb-3 text-uppercase"
-            style={{
-              fontFamily: "Orbitron, system-ui, sans-serif",
-              letterSpacing: "0.12em",
-              fontSize: "clamp(2rem, 3vw, 2.5rem)",
-              background:
-                "linear-gradient(90deg,rgb(242,244,247) 0%, #00f2fe 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-          >
-          How We Work – Web, App & Software Development Process
+    <section className="nexa-work-section" style={{ backgroundColor: "var(--site-bg)" }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
 
-          </h2>
-         <p className="mx-auto text-secondary" style={{ maxWidth: "620px", fontSize: "0.96rem" }}>
-  Our proven workflow at <span className="text-info fw-semibold">NexaTech Innovation</span> covers
-  discovery, planning, UI/UX design, development, testing, deployment and growth.
-  This process helps deliver fast, scalable web apps, mobile apps, and custom software with clear timelines and measurable results.
-</p>
+      <div className="nexa-work-container">
+        <header className="nexa-work-heading">
+          <p>03 moments. One clear direction.</p>
+          <h2>How we <em>work.</em></h2>
+        </header>
 
-        </div>
-
-        {/* Step strip */}
-        <div className="position-relative">
-          {/* connecting line (desktop only) */}
-          <div className="process-line d-none d-md-block" />
-
-          <div className="d-flex flex-column flex-md-row justify-content-between gap-4">
-            {steps.map((step) => (
-              <div
-                key={step.id}
-                className="d-flex flex-column align-items-center text-center flex-fill process-step"
-              >
-                <div className="process-circle mb-3">
-                  <span className="process-circle-number">{step.id}</span>
-                </div>
-                <h5
-                  className="mb-1"
-                  style={{ fontSize: "0.98rem", color: "#f9fafb" }}
-                >
-                  {step.title}
-                </h5>
-                <p
-                  className="mb-0 text-secondary"
-                  style={{ fontSize: "0.84rem", maxWidth: "200px" }}
-                >
-                  {step.desc}
-                </p>
+        <div className="nexa-work-grid">
+          {steps.map((step, index) => (
+            <article className="nexa-work-card" key={step.id}>
+              <div className="nexa-work-card-top">
+                <span>{step.id}</span>
+                <i aria-hidden="true">{index === 0 ? "◯" : index === 1 ? "⌁" : "↗"}</i>
               </div>
-            ))}
-          </div>
+              <div className="nexa-work-card-copy">
+                <p>{index === 0 ? "First things first" : index === 1 ? "From thought to form" : "Ready for the real world"}</p>
+                <h3>{step.title}</h3>
+                <span>{step.description}</span>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
 
-      {/* styles */}
       <style>{`
-        .process-line {
-          position: absolute;
-          left: 6%;
-          right: 6%;
-          top: 45px; /* approx centre of circles */
-          height: 2px;
-          background: linear-gradient(
-            90deg,
-            rgba(56,189,248,0.15),
-            rgba(56,189,248,0.8),
-            rgba(56,189,248,0.15)
-          );
-          z-index: 1;
-        }
-
-        .process-step {
+        .nexa-work-section {
           position: relative;
-          z-index: 2; /* above line */
+          padding: 110px 0 120px;
+          color: #f8fafc;
+          overflow: hidden;
+          border-top:1px solid rgba(170,202,224,.12);
+          background:
+            radial-gradient(circle at 78% 12%,rgba(103,216,245,.07),transparent 22%),
+            var(--site-bg)!important;
         }
-
-        .process-circle {
-          width: 52px;
-          height: 52px;
-          border-radius: 999px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: radial-gradient(circle at 30% 0%, #0ea5e9, #1d4ed8);
-          box-shadow:
-            0 0 0 2px rgba(15,23,42,1),
-            0 0 22px rgba(56,189,248,0.75);
+        .nexa-work-section::after {
+          content:"";
+          position:absolute;
+          inset:0;
+          opacity:.1;
+          background-image:linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px);
+          background-size:72px 72px;
+          mask-image:linear-gradient(to bottom,#000,transparent 78%);
+          pointer-events:none;
         }
-
-        .process-circle-number {
-          font-size: 0.8rem;
-          letter-spacing: 0.14em;
-          text-transform: uppercase;
-          color: #e5e7eb;
-          font-weight: 700;
+        .nexa-work-container {
+          width:min(1120px,calc(100% - 40px));
+          margin-inline:auto;
+          position:relative;
+          z-index:2;
         }
-
-        @media (max-width: 767.98px) {
-          .process-line {
-            display: none;
-          }
-
-          .process-step {
-            align-items: flex-start;
-            text-align: left;
-          }
-
-          .process-step p {
-            max-width: 100%;
-          }
+        .nexa-work-heading {
+          display:flex;
+          align-items:flex-end;
+          justify-content:space-between;
+          margin-bottom:48px;
+          border-bottom:1px solid rgba(170,202,224,.14);
+          padding-bottom:28px;
+        }
+        .nexa-work-heading p {
+          order:2;
+          margin:0 0 12px;
+          color:#91a7b8;
+          font-size:.76rem;
+          font-weight:800;
+          letter-spacing:.14em;
+          text-transform:uppercase;
+        }
+        .nexa-work-heading h2 {
+          order:1;
+          margin:0;
+          font-family:Georgia,"Times New Roman",serif;
+          font-size:clamp(3.8rem,7vw,6.8rem);
+          line-height:.88;
+          letter-spacing:-.055em;
+          font-weight:500;
+        }
+        .nexa-work-heading h2 em {
+          color:#67d8f5;
+          font-weight:400;
+        }
+        .nexa-work-grid {
+          display:grid;
+          grid-template-columns:repeat(3,minmax(0,1fr));
+          gap:16px;
+        }
+        .nexa-work-card {
+          position:relative;
+          min-height:330px;
+          display:flex;
+          flex-direction:column;
+          justify-content:space-between;
+          padding:22px;
+          border:1px solid rgba(170,202,224,.16);
+          border-radius:8px;
+          background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.008));
+          transition:transform .45s cubic-bezier(.2,.8,.2,1),border-color .45s ease,background .45s ease;
+        }
+        .nexa-work-card:hover {
+          transform:translateY(-10px);
+          border-color:rgba(103,216,245,.42);
+          background:linear-gradient(145deg,rgba(103,216,245,.09),rgba(255,255,255,.012));
+        }
+        .nexa-work-card-top { display:flex;justify-content:space-between;align-items:flex-start; }
+        .nexa-work-card-top span { color:#67d8f5;font-size:.78rem;font-weight:800;letter-spacing:.12em; }
+        .nexa-work-card-top i { width:54px;height:54px;display:grid;place-items:center;border:1px solid rgba(170,202,224,.18);border-radius:50%;color:#a9bed0;font-family:Georgia,serif;font-size:1.35rem;font-style:normal; }
+        .nexa-work-card-copy p { margin:0 0 12px;color:#8299aa;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em; }
+        .nexa-work-card-copy h3 {
+          margin:0 0 14px;
+          font-family:Georgia,"Times New Roman",serif;
+          font-size:clamp(2.5rem,4vw,3.6rem);
+          line-height:.95;
+          letter-spacing:-.04em;
+          font-weight:500;
+        }
+        .nexa-work-card-copy>span { display:block;max-width:270px;color:#adbdc9;font-size:.96rem;line-height:1.6; }
+        .nexa-work-card:nth-child(2) { margin-top:38px; }
+        .nexa-work-card:nth-child(3) { margin-top:76px; }
+        @media (max-width:767px) {
+          .nexa-work-section { padding:76px 0 82px; }
+          .nexa-work-container { width:min(100% - 32px,1120px); }
+          .nexa-work-heading { align-items:flex-start;flex-direction:column-reverse;gap:14px; }
+          .nexa-work-heading p { order:1;margin:0; }
+          .nexa-work-heading h2 { order:2;font-size:clamp(3.2rem,15vw,5rem); }
+          .nexa-work-grid { grid-template-columns:1fr; }
+          .nexa-work-card,.nexa-work-card:nth-child(2),.nexa-work-card:nth-child(3) { min-height:280px;margin-top:0; }
+        }
+        @media (max-width:767px) {
+          .nexa-work-section { padding:58px 0 72px; }
+          .nexa-work-container { width:min(100% - 28px,1120px); }
+          .nexa-work-heading { min-height:125px; margin-bottom:20px; }
+          .nexa-work-heading h2 { font-size:3.7rem; }
+          .nexa-work-grid { grid-template-columns:1fr; max-width:420px; margin-inline:auto; gap:24px; }
+          .nexa-work-card { min-height:245px; }
         }
       `}</style>
     </section>
-    </>
-  );
-};
+  )
+}
 
-export default HowWeWorkStrip;
+export default HowWeWorkStrip

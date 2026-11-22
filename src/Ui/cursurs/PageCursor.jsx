@@ -7,7 +7,7 @@ import "./PageCursor.css";
  * Only on fine pointers (mouse / trackpad); touch devices keep the native behaviour.
  */
 const ROUTE_VARIANTS = {
-  "/": "orbit",
+  "/": "blend",
   "/hometwo": "blend",
   "/about": "crosshair",
   "/contact": "spark",
@@ -16,7 +16,6 @@ const ROUTE_VARIANTS = {
   "/softwaredevelopment": "code",
   "/webdesign": "pen",
   "/uiuxdesign": "pen",
-  "/logodesign": "pen",
   "/seo": "target",
   "/socialmediamarketing": "target",
   "/contentmarketing": "target",
@@ -25,6 +24,7 @@ const ROUTE_VARIANTS = {
 
 const INTERACTIVE = "a, button, [role='button'], summary, label, select, .nexa-btn, [data-cursor='hover']";
 const TEXT_INPUT = "input:not([type='button']):not([type='submit']):not([type='checkbox']):not([type='radio']), textarea, [contenteditable='true']";
+const TEXT_SURFACE = "h1, h2, h3, h4, h5, h6, p, span, li, dt, dd";
 
 export default function PageCursor() {
   const { pathname } = useLocation();
@@ -61,7 +61,15 @@ export default function PageCursor() {
       x = e.clientX; y = e.clientY;
       if (!visible) { visible = true; rx = x; ry = y; root.dataset.cursorVisible = "true"; }
       const target = e.target instanceof Element ? e.target : null;
-      root.dataset.cursorState = target?.closest(TEXT_INPUT) ? "text" : target?.closest(INTERACTIVE) ? "hover" : "idle";
+      if (target?.closest(TEXT_INPUT)) {
+        root.dataset.cursorState = "input";
+      } else if (target?.closest(INTERACTIVE)) {
+        root.dataset.cursorState = "link";
+      } else if (variant === "blend" && target?.closest(TEXT_SURFACE)) {
+        root.dataset.cursorState = "text";
+      } else {
+        root.dataset.cursorState = "idle";
+      }
       if (!frame) frame = requestAnimationFrame(tick);
     };
     const leave = () => { visible = false; delete root.dataset.cursorVisible; };

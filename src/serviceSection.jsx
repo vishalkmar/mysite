@@ -4,7 +4,6 @@ import marketing from "../src/serviceImages/marketing.png";
 import development from "../src/serviceImages/softwaredevelopment.png";
 import mobileapp from "../src/serviceImages/mobileapp.png";
 import digitalmarketing from "../src/serviceImages/digitalmarketing.png";
-import logodesign from "../src/serviceImages/logodesign.png";
 import Seo from "../src/serviceImages/seo.png";
 import contentmarketing from "../src/serviceImages/contentmarketing.png";
 import webdesign from "../src/serviceImages/webdesign.png";
@@ -80,15 +79,6 @@ const ServicesSection = () => {
       image: softwaredevelopment,
       color: "#0ea5e9",
       url: "softwaredevelopment",
-    },
-    {
-      id: 7,
-      title: "Logo Design",
-      description:
-        "Logo design and brand identity services including modern logo concepts, color systems and typography. Build a consistent brand that looks professional across all platforms.",
-      image: logodesign,
-      color: "#38bdf8",
-      url: "logodesign",
     },
     {
       id: 8,

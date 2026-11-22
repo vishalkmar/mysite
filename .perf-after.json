@@ -1,0 +1,95 @@
+[
+  {
+    "path": "/",
+    "js": 475754,
+    "css": 315515,
+    "scripts": [
+      "index-eXDvbsFf.js",
+      "Home-Dm1uuDL2.js",
+      "footer-CsNf_rY9.js",
+      "sparkles-DZnhIgFx.js",
+      "smartphone-BJ4RsN31.js",
+      "mouse-CVAiHGiM.js",
+      "monitor-de0ZNmeb.js",
+      "play-ChyvXJnf.js",
+      "useReveal-BLuVZ2sp.js",
+      "watchVisibility-DoDmRO6Q.js",
+      "scrollAnimations-skEPc92H.js",
+      "HomeTwoSections-BdubktAs.js",
+      "layers-D3_pPmhD.js",
+      "minus-_hUQsnZN.js",
+      "arrow-up-right-BJtB2eAa.js"
+    ],
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "path": "/webdevelopment",
+    "js": 495874,
+    "css": 301556,
+    "scripts": [
+      "index-eXDvbsFf.js",
+      "webDevelopment-CXvaT4cY.js",
+      "scrollAnimations-skEPc92H.js",
+      "watchVisibility-DoDmRO6Q.js",
+      "projectData-BrTHnhR1.js",
+      "sparkles-DZnhIgFx.js",
+      "footer-CsNf_rY9.js",
+      "ProductExperience-lQUWdMzR.js",
+      "send-CmtPXNI9.js",
+      "monitor-de0ZNmeb.js",
+      "arrow-up-right-BJtB2eAa.js",
+      "smartphone-BJ4RsN31.js",
+      "layers-D3_pPmhD.js",
+      "search-CI67Hxy3.js"
+    ],
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "path": "/webdesign",
+    "js": 497265,
+    "css": 301480,
+    "scripts": [
+      "index-eXDvbsFf.js",
+      "webDesign-DaxSVsjR.js",
+      "footer-CsNf_rY9.js",
+      "scrollAnimations-skEPc92H.js",
+      "watchVisibility-DoDmRO6Q.js",
+      "projectData-BrTHnhR1.js",
+      "sparkles-DZnhIgFx.js",
+      "ProductExperience-lQUWdMzR.js",
+      "send-CmtPXNI9.js",
+      "monitor-de0ZNmeb.js",
+      "smartphone-BJ4RsN31.js",
+      "arrow-up-right-BJtB2eAa.js",
+      "layers-D3_pPmhD.js",
+      "search-CI67Hxy3.js"
+    ],
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "path": "/softwaredevelopment",
+    "js": 499711,
+    "css": 301540,
+    "scripts": [
+      "index-eXDvbsFf.js",
+      "softwareDevelopment-BASl42WA.js",
+      "footer-CsNf_rY9.js",
+      "scrollAnimations-skEPc92H.js",
+      "watchVisibility-DoDmRO6Q.js",
+      "projectData-BrTHnhR1.js",
+      "sparkles-DZnhIgFx.js",
+      "ProductExperience-lQUWdMzR.js",
+      "send-CmtPXNI9.js",
+      "monitor-de0ZNmeb.js",
+      "smartphone-BJ4RsN31.js",
+      "arrow-up-right-BJtB2eAa.js",
+      "layers-D3_pPmhD.js",
+      "search-CI67Hxy3.js"
+    ],
+    "overflow": false,
+    "errors": []
+  }
+]

@@ -120,61 +120,6 @@ const Header = () => {
               </li>
 
               <li className="nav-item dropdown">
-                <Link className="nav-link dropdown-toggle" to="#" id="pagesDropdown" role="button" data-bs-toggle="dropdown" style={{
-                  color: 'rgba(255, 255, 255, 0.9)',
-                  fontWeight: '500',
-                  position: 'relative',
-                  padding: '0.5rem 0',
-                  transition: 'all 0.3s ease'
-                }}>
-                  <span style={{
-                    position: 'relative',
-                    zIndex: 1,
-                    fontFamily: 'orbitron'
-                  }}>Pages</span>
-                  <span style={{
-                    position: 'absolute',
-                    bottom: 0,
-                    left: 0,
-                    width: '0%',
-                    height: '2px',
-                    background: 'linear-gradient(90deg, #4facfe 0%, #00f2fe 100%)',
-                    transition: 'all 0.3s ease'
-                  }}></span>
-                  <i className="bi bi-chevron-down ms-1" style={{
-                    fontSize: '0.8rem',
-                    transition: 'transform 0.3s ease'
-                  }}></i>
-                </Link>
-                <ul className="dropdown-menu dropdown-menu-dark" style={{
-                  background: 'var(--site-bg)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  borderRadius: '0.5rem',
-                  padding: '0.5rem 0'
-                }}>
-                  <li><Link className="dropdown-item" to="/hometwo" style={{ color: '#82d8ff', padding: '0.5rem 1.5rem', fontFamily: 'orbitron' }}>Home Two</Link></li>
-                  <li><Link className="dropdown-item" to="/privacy" style={{
-                    color: 'rgba(255, 255, 255, 0.8)',
-                    padding: '0.5rem 1.5rem',
-                    transition: 'all 0.2s ease',
-                    fontFamily: 'orbitron'
-                  }}>Privacy Policy</Link></li>
-                  <li><Link className="dropdown-item" to="/termsandconditions" style={{
-                    color: 'rgba(255, 255, 255, 0.8)',
-                    padding: '0.5rem 1.5rem',
-                    transition: 'all 0.2s ease',
-                    fontFamily: 'orbitron'
-                  }}>Terms & Conditions</Link></li>
-                  <li><Link className="dropdown-item" to="/faqs" style={{
-                    color: 'rgba(255, 255, 255, 0.8)',
-                    padding: '0.5rem 1.5rem',
-                    transition: 'all 0.2s ease',
-                    fontFamily: 'orbitron'
-                  }}>FAQs</Link></li>
-                </ul>
-              </li>
-
-              <li className="nav-item dropdown">
                 <Link className="nav-link dropdown-toggle" to="#" id="servicesDropdown" role="button" data-bs-toggle="dropdown" style={{
                   color: 'rgba(255, 255, 255, 0.9)',
                   fontWeight: '500',
@@ -297,12 +242,6 @@ const Header = () => {
                     transition: 'all 0.2s ease',
                     fontFamily: 'orbitron'
                   }}>Search Engine Optimization</Link></li>
-                  <li><Link className="dropdown-item" to="/logodesign" style={{
-                    color: 'rgba(255, 255, 255, 0.8)',
-                    padding: '0.5rem 1.5rem',
-                    transition: 'all 0.2s ease',
-                    fontFamily: 'orbitron'
-                  }}>Logo Design</Link></li>
                 </ul>
               </li>
 
@@ -393,57 +332,6 @@ const Header = () => {
                 fontFamily: 'orbitron'
               }}>Home</Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/hometwo" onClick={() => setMobileMenuOpen(false)} style={{ color: '#82d8ff', padding: '0.75rem 0', fontFamily: 'orbitron' }}>Home Two</Link>
-            </li>
-
-            <li className="nav-item dropdown">
-              <Link
-                className="nav-link dropdown-toggle d-flex justify-content-between align-items-center"
-                to="#"
-                id="mobilePagesDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                style={{
-                  color: 'rgba(255, 255, 255, 0.9)',
-                  padding: '0.75rem 0',
-                  borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-                  fontFamily: 'orbitron',
-                  position: 'relative',
-                  zIndex: 1100
-                }}
-              >
-                Pages
-                <i className="bi bi-chevron-down" style={{
-                  fontSize: '0.8rem',
-                  transition: 'transform 0.3s ease'
-                }}></i>
-              </Link>
-              <ul className="dropdown-menu" style={{
-                background: 'var(--site-surface)',
-                border: 'none',
-                marginLeft: '1rem',
-                zIndex: 5000,           // Bootstrap dropdown default z-index is 1050, use this or higher
-                position: 'absolute'
-              }}>
-                <li><Link className="dropdown-item" to="/privacy" onClick={() => setMobileMenuOpen(false)} style={{
-                  color: 'rgba(255, 255, 255, 0.8)',
-                  padding: '0.5rem 1rem',
-                  fontFamily: 'orbitron'
-                }}>Privacy Policy</Link></li>
-                <li><Link className="dropdown-item" to="/termsandconditions" onClick={() => setMobileMenuOpen(false)} style={{
-                  color: 'rgba(255, 255, 255, 0.8)',
-                  padding: '0.5rem 1rem',
-                  fontFamily: 'orbitron'
-                }}>Terms & Conditions</Link></li>
-                <li><Link className="dropdown-item" to="/faqs" onClick={() => setMobileMenuOpen(false)} style={{
-                  color: 'rgba(255, 255, 255, 0.8)',
-                  padding: '0.5rem 1rem',
-                  fontFamily: 'orbitron'
-                }}>FAQ</Link></li>
-              </ul>
-            </li>
-
             <li className="nav-item dropdown">
               <Link
                 className="nav-link dropdown-toggle d-flex justify-content-between align-items-center"
@@ -546,11 +434,6 @@ const Header = () => {
                   padding: '0.5rem 1rem',
                   fontFamily: 'orbitron'
                 }}>Search Engine Optimization</Link></li>
-                <li><Link className="dropdown-item" to="/logodesign" onClick={() => setMobileMenuOpen(false)} style={{
-                  color: 'rgba(255, 255, 255, 0.8)',
-                  padding: '0.5rem 1rem',
-                  fontFamily: 'orbitron'
-                }}>Logo Design</Link></li>
               </ul>
             </li>
 

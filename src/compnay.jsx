@@ -25,7 +25,6 @@ const companyIntroSchema = {
     "UI/UX Design",
     "SEO",
     "Digital Marketing",
-    "Logo Design",
     "Brand Identity",
   ],
 };
@@ -43,7 +42,6 @@ const capabilities = [
   { name: "UI/UX Design", path: "/uiuxdesign" },
   { name: "SEO", path: "/seo" },
   { name: "Digital Marketing", path: "/digitalmarketing" },
-  { name: "Brand Identity & Logo Design", path: "/logodesign" },
 ];
 
 const CompanyIntro = () => {

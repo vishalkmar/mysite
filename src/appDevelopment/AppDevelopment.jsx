@@ -11,8 +11,15 @@ import AppTechnologies from "./apptechnologies"
 import AppDevelopmentFAQ from "./faqs"
 import AppDevelopmentShowcase from "./Appdevshowcase"
 import HeroBanner from "./banner"
-import { SkAppProjects } from "../serviceKit/Projects"
+import AppWork from "./AppWork"
+import { useEffect } from "react"
 export default function AppDevelopment(){
+     useEffect(() => {
+       const previous = document.title;
+       document.documentElement.classList.add('app-development-active');
+       document.title = "AI & Mobile App Development | Flutter, React Native & PWA | NexaTech Innovation";
+       return () => { document.title = previous; document.documentElement.classList.remove('app-development-active'); };
+     }, []);
 
      return(
         <div className="app-development-page">
@@ -27,17 +34,10 @@ export default function AppDevelopment(){
         <main className="app-development-content">
             <HeroBanner/>
             
-            <AppTechnologies/>
             <AppDevelopmentShowcase/>
-            <SkAppProjects
-                heading={{
-                    eyebrow: "Apps we have shipped",
-                    title: "In your pocket.",
-                    accent: "On every screen.",
-                    copy: "Calling, chat, travel, AI and education apps. Each one designed and engineered end to end by our team.",
-                }}
-            />
+            <AppTechnologies/>
             <AppDevelopmentServices/>
+            <AppWork/>
             <AppDevelopmentFAQ/>
         </main>
         <Footer/>

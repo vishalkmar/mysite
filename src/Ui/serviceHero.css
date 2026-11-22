@@ -1,0 +1,40 @@
+/* Service / marketing hero typography — home page palette. Backgrounds stay page-specific. */
+.svh{position:relative;isolation:isolate;overflow:hidden;min-height:max(620px,92svh);display:flex;align-items:center;justify-content:center;padding:150px 24px 90px;background:var(--site-bg);color:#f4f6fa;font-family:'Rubik',system-ui,sans-serif;text-align:center}
+.svh__bg{position:absolute;inset:0;z-index:-2}
+.svh__shade{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.svh--soft .svh__shade{background:radial-gradient(ellipse 55% 45% at 50% 48%,rgba(var(--site-bg-rgb),.62),transparent 75%),linear-gradient(0deg,var(--site-bg),transparent 22%)}
+.svh--strong .svh__shade{background:radial-gradient(ellipse 60% 50% at 50% 48%,rgba(var(--site-bg-rgb),.55),transparent 80%),linear-gradient(rgba(var(--site-bg-rgb),.72),rgba(var(--site-bg-rgb),.45)),linear-gradient(0deg,var(--site-bg),transparent 25%)}
+.svh--none .svh__shade{background:linear-gradient(0deg,var(--site-bg),transparent 20%)}
+/* Copy ignores the pointer so interactive backgrounds keep reacting; links opt back in. */
+.svh__inner{position:relative;max-width:1060px;display:flex;flex-direction:column;align-items:center;pointer-events:none}
+.svh__inner a{pointer-events:auto}
+.svh__eyebrow{display:inline-flex;align-items:center;gap:10px;margin:0 0 30px;padding:8px 16px;border:1px solid #82d8ff33;border-radius:999px;background:#070a10a6;backdrop-filter:blur(10px);font-size:11.5px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:#8abfff;animation:svh-rise .8s both cubic-bezier(.16,1,.3,1)}
+.svh__eyebrow span{width:7px;height:7px;border-radius:50%;background:#82d8ff;box-shadow:0 0 12px #82d8ff}
+.svh__title{margin:0;font-family:'Rubik',system-ui,sans-serif;font-weight:600;font-size:clamp(44px,6.6vw,104px);line-height:.98;letter-spacing:-.06em;text-shadow:0 4px 30px rgba(2,6,23,.55)}
+.svh__line{display:block;animation:svh-rise 1s both cubic-bezier(.16,1,.3,1);animation-delay:.08s}
+.svh__line--accent{animation-delay:.2s;padding-bottom:.08em;background:linear-gradient(92deg,#f4f6fa 5%,#82d8ff 45%,#368bff 95%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none}
+.svh__rotator{display:flex;align-items:center;gap:14px;margin:30px 0 0;font-size:clamp(16px,1.6vw,21px);color:#aebbd0;animation:svh-rise 1s both .34s cubic-bezier(.16,1,.3,1)}
+.svh__rotator-label{white-space:nowrap}
+.svh__rotator-window{position:relative;display:inline-flex;height:1.9em;min-width:min(13em,58vw);align-items:center;overflow:hidden;border-radius:999px;padding:0 18px;background:linear-gradient(90deg,#368bff26,#82d8ff14);border:1px solid #368bff55}
+.svh__word{display:block;width:100%;font-weight:500;color:#f4f6fa;white-space:nowrap;animation:svh-word .6s both cubic-bezier(.16,1,.3,1)}
+.svh__description{max-width:600px;margin:22px 0 0;font-size:17px;line-height:1.75;color:#aebbd0;animation:svh-rise 1s both .44s cubic-bezier(.16,1,.3,1)}
+.svh__actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:26px;margin-top:34px;animation:svh-rise 1s both .54s cubic-bezier(.16,1,.3,1)}
+.svh__button{display:inline-flex;align-items:center;gap:14px;min-height:54px;padding:15px 28px;border-radius:999px;background:#368bff;color:#fff!important;font-size:15px;font-weight:500;text-decoration:none;transition:background .25s,transform .25s,box-shadow .25s}
+.svh__button:hover{background:#1667e5;transform:translateY(-3px);box-shadow:0 10px 35px #228aff40}
+.svh__link{display:inline-flex;align-items:center;gap:9px;padding:8px 0;color:#f4f6fa!important;font-size:14.5px;text-decoration:none;border-bottom:1px solid #75849a;transition:border-color .2s,color .2s}
+.svh__link:hover{color:#82d8ff!important;border-color:#82d8ff}
+.svh__chips{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;list-style:none;padding:0;margin:40px 0 0;animation:svh-rise 1s both .64s cubic-bezier(.16,1,.3,1)}
+.svh__chips li{padding:8px 15px;border-radius:999px;border:1px solid #ffffff1c;background:#070a1080;backdrop-filter:blur(8px);font-size:13px;color:#c9d3e2}
+.svh :is(a):focus-visible{outline:2px solid #82d8ff;outline-offset:5px}
+@keyframes svh-rise{from{opacity:0;transform:translateY(34px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@keyframes svh-word{from{opacity:0;transform:translateY(110%)}to{opacity:1;transform:none}}
+@media(max-width:640px){
+  .svh{padding:130px 18px 70px;min-height:max(600px,92svh)}
+  .svh__eyebrow{font-size:10px;letter-spacing:.14em;margin-bottom:24px}
+  .svh__title{font-size:clamp(40px,11.5vw,56px)}
+  .svh__rotator{flex-direction:column;gap:10px;margin-top:24px}
+  .svh__description{font-size:15.5px}
+  .svh__actions{gap:20px;margin-top:28px}
+  .svh__chips{margin-top:30px;gap:8px}.svh__chips li{font-size:12px;padding:7px 12px}
+}
+@media(prefers-reduced-motion:reduce){.svh *{animation:none!important}}

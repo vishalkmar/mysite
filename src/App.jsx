@@ -1,12 +1,11 @@
 
 import { lazy, Suspense, useEffect, useLayoutEffect } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom"
-// Landing page is bundled eagerly so the hero paints without waiting for a chunk.
-import Home from "./Home";
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom"
 // Route code-splitting: each page is its own chunk, so the first load stays small.
+// Production HTML preloads only the requested route (scripts/build-route-pages.mjs).
 const pageImports = {
+  Home: () => import("./Home"),
   About: () => import("./AboutComponents/About"),
-  HomeTwo: () => import("./homeTwo/HomeTwo"),
   WebDevelopment: () => import("./webDevelopment/webDevelopment"),
   AppDevelopment: () => import("./appDevelopment/AppDevelopment"),
   SoftwareDevelopment: () => import("./SoftwareDevelopment/softwareDevelopment"),
@@ -16,15 +15,14 @@ const pageImports = {
   SEO: () => import("./marketing/SEO/SEO"),
   SocialMediaMarketing: () => import("./marketing/socialMediaMarketing/socialMediaMarketing"),
   ContentMarketing: () => import("./marketing/contentMarketing/contentMarketing"),
-  LogoDesign: () => import("./marketing/logoDesign/logoDesign"),
   DigitalMarketing: () => import("./marketing/digitalMarketing/digitalMarketing"),
   FAQPage: () => import("./pages/faqs"),
   PrivacyPolicy: () => import("./pages/privacypolacy"),
   TermsAndConditions: () => import("./pages/termsandconditions"),
   NotFound: () => import("./notfound"),
 };
+const Home = lazy(pageImports.Home);
 const About = lazy(pageImports.About);
-const HomeTwo = lazy(pageImports.HomeTwo);
 const WebDevelopment = lazy(pageImports.WebDevelopment);
 const AppDevelopment = lazy(pageImports.AppDevelopment);
 const SoftwareDevelopment = lazy(pageImports.SoftwareDevelopment);
@@ -34,7 +32,6 @@ const Contact = lazy(pageImports.Contact);
 const SEO = lazy(pageImports.SEO);
 const SocialMediaMarketing = lazy(pageImports.SocialMediaMarketing);
 const ContentMarketing = lazy(pageImports.ContentMarketing);
-const LogoDesign = lazy(pageImports.LogoDesign);
 const DigitalMarketing = lazy(pageImports.DigitalMarketing);
 const FAQPage = lazy(pageImports.FAQPage);
 const PrivacyPolicy = lazy(pageImports.PrivacyPolicy);
@@ -49,8 +46,8 @@ import RouteCursorEffects from "./Ui/cursurs/RouteCursorEffects";
 // import Ribbons from "./Ui/cursurs/PattaRibbon";
 // Path -> chunk, used to warm a page's code before the user clicks its link.
 const importsByPath = {
+  "/": pageImports.Home,
   "/about": pageImports.About,
-  "/hometwo": pageImports.HomeTwo,
   "/webdevelopment": pageImports.WebDevelopment,
   "/appdevelopment": pageImports.AppDevelopment,
   "/softwaredevelopment": pageImports.SoftwareDevelopment,
@@ -60,7 +57,6 @@ const importsByPath = {
   "/seo": pageImports.SEO,
   "/socialmediamarketing": pageImports.SocialMediaMarketing,
   "/contentmarketing": pageImports.ContentMarketing,
-  "/logodesign": pageImports.LogoDesign,
   "/digitalmarketing": pageImports.DigitalMarketing,
   "/faqs": pageImports.FAQPage,
   "/privacy": pageImports.PrivacyPolicy,
@@ -151,7 +147,7 @@ export default function App() {
             <PageFade>
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/hometwo" element={<HomeTwo />} />
+                <Route path="/hometwo" element={<Navigate to="/" replace />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/webdevelopment" element={<WebDevelopment/>} />
@@ -162,7 +158,6 @@ export default function App() {
                 <Route path="/seo" element={<SEO />}/>
                 <Route path="/socialmediamarketing" element={<SocialMediaMarketing/>} />
                 <Route path="/contentmarketing" element={<ContentMarketing/>}/>
-                <Route path="/logodesign" element={<LogoDesign />} />
                 <Route path="/digitalmarketing" element={<DigitalMarketing/>}/>
                 <Route path="/faqs" element={<FAQPage />}/>
                 <Route path="/privacy" element={<PrivacyPolicy />}/>

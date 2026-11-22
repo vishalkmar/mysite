@@ -1,38 +1,13 @@
-/* Restyled with the shared service kit (src/serviceKit). Content unchanged. */
-import { SkFAQ, SkCTA } from "../serviceKit/ServiceKit";
-
-const faqs = [
-    {
-      question: "What's the difference between native and cross-platform app development?",
-      answer: "Native apps are built specifically for one platform (iOS or Android) using platform-specific languages (Swift/Objective-C for iOS, Java/Kotlin for Android). Cross-platform apps use frameworks like React Native or Flutter to build for multiple platforms with a single codebase, offering faster development but sometimes with performance trade-offs."
-    },
-    {
-      question: "How long does it take to develop a mobile app?",
-      answer: "App development timelines vary based on complexity. A simple app may take 2-3 months, medium complexity 4-6 months, and complex apps with backend systems 6+ months. Factors include features, platforms, design complexity, and testing requirements."
-    },
-    {
-      question: "What's the cost range for developing a mobile app?",
-      answer: "Costs range from $10,000 for basic apps to $100,000+ for complex solutions. Factors affecting cost include platform choice, features, design complexity, developer rates, and maintenance. We provide detailed quotes after understanding your specific requirements."
-    },
-    {
-      question: "Which is better: React Native or Flutter?",
-      answer: "React Native (JavaScript) has a larger community and more third-party libraries, while Flutter (Dart) offers better performance and more consistent UI across platforms. The choice depends on your team's expertise, project requirements, and long-term maintenance plans."
-    },
-    {
-      question: "Do you provide app maintenance after launch?",
-      answer: "Yes, we offer comprehensive maintenance packages including bug fixes, performance optimization, OS updates compatibility, and feature enhancements. We recommend at least 3-6 months of post-launch support to ensure app stability."
-    },
-    {
-      question: "How do you ensure app security?",
-      answer: "We implement multiple security layers: data encryption, secure API communication, OAuth for authentication, regular security audits, and compliance with platform-specific security guidelines. We also conduct penetration testing before launch."
-    }
-  ];
-
-const AppDevelopmentFAQ = () => (
-  <>
-    <SkFAQ heading={{"eyebrow": "App development FAQ", "title": "Good questions.", "accent": "Straight answers.", "copy": "What clients usually ask before starting a app development project with us."}} faqs={faqs} />
-    <SkCTA />
-  </>
-);
-
-export default AppDevelopmentFAQ;
+import { Link } from 'react-router-dom';
+import { Plus, Sparkles } from 'lucide-react';
+const faqs=[
+  ['Flutter or React Native—which fits my app?','We start with your user journeys, design needs, existing systems and team. Flutter suits a custom, cohesive visual approach; React Native brings React development and native platform components together. We assess integrations and prototype the important interactions before recommending a direction.'],
+  ['What is the difference between an APK, an app bundle and a PWA?','An APK is an installable Android package. An Android App Bundle is a publishing format used to generate device-specific packages for Google Play delivery. A PWA is a web app that can offer installation and app-like features on supported browsers; capabilities vary by device and browser.'],
+  ['Can you add AI to an existing app?','Yes—we can scope features such as knowledge search, conversational assistance, summaries or recommendations around your existing product. We first review data access, model costs, consent, quality checks and the fallback experience.'],
+  ['Are the phone screens above completed client apps?','The animated phone screens are illustrative product concepts showing possible experiences. The selected-work section uses projects and screenshots from our existing portfolio. We will discuss relevant experience and the exact scope for your project.'],
+  ['Can we begin with a focused first release?','Yes. We can define the essential user journey, create a prototype and plan a focused first version. Design, development, testing and release preparation are estimated against an agreed scope rather than a generic timeline or price.'],
+  ['What happens after launch?','We can plan crash monitoring, analytics, OS compatibility, maintenance and feature improvements with you. Ownership, handover and ongoing support are agreed as part of the project scope.'],
+];
+export default function AppDevelopmentFAQ(){
+  return <><section className="ap-faq ap-shell" aria-labelledby="app-faq-title"><div className="ap-section-heading"><p className="ap-eyebrow">BEFORE WE BUILD</p><h2 id="app-faq-title">Good questions.<br/><em>Clear answers.</em></h2></div><div className="ap-faq-list">{faqs.map(([question,answer])=><details key={question}><summary>{question}<Plus size={20}/></summary><p>{answer}</p></details>)}</div><p className="ap-platform-docs">Platform details: <a href="https://developer.android.com/guide/app-bundle/faq" target="_blank" rel="noreferrer">Android distribution</a><span> · </span><a href="https://web.dev/learn/pwa/installation" target="_blank" rel="noreferrer">PWA installation</a></p></section><section className="ap-closing ap-shell"><Sparkles size={31}/><p className="ap-eyebrow">YOUR NEXT CHAPTER</p><h2>From “what if”<br/>to <em>“it's live.”</em></h2><p>Tell us the idea. Let's shape the experience together.</p><Link className="ap-button" to="/contact">Let's make it happen <Sparkles size={17}/></Link></section></>;
+}
