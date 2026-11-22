@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.min.js';
+import 'bootstrap/js/dist/dropdown';
 import { Link } from 'react-router-dom'
 
 const Header = () => {
@@ -14,7 +14,7 @@ const Header = () => {
     };
 
     handleScroll(); // initial call (page refresh ke case me)
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -46,7 +46,7 @@ const Header = () => {
           {/* Logo */}
 <Link
   className="navbar-brand"
-  to="#"
+  to="/"
   style={{ textDecoration: "none" }}
 >
   <div

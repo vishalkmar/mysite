@@ -29,7 +29,7 @@
     <link rel="canonical" href="https://nexatechinnovation.in/" />
 
     <link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" href="/favicon1.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/favicon1.png" type="image/png" sizes="64x64">
 <link rel="icon" href="/favicon48x48.png" type="image/png" sizes="48x48">
 
 
@@ -94,11 +94,24 @@
       }
     </script>
 
-    <!-- Hero first slide + its two preview cards: fetched in parallel with the JS -->
-    <link rel="preload" as="image" type="image/webp" href="/hero/web-development-wide.webp" media="(min-width: 768px)" fetchpriority="high" />
-    <link rel="preload" as="image" type="image/webp" href="/hero/web-development-mobile.webp" media="(max-width: 767px)" fetchpriority="high" />
-    <link rel="preload" as="image" type="image/webp" href="/hero/web-design-card.webp" />
-    <link rel="preload" as="image" type="image/webp" href="/hero/app-development-card.webp" />
+    <!-- Home hero first slide + its two preview cards: fetched in parallel with the JS.
+         Only on the home page; every other route would download them for nothing. -->
+    <script>
+      if (location.pathname === "/" || location.pathname === "/index.html") {
+        [
+          ["/hero/web-development-wide.webp", "(min-width: 768px)", "high"],
+          ["/hero/web-development-mobile.webp", "(max-width: 767px)", "high"],
+          ["/hero/web-design-card.webp"],
+          ["/hero/app-development-card.webp"],
+        ].forEach(function (p) {
+          var l = document.createElement("link");
+          l.rel = "preload"; l.as = "image"; l.type = "image/webp"; l.href = p[0];
+          if (p[1]) l.media = p[1];
+          if (p[2]) l.setAttribute("fetchpriority", p[2]);
+          document.head.appendChild(l);
+        });
+      }
+    </script>
 
     <style>
       html, body { overflow-x: hidden; margin: 0; padding: 0; }

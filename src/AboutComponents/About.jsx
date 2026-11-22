@@ -5,7 +5,10 @@ import AboutBanner from "./AboutBanner"
 import WhoWeAreAboutUs from "./WhoWeAreAboutUs"
 import TeamSection from "./TeamSection"
 import HowWeWork from "./HowWeWork"
-import Icard from "../Ui/Icard"
+import { lazy, Suspense } from "react"
+// 3D lanyard card pulls in three.js + react-three-fiber + rapier physics (~2 MB):
+// load it as its own chunk so the rest of the About page opens instantly.
+const Icard = lazy(() => import("../Ui/Icard"))
 import Lightning from "../Ui/background/Lighting"
 
 export default function About(){
@@ -23,7 +26,7 @@ export default function About(){
             intensity={1}
             size={1}
             />
-             <Icard />
+             <Suspense fallback={null}><Icard /></Suspense>
             </div>
               
               <AboutBanner/>

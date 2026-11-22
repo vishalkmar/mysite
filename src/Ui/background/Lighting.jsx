@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import './Lighting.css';
+import watchVisibility from '../watchVisibility';
 
 const Lightning = ({ hue = 230, xOffset = 0, speed = 1, intensity = 1, size = 1 }) => {
   const canvasRef = useRef(null);
@@ -9,8 +10,9 @@ const Lightning = ({ hue = 230, xOffset = 0, speed = 1, intensity = 1, size = 1 
     if (!canvas) return;
 
     const resizeCanvas = () => {
-      canvas.width = canvas.clientWidth;
-      canvas.height = canvas.clientHeight;
+      // only touch the buffer when the size really changed (setting width clears + reallocates it)
+      if (canvas.width !== canvas.clientWidth) canvas.width = canvas.clientWidth;
+      if (canvas.height !== canvas.clientHeight) canvas.height = canvas.clientHeight;
     };
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
@@ -154,8 +156,8 @@ const Lightning = ({ hue = 230, xOffset = 0, speed = 1, intensity = 1, size = 1 
     const uSizeLocation = gl.getUniformLocation(program, 'uSize');
 
     const startTime = performance.now();
+    let visible = true;
     const render = () => {
-      resizeCanvas();
       gl.viewport(0, 0, canvas.width, canvas.height);
       gl.uniform2f(iResolutionLocation, canvas.width, canvas.height);
       const currentTime = performance.now();
@@ -166,13 +168,19 @@ const Lightning = ({ hue = 230, xOffset = 0, speed = 1, intensity = 1, size = 1 
       gl.uniform1f(uIntensityLocation, intensity);
       gl.uniform1f(uSizeLocation, size);
       gl.drawArrays(gl.TRIANGLES, 0, 6);
-      frameId = requestAnimationFrame(render);
+      frameId = visible ? requestAnimationFrame(render) : 0;
     };
     let frameId = requestAnimationFrame(render);
+    // pause while scrolled out of view / tab hidden
+    const stopWatching = watchVisibility(canvas, (v) => {
+      visible = v;
+      if (v && !frameId) frameId = requestAnimationFrame(render);
+    });
 
     return () => {
       // Stop the loop when leaving the page, otherwise it runs forever.
       cancelAnimationFrame(frameId);
+      stopWatching();
       window.removeEventListener('resize', resizeCanvas);
       gl.deleteProgram(program);
     };

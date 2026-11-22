@@ -1,4 +1,5 @@
 import { useEffect, useRef, useCallback } from 'react';
+import watchVisibility from './watchVisibility';
 
 const ElectricBorder = ({
   children,
@@ -8,6 +9,7 @@ const ElectricBorder = ({
   borderRadius = 24,
   displacement = 60, // how far the noisy line may wander from the edge (px)
   lineWidth = 1,     // >2 draws a glowing band: soft outer stroke + bright core
+  paused = false,    // true = draw one still frame and stop (e.g. carousel cards far from the front)
   className,
   style
 }) => {
@@ -146,7 +148,7 @@ const ElectricBorder = ({
     if (!ctx) return;
 
     // Configuration
-    const octaves = 10;
+    const octaves = 6; // was 10: the extra octaves add detail too fine to see, at ~2x the cost
     const lacunarity = 1.6;
     const gain = 0.7;
     const amplitude = chaos;
@@ -207,7 +209,7 @@ const ElectricBorder = ({
       const radius = Math.min(borderRadius + outset, maxRadius);
 
       const approximatePerimeter = 2 * (borderWidth + borderHeight) + 2 * Math.PI * radius;
-      const sampleCount = Math.floor(approximatePerimeter / 2);
+      const sampleCount = Math.floor(approximatePerimeter / 3);
 
       ctx.beginPath();
 
@@ -265,8 +267,9 @@ const ElectricBorder = ({
         ctx.stroke();
       }
 
-      animationRef.current = requestAnimationFrame(drawElectricBorder);
+      animationRef.current = running ? requestAnimationFrame(drawElectricBorder) : 0;
     };
+    let running = !paused;
 
     // Handle resize
     const resizeObserver = new ResizeObserver(() => {
@@ -276,15 +279,25 @@ const ElectricBorder = ({
     });
     resizeObserver.observe(container);
 
-    // Start animation
+    // Start animation (a paused border still draws a single frame)
     animationRef.current = requestAnimationFrame(drawElectricBorder);
+    // stop drawing while scrolled out of view / tab hidden
+    const stopWatching = watchVisibility(container, (v) => {
+      running = v && !paused;
+      if (running && !animationRef.current) {
+        lastFrameTimeRef.current = 0;
+        animationRef.current = requestAnimationFrame(drawElectricBorder);
+      }
+    });
 
     return () => {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
+      animationRef.current = 0;
+      stopWatching();
       resizeObserver.disconnect();
       lastFrameTimeRef.current = 0;
     };
-  }, [color, speed, chaos, borderRadius, displacement, lineWidth, octavedNoise, getRoundedRectPoint]);
+  }, [color, speed, chaos, borderRadius, displacement, lineWidth, paused, octavedNoise, getRoundedRectPoint]);
 
   const vars = {
     '--electric-border-color': color,

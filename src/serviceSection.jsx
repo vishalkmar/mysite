@@ -240,6 +240,7 @@ const ServicesSection = () => {
                   chaos={0.08}
                   displacement={8}
                   lineWidth={10}
+                  paused={abs > 1}
                   style={{ borderRadius: 20 }}
                   className="eb-wrap"
                 >

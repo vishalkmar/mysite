@@ -1,5 +1,6 @@
 import { Renderer, Program, Mesh, Color, Triangle } from 'ogl';
 import { useEffect, useRef } from 'react';
+import watchVisibility from '../watchVisibility';
 import './Galaxy.css';
 
 const vertexShader = `
@@ -260,9 +261,10 @@ export default function Galaxy({
 
     const mesh = new Mesh(gl, { geometry, program });
     let animateId;
+    let visible = true;
 
     function update(t) {
-      animateId = requestAnimationFrame(update);
+      animateId = visible ? requestAnimationFrame(update) : 0;
       if (!disableAnimation) {
         program.uniforms.uTime.value = t * 0.001;
         program.uniforms.uStarSpeed.value = (t * 0.001 * starSpeed) / 10.0;
@@ -282,6 +284,11 @@ export default function Galaxy({
     }
     animateId = requestAnimationFrame(update);
     ctn.appendChild(gl.canvas);
+    // pause while scrolled out of view / tab hidden
+    const stopWatching = watchVisibility(ctn, (v) => {
+      visible = v;
+      if (v && !animateId) animateId = requestAnimationFrame(update);
+    });
 
     function handleMouseMove(e) {
       const rect = ctn.getBoundingClientRect();
@@ -296,20 +303,17 @@ export default function Galaxy({
     }
 
     if (mouseInteraction) {
-      ctn.addEventListener('mousemove', handleMouseMove);
       ctn.addEventListener('mouseleave', handleMouseLeave);
-      document.addEventListener('mousemove', handleMouseMove);
       window.addEventListener('mousemove', handleMouseMove);
     }
 
     return () => {
       cancelAnimationFrame(animateId);
+      stopWatching();
+      window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', resize);
       if (mouseInteraction) {
-        ctn.removeEventListener('mousemove', handleMouseMove);
         ctn.removeEventListener('mouseleave', handleMouseLeave);
-        document.removeEventListener('mousemove', handleMouseMove);
-        window.removeEventListener('mousemove', handleMouseMove);
       }
       ctn.removeChild(gl.canvas);
       gl.getExtension('WEBGL_lose_context')?.loseContext();

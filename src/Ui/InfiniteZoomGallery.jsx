@@ -22,6 +22,8 @@ const InfiniteZoomGallery = ({ isDarkMode, active = true }) => {
   const scrollPosRef = useRef(0);
   const activeRef = useRef(active);
   const playbackRef = useRef(null);
+  const texturesRef = useRef(new Map());
+  const disposedRef = useRef(false);
   useEffect(() => {
     activeRef.current = active;
     playbackRef.current?.();
@@ -73,7 +75,15 @@ const InfiniteZoomGallery = ({ isDarkMode, active = true }) => {
         side: THREE.DoubleSide,
       });
 
-      textureLoader.load(url, (tex) => {
+      if (!texturesRef.current.has(url)) {
+        const entry = {};
+        entry.ready = new Promise(resolve => {
+          entry.texture = textureLoader.load(url, tex => resolve(tex), undefined, () => resolve(null));
+        });
+        texturesRef.current.set(url, entry);
+      }
+      texturesRef.current.get(url).ready.then((tex) => {
+        if (!tex || disposedRef.current || mat.userData.disposed) return;
         tex.minFilter = THREE.LinearFilter;
         mat.map = tex;
         mat.needsUpdate = true;
@@ -206,6 +216,7 @@ const InfiniteZoomGallery = ({ isDarkMode, active = true }) => {
   // --- INITIAL SETUP ---
   useEffect(() => {
     if (!canvasRef.current || !containerRef.current) return;
+    disposedRef.current = false;
 
     const scene = new THREE.Scene();
     sceneRef.current = scene;
@@ -229,6 +240,9 @@ const InfiniteZoomGallery = ({ isDarkMode, active = true }) => {
     rendererRef.current = renderer;
 
     // ✅ PIN helpers
+    let completedPin = false;
+    const originalHtmlOverflow = document.documentElement.style.overflow;
+    const originalBodyOverflow = document.body.style.overflow;
     const lockPage = () => {
       if (isPinnedRef.current) return;
       isPinnedRef.current = true;
@@ -236,6 +250,7 @@ const InfiniteZoomGallery = ({ isDarkMode, active = true }) => {
 
       document.documentElement.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
+      attachPinListeners();
 
       // start driving gallery
       scrollPosRef.current = baseOffsetRef.current + virtualScrollRef.current;
@@ -245,8 +260,9 @@ const InfiniteZoomGallery = ({ isDarkMode, active = true }) => {
       if (!isPinnedRef.current) return;
       isPinnedRef.current = false;
 
-      document.documentElement.style.overflow = "auto";
-      document.body.style.overflow = "auto";
+      document.documentElement.style.overflow = originalHtmlOverflow;
+      document.body.style.overflow = originalBodyOverflow;
+      detachPinListeners();
 
       // continuity: virtual added into base
       baseOffsetRef.current = baseOffsetRef.current + virtualScrollRef.current;
@@ -260,6 +276,12 @@ const InfiniteZoomGallery = ({ isDarkMode, active = true }) => {
       if (!isPinnedRef.current) return;
       e.preventDefault();
 
+      if (e.deltaY < 0 && virtualScrollRef.current <= 0) {
+        completedPin = true;
+        unlockPage();
+        window.scrollTo(0, pinYRef.current - 1);
+        return;
+      }
       virtualScrollRef.current += e.deltaY;
       if (virtualScrollRef.current < 0) virtualScrollRef.current = 0;
 
@@ -267,12 +289,13 @@ const InfiniteZoomGallery = ({ isDarkMode, active = true }) => {
 
       // ✅ unpin after enough gallery scroll
       if (virtualScrollRef.current >= PIN_DISTANCE) {
+        completedPin = true;
         unlockPage();
         window.scrollTo(0, pinYRef.current + 1);
       }
     };
 
-    let touchStartY = 0;
+    let touchStartY = null;
     const onTouchStart = (e) => {
       if (!isPinnedRef.current) return;
       touchStartY = e.touches[0].clientY;
@@ -283,23 +306,42 @@ const InfiniteZoomGallery = ({ isDarkMode, active = true }) => {
       e.preventDefault();
 
       const y = e.touches[0].clientY;
+      // pin can start mid-gesture: take the first move as the reference point
+      if (touchStartY === null) { touchStartY = y; return; }
       const delta = touchStartY - y;
       touchStartY = y;
 
+      if (delta < 0 && virtualScrollRef.current <= 0) {
+        completedPin = true;
+        unlockPage();
+        window.scrollTo(0, pinYRef.current - 1);
+        return;
+      }
       virtualScrollRef.current += delta;
       if (virtualScrollRef.current < 0) virtualScrollRef.current = 0;
 
       scrollPosRef.current = baseOffsetRef.current + virtualScrollRef.current;
 
       if (virtualScrollRef.current >= PIN_DISTANCE) {
+        completedPin = true;
         unlockPage();
         window.scrollTo(0, pinYRef.current + 1);
       }
     };
 
-    window.addEventListener("wheel", onWheel, { passive: false });
-    window.addEventListener("touchstart", onTouchStart, { passive: false });
-    window.addEventListener("touchmove", onTouchMove, { passive: false });
+    // Non-passive wheel/touch listeners make the browser wait for JS on every scroll of the
+    // whole page. Only attach them while the gallery is actually pinned.
+    function attachPinListeners() {
+      touchStartY = null;
+      window.addEventListener("wheel", onWheel, { passive: false });
+      window.addEventListener("touchstart", onTouchStart, { passive: true });
+      window.addEventListener("touchmove", onTouchMove, { passive: false });
+    }
+    function detachPinListeners() {
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
+    }
 
     // ✅ Pin when component reaches top of viewport (and is tall enough)
     const checkPin = () => {
@@ -309,7 +351,8 @@ const InfiniteZoomGallery = ({ isDarkMode, active = true }) => {
       // component top hits viewport top AND section still covers viewport
       const shouldPin = rect.top <= 0 && rect.bottom >= window.innerHeight;
 
-      if (shouldPin && !isPinnedRef.current) lockPage();
+      if (rect.top > 0 || rect.bottom <= 0) completedPin = false;
+      if (shouldPin && !completedPin && !isPinnedRef.current) lockPage();
       if (!shouldPin && isPinnedRef.current) unlockPage();
 
       // pinned mode: keep page fixed at pinY
@@ -318,7 +361,7 @@ const InfiniteZoomGallery = ({ isDarkMode, active = true }) => {
       }
     };
 
-    window.addEventListener("scroll", checkPin);
+    window.addEventListener("scroll", checkPin, { passive: true });
 
     // Generate segments
     const segments = [];
@@ -362,7 +405,7 @@ const InfiniteZoomGallery = ({ isDarkMode, active = true }) => {
             segment.remove(c);
             if (c instanceof THREE.Mesh) {
               c.geometry.dispose();
-              if (c.material && c.material.map) c.material.map.dispose();
+              if (c.material) { c.material.userData.disposed = true; gsap.killTweensOf(c.material); }
               if (c.material) c.material.dispose();
             }
           });
@@ -389,7 +432,7 @@ const InfiniteZoomGallery = ({ isDarkMode, active = true }) => {
             segment.remove(c);
             if (c instanceof THREE.Mesh) {
               c.geometry.dispose();
-              if (c.material && c.material.map) c.material.map.dispose();
+              if (c.material) { c.material.userData.disposed = true; gsap.killTweensOf(c.material); }
               if (c.material) c.material.dispose();
             }
           });
@@ -416,7 +459,7 @@ const InfiniteZoomGallery = ({ isDarkMode, active = true }) => {
         scrollPosRef.current = baseOffsetRef.current + window.scrollY;
       }
     };
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
 
     const handleResize = () => {
       const w = window.innerWidth;
@@ -432,15 +475,24 @@ const InfiniteZoomGallery = ({ isDarkMode, active = true }) => {
       window.removeEventListener("scroll", checkPin);
       window.removeEventListener("resize", handleResize);
 
-      window.removeEventListener("wheel", onWheel);
-      window.removeEventListener("touchstart", onTouchStart);
-      window.removeEventListener("touchmove", onTouchMove);
+      detachPinListeners();
 
-      document.documentElement.style.overflow = "auto";
-      document.body.style.overflow = "auto";
+      document.documentElement.style.overflow = originalHtmlOverflow;
+      document.body.style.overflow = originalBodyOverflow;
 
       cancelAnimationFrame(frameId);
       playbackRef.current = null;
+      disposedRef.current = true;
+      scene.traverse(object => {
+        object.geometry?.dispose();
+        if (object.material) {
+          object.material.userData.disposed = true;
+          gsap.killTweensOf(object.material);
+          object.material.dispose();
+        }
+      });
+      texturesRef.current.forEach(entry => entry.texture.dispose());
+      texturesRef.current.clear();
       renderer.dispose();
     };
   }, []); // Run once on mount

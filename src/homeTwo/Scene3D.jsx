@@ -7,7 +7,7 @@ export default function Scene3D() {
     const host = hostRef.current;
     let disposed = false;
     let cleanup = () => {};
-    import('three').then(THREE => {
+    const loadScene = () => import('three').then(THREE => {
       if (disposed) return;
       let renderer;
       try {
@@ -98,7 +98,7 @@ export default function Scene3D() {
         y = (event.clientY - bounds.top) / bounds.height - .5;
       }
       function leave() { x = 0; y = 0; }
-      function scroll() { progress = Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / innerHeight)); }
+      function scroll() { if (visible) progress = Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / innerHeight)); }
       function onLost(event) { event.preventDefault(); lost = true; delete host.dataset.ready; sync(); }
       const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; sync(); });
       observer.observe(host);
@@ -121,7 +121,15 @@ export default function Scene3D() {
         renderer.dispose(); renderer.domElement.remove(); delete host.dataset.ready;
       };
     }).catch(() => { /* The CSS sculpture remains visible when WebGL is unavailable. */ });
-    return () => { disposed = true; cleanup(); };
+    // Prepare the same 3D scene shortly before it can be seen, instead of
+    // parsing three.js while the first screen is loading.
+    const preload = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      preload.disconnect();
+      loadScene();
+    }, { rootMargin: '500px' });
+    preload.observe(host);
+    return () => { disposed = true; preload.disconnect(); cleanup(); };
   }, []);
 
   return <div className="h2-scene" ref={hostRef} aria-hidden="true">

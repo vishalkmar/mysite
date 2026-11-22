@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import AOS from "aos";
+import AOS from '../Ui/scrollAnimations';
 import "aos/dist/aos.css";
 import Galaxy from "../Ui/background/Galaxy";
 

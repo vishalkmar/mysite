@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import watchVisibility from "./Ui/watchVisibility";
 import 'aos/dist/aos.css';
-import AOS from 'aos';
+import AOS from './Ui/scrollAnimations';
 
 const reviews = [
   {
@@ -92,6 +93,7 @@ const reviewSchema = {
 
 
 const ClientReviewsCarousel = () => {
+  const host = useRef(null);
   const [activeIndex, setActiveIndex] = useState(2); // middle se start
 
   const len = reviews.length;
@@ -106,10 +108,12 @@ const ClientReviewsCarousel = () => {
 
   // auto rotate
   useEffect(() => {
+    let visible = false;
+    const stopWatching = watchVisibility(host.current, value => { visible = value; });
     const id = setInterval(() => {
-      setActiveIndex((i) => (i + 1) % len);
+      if (visible) setActiveIndex((i) => (i + 1) % len);
     }, 7000);
-    return () => clearInterval(id);
+    return () => { clearInterval(id); stopWatching(); };
   }, [len]);
 
   // Initialize AOS
@@ -127,7 +131,7 @@ const ClientReviewsCarousel = () => {
       className={`review-card review-card--${variant}`}
     >
       <div className="review-img-wrap">
-        <img src={review.image} alt={review.name} className="review-img" />
+        <img src={review.image} alt={review.name} className="review-img" loading="lazy" decoding="async" />
       </div>
       <h3
         className="review-name"
@@ -159,6 +163,7 @@ const ClientReviewsCarousel = () => {
 
 
       <section
+        ref={host}
         className="reviews-wrapper"
         style={{ backgroundColor: "var(--site-bg)", color: "#0f172a" }}
       >

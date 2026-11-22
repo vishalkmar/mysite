@@ -12,10 +12,14 @@ const cardTexturePath = '/logo.jpeg'; // use an image for the card face (was inc
 
 import * as THREE from 'three';
 import './icard.css';
+import watchVisibility from './watchVisibility';
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 
 export default function Lanyard({ position = [0, 0, 30], gravity = [0, -40, 0], fov = 20, transparent = true }) {
+  const host = useRef(null);
+  const [active, setActive] = useState(true);
+  useEffect(() => watchVisibility(host.current, setActive), []);
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
 
   useEffect(() => {
@@ -25,15 +29,16 @@ export default function Lanyard({ position = [0, 0, 30], gravity = [0, -40, 0], 
   }, []);
 
   return (
-    <div className="lanyard-wrapper">
+    <div className="lanyard-wrapper" ref={host}>
       <Canvas
+        frameloop={active ? 'always' : 'never'}
         camera={{ position: position, fov: fov }}
         dpr={[1, isMobile ? 1.5 : 2]}
         gl={{ alpha: transparent }}
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color('#000'), transparent ? 0 : 1)}
       >
         <ambientLight intensity={Math.PI} />
-        <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
+        <Physics paused={!active} gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
           <Band isMobile={isMobile} />
         </Physics>
         <Environment blur={0.75}>

@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "aos/dist/aos.css";
-import AOS from "aos";
+import AOS from '../Ui/scrollAnimations';
 import Ballpit from "../Ui/background/Balloon";
 
 const BallpitHeroBanner = () => {

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Renderer, Program, Mesh, Triangle } from 'ogl';
 import './Plazma.css';
+import watchVisibility from '../watchVisibility';
 
 const hexToRgb = hex => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -135,8 +136,8 @@ export const Plasma = ({
     const mesh = new Mesh(gl, { geometry, program });
 
     const handleMouseMove = e => {
-      if (!mouseInteractive) return;
-      const rect = containerRef.current.getBoundingClientRect();
+      if (!mouseInteractive || !containerEl.isConnected) return;
+      const rect = containerEl.getBoundingClientRect();
       mousePos.current.x = e.clientX - rect.left;
       mousePos.current.y = e.clientY - rect.top;
       const mouseUniform = program.uniforms.uMouse.value;
@@ -149,7 +150,8 @@ export const Plasma = ({
     }
 
     const setSize = () => {
-      const rect = containerRef.current.getBoundingClientRect();
+      if (!containerEl.isConnected) return;
+      const rect = containerEl.getBoundingClientRect();
       const width = Math.max(1, Math.floor(rect.width));
       const height = Math.max(1, Math.floor(rect.height));
       renderer.setSize(width, height);
@@ -181,11 +183,18 @@ export const Plasma = ({
       renderer.render({ scene: mesh });
       raf = requestAnimationFrame(loop);
     };
-    raf = requestAnimationFrame(loop);
+    const stopWatching = watchVisibility(containerEl, visible => {
+      cancelAnimationFrame(raf);
+      if (visible) raf = requestAnimationFrame(loop);
+    });
 
     return () => {
+      stopWatching();
       cancelAnimationFrame(raf);
       ro.disconnect();
+      mesh.geometry.remove();
+      gl.deleteProgram(program.program);
+      gl.getExtension('WEBGL_lose_context')?.loseContext();
       if (mouseInteractive && containerEl) {
         containerEl.removeEventListener('mousemove', handleMouseMove);
       }

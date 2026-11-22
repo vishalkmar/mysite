@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Renderer, Program, Mesh, Triangle } from 'ogl';
 import './Gradientbliend.css';
+import watchVisibility from '../watchVisibility';
 
 const MAX_COLORS = 8;
 const hexToRGB = hex => {
@@ -267,7 +268,6 @@ void main() {
       }
     };
     
-    document.addEventListener('pointermove', onPointerMove);
     window.addEventListener('pointermove', onPointerMove);
 
     const loop = t => {
@@ -295,11 +295,15 @@ void main() {
         }
       }
     };
-    rafRef.current = requestAnimationFrame(loop);
+    const stopWatching = watchVisibility(container, visible => {
+      cancelAnimationFrame(rafRef.current);
+      lastTimeRef.current = 0;
+      if (visible && !paused) rafRef.current = requestAnimationFrame(loop);
+    });
 
     return () => {
+      stopWatching();
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      document.removeEventListener('pointermove', onPointerMove);
       window.removeEventListener('pointermove', onPointerMove);
       ro.disconnect();
       if (canvas.parentElement === container) {
@@ -314,6 +318,7 @@ void main() {
       callIfFn(geometryRef.current, 'remove');
       callIfFn(meshRef.current, 'remove');
       callIfFn(rendererRef.current, 'destroy');
+      gl.getExtension('WEBGL_lose_context')?.loseContext();
       programRef.current = null;
       geometryRef.current = null;
       meshRef.current = null;

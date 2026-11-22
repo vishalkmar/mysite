@@ -1,5 +1,6 @@
 // src/components/BootstrapCarousel.jsx
 import React from 'react';
+import 'bootstrap/js/dist/carousel';
 import cone from '../serviceImages/webdevelopment/cone.webp'
 import ctwo from '../serviceImages/webdevelopment/ctwo.webp'
 import cthree from '../serviceImages/webdevelopment/cthree.webp'

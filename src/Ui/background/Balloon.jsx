@@ -49,6 +49,8 @@ class x {
   #c = new e();
   #h = { elapsed: 0, delta: 0 };
   #l;
+  #resizeHandler = this.#f.bind(this);
+  #visibilityHandler = this.#v.bind(this);
   constructor(e) {
     this.#e = { ...e };
     this.#m();
@@ -83,7 +85,7 @@ class x {
   }
   #g() {
     if (!(this.#e.size instanceof Object)) {
-      window.addEventListener('resize', this.#f.bind(this));
+      window.addEventListener('resize', this.#resizeHandler);
       if (this.#e.size === 'parent' && this.canvas.parentNode) {
         this.#r = new ResizeObserver(this.#f.bind(this));
         this.#r.observe(this.canvas.parentNode);
@@ -95,17 +97,18 @@ class x {
       threshold: 0
     });
     this.#o.observe(this.canvas);
-    document.addEventListener('visibilitychange', this.#v.bind(this));
+    document.addEventListener('visibilitychange', this.#visibilityHandler);
   }
   #y() {
-    window.removeEventListener('resize', this.#f.bind(this));
+    window.removeEventListener('resize', this.#resizeHandler);
+    clearTimeout(this.#a);
     this.#r?.disconnect();
     this.#o?.disconnect();
-    document.removeEventListener('visibilitychange', this.#v.bind(this));
+    document.removeEventListener('visibilitychange', this.#visibilityHandler);
   }
   #u(e) {
     this.#s = e[0].isIntersecting;
-    this.#s ? this.#w() : this.#z();
+    this.#s && !document.hidden ? this.#w() : this.#z();
   }
   #v() {
     if (this.#s) {
@@ -254,10 +257,10 @@ function S(e) {
         document.body.addEventListener('pointerleave', L);
         document.body.addEventListener('click', C);
 
-        document.body.addEventListener('touchstart', TouchStart, { passive: false });
-        document.body.addEventListener('touchmove', TouchMove, { passive: false });
-        document.body.addEventListener('touchend', TouchEnd, { passive: false });
-        document.body.addEventListener('touchcancel', TouchEnd, { passive: false });
+        document.body.addEventListener('touchstart', TouchStart, { passive: true });
+        document.body.addEventListener('touchmove', TouchMove, { passive: true });
+        document.body.addEventListener('touchend', TouchEnd, { passive: true });
+        document.body.addEventListener('touchcancel', TouchEnd, { passive: true });
 
         R = true;
       }
@@ -326,7 +329,6 @@ function L() {
 
 function TouchStart(e) {
   if (e.touches.length > 0) {
-    e.preventDefault();
     A.x = e.touches[0].clientX;
     A.y = e.touches[0].clientY;
 
@@ -347,7 +349,6 @@ function TouchStart(e) {
 
 function TouchMove(e) {
   if (e.touches.length > 0) {
-    e.preventDefault();
     A.x = e.touches[0].clientX;
     A.y = e.touches[0].clientY;
 
@@ -669,7 +670,7 @@ function createBallpit(e, t = {}) {
   const r = new a();
   let c = false;
 
-  e.style.touchAction = 'none';
+  e.style.touchAction = 'pan-y';
   e.style.userSelect = 'none';
   e.style.webkitUserSelect = 'none';
 

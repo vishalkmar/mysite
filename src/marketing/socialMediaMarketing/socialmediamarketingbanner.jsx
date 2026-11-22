@@ -1,7 +1,7 @@
 import React, { useState, useEffect ,useMemo} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'aos/dist/aos.css';
-import AOS from 'aos';
+import AOS from '../../Ui/scrollAnimations';
 import WarpSpeed from '../../Ui/background/WarpSpeed';
 
 const HeroSocialMediaBanner = () => {

@@ -7,7 +7,15 @@ const GlobalDotParticles = lazy(() => import("./ButtonClick"));
 // These pages run ApexUI FluidCursor instead (see ./cursurs/RouteCursorEffects.jsx).
 const FLUID_CURSOR_ROUTES = ["/seo", "/socialmediamarketing", "/contentmarketing", "/digitalmarketing"];
 
+// Full-screen WebGL fluid + click particles only make sense with a mouse, and they are the
+// heaviest thing on the page: skip them on touch devices and low-end hardware.
+const capableDevice = () =>
+  matchMedia("(hover: hover) and (pointer: fine)").matches &&
+  (navigator.hardwareConcurrency || 8) > 4 &&
+  (navigator.deviceMemory || 8) >= 4;
+
 export default function GlobalPointerEffects() {
+  const [capable] = useState(capableDevice);
   const { pathname, key } = useLocation();
   const [hero, setHero] = useState({ key: null, visible: true });
   const [started, setStarted] = useState(false);
@@ -56,7 +64,7 @@ export default function GlobalPointerEffects() {
 
   // No fluid module download, WebGL setup, or particle canvas on hero entry.
   // After first use keep the fluid context, but stop its loop while paused.
-  if (isHomeTwo || hasOwnFluid || reducedMotion || (!started && paused)) return null;
+  if (!capable || isHomeTwo || hasOwnFluid || reducedMotion || (!started && paused)) return null;
   return (
     <Suspense fallback={null}>
       <SplashCursor paused={paused} DYE_RESOLUTION={512} SIM_RESOLUTION={96} PRESSURE_ITERATIONS={12} />

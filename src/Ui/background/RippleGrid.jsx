@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react';
+import watchVisibility from './../watchVisibility';
 import { Renderer, Program, Triangle, Mesh } from 'ogl';
 // import './RippleGrid.css';
 
@@ -171,6 +172,7 @@ void main() {
     const mesh = new Mesh(gl, { geometry, program });
 
     const resize = () => {
+      if (!containerRef.current) return;
       const { clientWidth: w, clientHeight: h } = containerRef.current;
       renderer.setSize(w, h);
       uniforms.iResolution.value = [w, h];
@@ -196,10 +198,8 @@ void main() {
 
     window.addEventListener('resize', resize);
     if (mouseInteraction) {
-      containerRef.current.addEventListener('mousemove', handleMouseMove);
       containerRef.current.addEventListener('mouseenter', handleMouseEnter);
       containerRef.current.addEventListener('mouseleave', handleMouseLeave);
-      document.addEventListener('mousemove', handleMouseMove);
       window.addEventListener('mousemove', handleMouseMove);
     }
     resize();
@@ -218,16 +218,25 @@ void main() {
       uniforms.mousePosition.value = [mousePositionRef.current.x, mousePositionRef.current.y];
 
       renderer.render({ scene: mesh });
-      requestAnimationFrame(render);
+      frameId = visible ? requestAnimationFrame(render) : 0;
     };
 
-    requestAnimationFrame(render);
+    let visible = true;
+    let frameId = requestAnimationFrame(render);
 
     const container = containerRef.current;
+    // pause while scrolled out of view / tab hidden
+    const stopWatching = watchVisibility(container, (v) => {
+      visible = v;
+      if (v && !frameId) frameId = requestAnimationFrame(render);
+    });
     return () => {
+      // the loop used to keep running after leaving the page
+      cancelAnimationFrame(frameId);
+      stopWatching();
+      window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', resize);
       if (mouseInteraction && container) {
-        container.removeEventListener('mousemove', handleMouseMove);
         container.removeEventListener('mouseenter', handleMouseEnter);
         container.removeEventListener('mouseleave', handleMouseLeave);
       }

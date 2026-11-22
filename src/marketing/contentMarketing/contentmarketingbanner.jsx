@@ -1,7 +1,7 @@
 import React, { useState, useEffect ,useMemo} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'aos/dist/aos.css';
-import AOS from 'aos';
+import AOS from '../../Ui/scrollAnimations';
 import LuminousParticleOcean from '../../ApexUI-Kit/LuminousParticleOcean/LuminousParticleOcean.jsx';
 
 const HeroContentMarketingBanner = () => {
